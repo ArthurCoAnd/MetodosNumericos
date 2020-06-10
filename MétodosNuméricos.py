@@ -1,4 +1,5 @@
 import math
+from Ferramentas.pedirInt import pedirInt
 from Ferramentas.título import título
 import ZeroDeFunções.ZeroDeFunções as zdf
 
@@ -8,10 +9,10 @@ def printMenu():
 	print("0 - Fechar Programa")
 
 def menu():
-    printMenu()
     escolha = -1
-    escolha = int(input("Escolha : "))
     while(escolha!=0):
+        printMenu()
+        escolha = pedirInt(chave=False,s="Escolha")
         if(escolha==1):
             zdf.menu()
         else:

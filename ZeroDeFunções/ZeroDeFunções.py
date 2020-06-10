@@ -5,6 +5,10 @@ from Ferramentas.pedirInt import pedirInt
 from Ferramentas.pedirIntPos import pedirIntPos
 from Ferramentas.pedirFloat import pedirFloat
 from Ferramentas.pedirFloatMaiorQue import pedirFloatMaiorQue
+from Ferramentas.pedirFunção import pedirFunção
+# Importar Ferramentas Zero de Funções
+from ZeroDeFunções.MenuMétodos import printMenuMétodos
+import ZeroDeFunções.MenuDados as MD
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 from ZeroDeFunções.Funções.df import df
@@ -23,35 +27,6 @@ def printMenu():
 	print("2 - Executar Métodos")
 	print("0 - Fechar Programa")
 
-def printMenuDados(sf,sdf,sddf,a,b,e,kmax):
-	título("Menu Gerenciamento de Dados Zero De Funções", '=')
-	printDadosAtuais(sf,sdf,sddf,a,b,e,kmax)
-	print("1 - Definir Todos os Dados")
-	print("2 - Definir Intervalo")
-	print("3 - Definir Erro")
-	print("4 - Definir Máximo de Interações")
-	print("5 - Intervalos Válidos")
-	print("0 - Voltar")
-
-def printDadosAtuais(sf,sdf,sddf,a,b,e,kmax):
-	print("Dados Atuais:")
-	print("%-20s - %s"%("f(x)",sf))
-	print("%-20s - %s"%("df(x)",sdf))
-	print("%-20s - %s"%("ddf(x)",sddf))
-	print("%-20s - [%f]:[%f]"%("Intervalo Atual",a,b))
-	print("%-20s - %f"%("Erro Atual",e,))
-	print("%-20s - %i"%("Máximo de Interações",kmax))
-	print("")
-
-def printMenuMétodos():
-	título("Menu Métodos Zero De Funções", '=')
-	print("1 - Bissecção")
-	print("2 - Posição Falsa")
-	print("3 - Ponto Fixo")
-	print("4 - Newton-Raphson")
-	print("5 - Secante")
-	print("0 - Voltar")
-
 def menu():
 	# a - Valor Intervalo Inicial
 	a=-2
@@ -66,35 +41,67 @@ def menu():
 	# sdf - String da Derivada Primeira da Função
 	sdf = "(9*x**2)-(8*x)-10"
 	# sddf - Strind da Derivada Segunda da Função
-	sddf = ""
+	sddf = "(18*x)-8"
 
 	escolha = -1
 	while (escolha != 0):
 		printMenu()
-		escolha = int(input("Escolha : "))
+		escolha = pedirInt(chave=False,s="Escolha")
 
 		# MENU DE DADOS
 		if (escolha==1):
 			escolhaM = -1
 			while (escolhaM != 0):
-				printMenuDados(sf,sdf,sddf,a,b,e,kmax)
-				escolhaM = int(input("Escolha : "))
+				MD.printMenuDados(sf,sdf,sddf,a,b,e,kmax)
+				escolhaM = pedirInt(chave=False,s="Escolha")
+				# Definir Todos os Dados
 				if (escolhaM==1):
+					título("Definir Funções", '=')
+					escolhaMM = -1
+					while((escolhaMM!=0) and (escolhaMM!=1)):
+						MD.printFunções(sf,sdf,sddf)
+						print("Deseja Alterar as Funções Atuais?")
+						print("1- Sim | 0- Não")
+						escolhaMM = pedirInt(chave=False,s="Escolha")
+						if(escolhaMM==1):
+							sf=pedirFunção()
+							sdf=pedirFunção(s="Função Derivada Primeira")
+							sddf=pedirFunção(s="Função Derivada Segunda")
+						elif(escolhaMM==0):
+							escolhaMM=0
+						else:
+							título("ERRO - Escolha Inválida", '*')
 					título("Definir Intervalos", '=')
 					a=pedirFloat(chave=False,s="Posição INICIAL")
 					b=pedirFloatMaiorQue(a,chave=False,s="Posição FINAL")
 					e=pedirFloat(s="Erro")
 					kmax=pedirIntPos(s="Máximo de Interações")
+				# Definir Função
 				elif (escolhaM==2):
-					título("Definir Intervalos", '=')
+					sf=pedirFunção()
+				# Definir Função Derivada Primeira
+				elif (escolhaM==3):
+					sdf=pedirFunção(s="Função Derivada Primeira")
+				# Definir Função Derivada Segunda
+				elif (escolhaM==4):
+					sddf=pedirFunção(s="Função Derivada Segunda")
+				# Definir Intervalo
+				elif (escolhaM==5):
+					título("Definir Intervalo", '=')
 					a=pedirFloat(chave=False,s="Posição INICIAL")
 					b=pedirFloatMaiorQue(a,chave=False,s="Posição FINAL")
-				elif (escolhaM==3):
+				# Definir Erro
+				elif (escolhaM==6):
 					e=pedirFloatMaiorQue(0.0,s="Erro")
-				elif (escolhaM==4):
+				# Definir Máximo de Interações
+				elif (escolhaM==7):
 					kmax=pedirIntPos(s="Máximo de Interações")
-				elif (escolhaM==5):
+				# Procurar Intervalos Válidos
+				elif (escolhaM==8):
 					intervalosVálidos(sf)
+				# Verificar Intervalo Atual
+				elif (escolhaM==9):
+					print("Verifar Intervalo Atual")
 				elif (escolhaM==0):
 					escolhaM=0
 				else:
@@ -105,15 +112,20 @@ def menu():
 			escolhaM = -1
 			while (escolhaM != 0):
 				printMenuMétodos()
-				escolhaM = int(input("Escolha : "))
+				escolhaM = pedirInt(chave=False,s="Escolha")
+				# Bissecção
 				if (escolhaM==1):
 					bissecção(a,b,e,kmax,sf)
+				# Posição Falsa
 				elif (escolhaM==2):
 					posiçãoFalsa(a,b,e,kmax,sf)
+				# Ponto Fixo
 				elif (escolhaM==3):
 					pontoFixo(a,b,e,kmax,sf)
+				# Newton-Raphson
 				elif (escolhaM==4):
 					newtonRaphson(a,e,kmax,sf,sdf)
+				# Secante
 				elif (escolhaM==5):
 					secante(a,b,e,kmax,sf)
 				elif (escolhaM==0):
