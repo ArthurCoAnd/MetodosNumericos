@@ -23,9 +23,9 @@ from ZeroDeFunções.Métodos.Secante import secante
 
 def printMenu():
 	título("Menu Zero De Funções", '=')
-	print("1 - Definir Dados")
+	print("1 - Gerenciamento de Dados")
 	print("2 - Executar Métodos")
-	print("0 - Fechar Programa")
+	print("0 - Voltar")
 
 def menu():
 	# a - Valor Intervalo Inicial
@@ -46,14 +46,14 @@ def menu():
 	escolha = -1
 	while (escolha != 0):
 		printMenu()
-		escolha = pedirInt(chave=False,s="Escolha")
+		escolha = pedirInt(s="Escolha")
 
 		# MENU DE DADOS
 		if (escolha==1):
 			escolhaM = -1
 			while (escolhaM != 0):
 				MD.printMenuDados(sf,sdf,sddf,a,b,e,kmax)
-				escolhaM = pedirInt(chave=False,s="Escolha")
+				escolhaM = pedirInt(s="Escolha")
 				# Definir Todos os Dados
 				if (escolhaM==1):
 					título("Definir Funções", '=')
@@ -62,37 +62,37 @@ def menu():
 						MD.printFunções(sf,sdf,sddf)
 						print("Deseja Alterar as Funções Atuais?")
 						print("1- Sim | 0- Não")
-						escolhaMM = pedirInt(chave=False,s="Escolha")
+						escolhaMM = pedirInt(s="Escolha")
 						if(escolhaMM==1):
-							sf=pedirFunção()
-							sdf=pedirFunção(s="Função Derivada Primeira")
-							sddf=pedirFunção(s="Função Derivada Segunda")
+							sf=pedirFunção(chave=True)
+							sdf=pedirFunção(chave=True, s="Função Derivada Primeira")
+							sddf=pedirFunção(chave=True, s="Função Derivada Segunda")
 						elif(escolhaMM==0):
 							escolhaMM=0
 						else:
 							título("ERRO - Escolha Inválida", '*')
 					título("Definir Intervalos", '=')
-					a=pedirFloat(chave=False,s="Posição INICIAL")
-					b=pedirFloatMaiorQue(a,chave=False,s="Posição FINAL")
-					e=pedirFloat(s="Erro")
-					kmax=pedirIntPos(s="Máximo de Interações")
+					a=pedirFloat(s="Posição INICIAL")
+					b=pedirFloatMaiorQue(a,s="Posição FINAL")
+					e=pedirFloat(chave=True, s="Erro")
+					kmax=pedirIntPos(chave=True, s="Máximo de Interações")
 				# Definir Função
 				elif (escolhaM==2):
 					sf=pedirFunção()
 				# Definir Função Derivada Primeira
 				elif (escolhaM==3):
-					sdf=pedirFunção(s="Função Derivada Primeira")
+					sdf=pedirFunção(chave=True, s="Função Derivada Primeira")
 				# Definir Função Derivada Segunda
 				elif (escolhaM==4):
-					sddf=pedirFunção(s="Função Derivada Segunda")
+					sddf=pedirFunção(chave=True, s="Função Derivada Segunda")
 				# Definir Intervalo
 				elif (escolhaM==5):
 					título("Definir Intervalo", '=')
-					a=pedirFloat(chave=False,s="Posição INICIAL")
-					b=pedirFloatMaiorQue(a,chave=False,s="Posição FINAL")
+					a=pedirFloat(s="Posição INICIAL")
+					b=pedirFloatMaiorQue(a,s="Posição FINAL")
 				# Definir Erro
 				elif (escolhaM==6):
-					e=pedirFloatMaiorQue(0.0,s="Erro")
+					e=pedirFloatMaiorQue(0.0, chave=True, s="Erro")
 				# Definir Máximo de Interações
 				elif (escolhaM==7):
 					kmax=pedirIntPos(s="Máximo de Interações")
@@ -112,7 +112,7 @@ def menu():
 			escolhaM = -1
 			while (escolhaM != 0):
 				printMenuMétodos()
-				escolhaM = pedirInt(chave=False,s="Escolha")
+				escolhaM = pedirInt(s="Escolha")
 				# Bissecção
 				if (escolhaM==1):
 					bissecção(a,b,e,kmax,sf)
@@ -134,6 +134,6 @@ def menu():
 					título("ERRO - Escolha Inválida", '*')
 		
 		elif (escolha==0):
-			título("Obrigado Por usar a Calculadora de Raízes do ArthurCoAnd", '=')
+			escolha==0
 		else:
 			título("ERRO - Escolha Inválida", '*')

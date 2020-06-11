@@ -1,7 +1,7 @@
 from Ferramentas.título import título
 
 def printMenuDados(sf,sdf,sddf,a,b,e,kmax):
-	título("Menu Gerenciamento de Dados Zero De Funções", '=')
+	título("Menu de Gerenciamento de Dados - Zero De Funções", '=')
 	printDadosAtuais(sf,sdf,sddf,a,b,e,kmax)
 	print("1 - Definir Todos os Dados")
 	print("2 - Definir Função")
