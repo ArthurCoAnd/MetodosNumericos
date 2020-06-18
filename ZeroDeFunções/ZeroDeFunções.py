@@ -11,9 +11,8 @@ from ZeroDeFunções.MenuMétodos import printMenuMétodos
 import ZeroDeFunções.MenuDados as MD
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
-from ZeroDeFunções.Funções.df import df
-from ZeroDeFunções.Funções.ddf import ddf
 from ZeroDeFunções.Funções.intervalosVálidos import intervalosVálidos
+from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
 # Importando Métodos
 from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
@@ -40,8 +39,8 @@ def menu():
 	sf = "(3*x**3)-(4*x**2)-(10*x)+10"
 	# sdf - String da Derivada Primeira da Função
 	sdf = "(9*x**2)-(8*x)-10"
-	# sddf - Strind da Derivada Segunda da Função
-	sddf = "(18*x)-8"
+	# spf
+	spf = "((3*x**3)-(4*x**2)+10)/10"
 
 	escolha = -1
 	while (escolha != 0):
@@ -52,21 +51,20 @@ def menu():
 		if (escolha==1):
 			escolhaM = -1
 			while (escolhaM != 0):
-				MD.printMenuDados(sf,sdf,sddf,a,b,e,kmax)
+				MD.printMenuDados(sf,sdf,spf,a,b,e,kmax)
 				escolhaM = pedirInt(s="Escolha")
 				# Definir Todos os Dados
 				if (escolhaM==1):
 					título("Definir Funções", '=')
 					escolhaMM = -1
 					while((escolhaMM!=0) and (escolhaMM!=1)):
-						MD.printFunções(sf,sdf,sddf)
+						MD.printFunções(sf,sdf)
 						print("Deseja Alterar as Funções Atuais?")
 						print("1- Sim | 0- Não")
 						escolhaMM = pedirInt(s="Escolha")
 						if(escolhaMM==1):
 							sf=pedirFunção(chave=True)
 							sdf=pedirFunção(chave=True, s="Função Derivada Primeira")
-							sddf=pedirFunção(chave=True, s="Função Derivada Segunda")
 						elif(escolhaMM==0):
 							escolhaMM=0
 						else:
@@ -82,9 +80,9 @@ def menu():
 				# Definir Função Derivada Primeira
 				elif (escolhaM==3):
 					sdf=pedirFunção(chave=True, s="Função Derivada Primeira")
-				# Definir Função Derivada Segunda
+				# Definir Função do Ponto Fixo
 				elif (escolhaM==4):
-					sddf=pedirFunção(chave=True, s="Função Derivada Segunda")
+					spf=pedirFunção(chave=True, s="Função do Ponto Fixo")
 				# Definir Intervalo
 				elif (escolhaM==5):
 					título("Definir Intervalo", '=')
@@ -98,10 +96,13 @@ def menu():
 					kmax=pedirIntPos(s="Máximo de Interações")
 				# Procurar Intervalos Válidos
 				elif (escolhaM==8):
-					intervalosVálidos(sf)
+					intervalosVálidos(sf,sdf)
 				# Verificar Intervalo Atual
 				elif (escolhaM==9):
-					print("Verifar Intervalo Atual")
+					título("Verifar Intervalo Atual", '=')
+				# Gerar Gráfico
+				elif (escolhaM==10):
+					gG(sf,sdf)
 				elif (escolhaM==0):
 					escolhaM=0
 				else:
@@ -121,7 +122,7 @@ def menu():
 					posiçãoFalsa(a,b,e,kmax,sf)
 				# Ponto Fixo
 				elif (escolhaM==3):
-					pontoFixo(a,b,e,kmax,sf)
+					pontoFixo(a,b,e,kmax,sf,spf)
 				# Newton-Raphson
 				elif (escolhaM==4):
 					newtonRaphson(a,e,kmax,sf,sdf)

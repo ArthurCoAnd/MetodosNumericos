@@ -1,4 +1,3 @@
-import math
 from Ferramentas.título import título
 
 # Função Para Pedir Número Inteiro
