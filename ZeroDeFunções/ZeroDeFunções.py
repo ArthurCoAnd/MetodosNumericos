@@ -7,18 +7,13 @@ from Ferramentas.pedirFloat import pedirFloat
 from Ferramentas.pedirFloatMaiorQue import pedirFloatMaiorQue
 from Ferramentas.pedirFunção import pedirFunção
 # Importar Ferramentas Zero de Funções
-from ZeroDeFunções.MenuMétodos import printMenuMétodos
+from ZeroDeFunções.MenuMétodos import MenuMétodos
 import ZeroDeFunções.MenuDados as MD
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 from ZeroDeFunções.Funções.intervalosVálidos import intervalosVálidos
 from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
-# Importando Métodos
-from ZeroDeFunções.Métodos.Bissecção import bissecção
-from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
-from ZeroDeFunções.Métodos.PontoFixo import pontoFixo
-from ZeroDeFunções.Métodos.NewtonRaphson import newtonRaphson
-from ZeroDeFunções.Métodos.Secante import secante
+
 
 def printMenu():
 	título("Menu Zero De Funções", '=')
@@ -28,9 +23,9 @@ def printMenu():
 
 def menu():
 	# a - Valor Intervalo Inicial
-	a=-2
+	a=0
 	# b - Valor Intervalo Final
-	b=0
+	b=1
 	# e - Valor Erro
 	e=0.001
 	# kmax - Valor Máximo de Interações
@@ -46,7 +41,6 @@ def menu():
 	while (escolha != 0):
 		printMenu()
 		escolha = pedirInt(s="Escolha")
-
 		# MENU DE DADOS
 		if (escolha==1):
 			escolhaM = -1
@@ -58,7 +52,7 @@ def menu():
 					título("Definir Funções", '=')
 					escolhaMM = -1
 					while((escolhaMM!=0) and (escolhaMM!=1)):
-						MD.printFunções(sf,sdf)
+						MD.printFunções(sf,sdf,spf)
 						print("Deseja Alterar as Funções Atuais?")
 						print("1- Sim | 0- Não")
 						escolhaMM = pedirInt(s="Escolha")
@@ -107,33 +101,9 @@ def menu():
 					escolhaM=0
 				else:
 					título("ERRO - Escolha Inválida", '*')
-
 		# MENU DE MÉTODOS
 		elif (escolha==2):
-			escolhaM = -1
-			while (escolhaM != 0):
-				printMenuMétodos()
-				escolhaM = pedirInt(s="Escolha")
-				# Bissecção
-				if (escolhaM==1):
-					bissecção(a,b,e,kmax,sf)
-				# Posição Falsa
-				elif (escolhaM==2):
-					posiçãoFalsa(a,b,e,kmax,sf)
-				# Ponto Fixo
-				elif (escolhaM==3):
-					pontoFixo(a,b,e,kmax,sf,spf)
-				# Newton-Raphson
-				elif (escolhaM==4):
-					newtonRaphson(a,e,kmax,sf,sdf)
-				# Secante
-				elif (escolhaM==5):
-					secante(a,b,e,kmax,sf)
-				elif (escolhaM==0):
-					escolhaM=0
-				else:
-					título("ERRO - Escolha Inválida", '*')
-		
+			MenuMétodos(sf,sdf,spf,a,b,e,kmax)
 		elif (escolha==0):
 			escolha==0
 		else:

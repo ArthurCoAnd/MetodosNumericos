@@ -1,4 +1,15 @@
+import math
+# Importando Ferramentas
 from Ferramentas.título import título
+from Ferramentas.pedirInt import pedirInt
+from Ferramentas.pedirIntPos import pedirIntPos
+from Ferramentas.pedirFloat import pedirFloat
+from Ferramentas.pedirFloatMaiorQue import pedirFloatMaiorQue
+from Ferramentas.pedirFunção import pedirFunção
+# Importando Funções
+from ZeroDeFunções.Funções.f import f
+from ZeroDeFunções.Funções.intervalosVálidos import intervalosVálidos
+from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
 
 def printMenuDados(sf,sdf,spf,a,b,e,kmax):
 	título("Menu de Gerenciamento de Dados - Zero De Funções", '=')
@@ -43,7 +54,7 @@ def printIntervalo(a,b):
 	print("%-20s - [%f]:[%f]"%("Intervalo Atual",a,b))
 
 def printErro(e):
-	print("%-20s - %f"%("Erro Atual",e,))
+	print("%-20s - %f"%("Erro Atual",e))
 
 def printInteraçõesMáxima(kmax):
 	print("%-20s - %i"%("Máximo de Interações",kmax))

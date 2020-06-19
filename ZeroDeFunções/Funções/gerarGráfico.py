@@ -15,5 +15,8 @@ def gerarGráfico(sf,sdf):
 	delta = pedirFloat(s="Tamanho Entre os Intervalos")
 
 	x=np.arange(pos,posF,delta)
-	pp.plot(x,f(x,sf),'k',x,f(x,sdf),'r')
+	pp.title("Gráfico Função e Derivada")
+	pp.xlabel("X")
+	pp.ylabel("f (X)")
+	pp.plot(x,x-x,'k',x,f(x,sf),'k',x,f(x,sdf),'r')
 	pp.show()
