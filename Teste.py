@@ -3,6 +3,11 @@ from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
 
 app=Tk()
+app.title("Métodos Numéricos - UFSM")
+app.iconbitmap("./Extras/UfsmLogo.ico")
+
+# Tamanho Largura das Colunas
+l=25
 
 # Clique Botão Bissecção
 def cBissecção():
@@ -24,22 +29,22 @@ def cPosiçãoFalse():
 
 # ===== Definir Elementos =====
 	# Textos
-título = Label(app, text="Zero de Funções")
-sftxt = Label(app, text="Função")
-atxt = Label(app, text="Intervalo Inicial")
-btxt = Label(app, text="Intervalo Final")
-etxt = Label(app, text="Erro")
-kmaxtxt = Label(app, text="Interações Máximas")
+título = Label(app, text="Zero de Funções", width=(2*l))
+sftxt = Label(app, text="Função - f(x)", width=l)
+atxt = Label(app, text="Intervalo Inicial - a/xk", width=l)
+btxt = Label(app, text="Intervalo Final - b/xkm", width=l)
+etxt = Label(app, text="Erro - e ", width=l)
+kmaxtxt = Label(app, text="Interações Máximas", width=l)
 	# Botões
-bBissecção = Button(app, text="Bissecção", command=cBissecção, fg="white", bg="black")
-bPosiçãoFalsa = Button(app, text="Posição Falsa", command=cPosiçãoFalse, fg="white", bg="black")
+bBissecção = Button(app, text="Bissecção", command=cBissecção, fg="white", bg="black", width=(2*l))
+bPosiçãoFalsa = Button(app, text="Posição Falsa", command=cPosiçãoFalse, fg="white", bg="black", width=(2*l))
 
 	# Entradas
-sfE = Entry(app)
-aE = Entry(app)
-bE = Entry(app)
-eE = Entry(app)
-kmaxE = Entry(app)
+sfE = Entry(app, width=l)
+aE = Entry(app, width=l)
+bE = Entry(app, width=l)
+eE = Entry(app, width=l)
+kmaxE = Entry(app, width=l)
 
 # ===== Construir Elementos =====
 	# Textos
