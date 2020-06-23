@@ -2,19 +2,23 @@ import math
 # Importando Ferramentas
 from Ferramentas.título import título
 from ZeroDeFunções.Métodos.CalcularErro import calcularErro
+from ZeroDeFunções.dadosZDF import dados as d
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def secante(a,b,e,kmax,sf):
+def secante(d):
 	título("Secante", '=')
-	xk=a
-	xkAnt=b
+	xk=d.a
+	xkAnt=d.b
 	k = 1
 	print("%-5s%-12s%-12s%-12s"%("K","xk","f(xk)","e"))
-	while( (calcularErro(sf,xk,xkAnt,xk)>e) and (e<=kmax)):
+	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax)):
 		aux = xk
-		xk = (xkAnt*f(xk,sf)-xk*f(xkAnt,sf))/(f(xk,sf)-f(xkAnt,sf))
+		xk = (xkAnt*f(xk,d.sf)-xk*f(xkAnt,d.sf))/(f(xk,d.sf)-f(xkAnt,d.sf))
 		xkAnt = aux
-		print("%-5d%-12f%-12f%-12f"%(k,xk,f(xk,sf),calcularErro(sf,xk,xkAnt,xk)))
+		print("%-5d%-12f%-12f%-12f"%(k,xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk)))
 		k+=1
-	print("\nRaiz:%f \t f(raiz)=%f \t Erro Final:%f\n\n"%(xk,f(xk,sf),calcularErro(sf,xk,xkAnt,xk)))
+	s="Secante x= %f \t f(x)=%f \t e= %f"%(xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk))
+	print("\n"+s+"\n\n")
+
+	return s

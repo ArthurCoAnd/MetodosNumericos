@@ -2,22 +2,26 @@ import math
 # Importando Ferramentas
 from Ferramentas.título import título
 from ZeroDeFunções.Métodos.CalcularErro import calcularErro
+from ZeroDeFunções.dadosZDF import dados as d
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def posiçãoFalsa(a,b,e,kmax,sf):
+def posiçãoFalsa(d):
 	título("Posição Falsa", '=')
 	k = 1
 	xkAnt = 0
-	xk = (a*abs(f(b,sf)) + b*abs(f(a,sf))) / (abs(f(a,sf)) + abs(f(b,sf)))
+	xk = (d.a*abs(f(d.b,d.sf)) + d.b*abs(f(d.a,d.sf))) / (abs(f(d.a,d.sf)) + abs(f(d.b,d.sf)))
 	print("%-5s%-12s%-12s%-12s%-12s%-12s%-12s%-12s"%("K","A","xk","B","e","f(a)","f(xk)","f(b)"))
-	while((calcularErro(sf,a,b,xk)>e) and (k<=kmax)):
+	while((calcularErro(d.sf,d.a,d.b,xk)>d.e) and (k<=d.kmax)):
 		xkAnt = xk
-		xk = (a*abs(f(b,sf)) + b*abs(f(a,sf))) / (abs(f(a,sf)) + abs(f(b,sf)))
-		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,a,xk,b,calcularErro(sf,a,b,xk),f(a,sf),f(xk,sf),f(b,sf)))
-		if ( f(a,sf) * f(xk,sf) < 0 ):
-			b = xk
+		xk = (d.a*abs(f(d.b,d.sf)) + d.b*abs(f(d.a,d.sf))) / (abs(f(d.a,d.sf)) + abs(f(d.b,d.sf)))
+		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,d.a,xk,d.b,calcularErro(d.sf,d.a,d.b,xk),f(d.a,d.sf),f(xk,d.sf),f(d.b,d.sf)))
+		if ( f(d.a,d.sf) * f(xk,d.sf) < 0 ):
+			d.b = xk
 		else:
-			a = xk
+			d.a = xk
 		k+=1
-	print("\nRaiz:%f \t f(raiz)=%f \t Erro Final:%f\n\n"%(xk,f(xk,sf),calcularErro(sf,a,b,xk)))
+	s="Posição Falsa x= %f \t f(x)= %f \t e= %f"%(xk,f(xk,d.sf),calcularErro(d.sf,d.a,d.b,xk))
+	print("\n"+s+"\n\n")
+
+	return s

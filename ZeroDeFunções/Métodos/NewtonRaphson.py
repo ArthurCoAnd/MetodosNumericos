@@ -2,19 +2,23 @@ import math
 # Importando Ferramentas
 from Ferramentas.título import título
 from ZeroDeFunções.Métodos.CalcularErro import calcularErro
+from ZeroDeFunções.dadosZDF import dados as d
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def newtonRaphson(a,e,kmax,sf,sdf):
+def newtonRaphson(d):
 	título("Newton-Raphson", '=')
-	xk=a
-	xkAnt=a*a
+	xk=d.a
+	xkAnt=999
 	k=1
 	print("%-5s%-12s%-12s%-12s%-12s%-12s"%("K","xk","f(xk)","f'(xk-1)","xk+1","e"))
-	while( (calcularErro(sf,xk,xkAnt,xk)>e) and k<=kmax ):
+	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and k<=d.kmax ):
 		xkAnt=xk
-		xk = xkAnt - (f(xkAnt,sf)/f(xkAnt,sdf))
+		xk = xkAnt - (f(xkAnt,d.sf)/f(xkAnt,d.sdf))
 		# Printa-se xkAnt como xk
-		print("%-5d%-12f%-12f%-12f%-12f%-12f"%(k,xkAnt,f(xkAnt,sf),f(xkAnt,sdf),xk,calcularErro(sf,xk,xkAnt,xk)))
+		print("%-5d%-12f%-12f%-12f%-12f%-12f"%(k,xkAnt,f(xkAnt,d.sf),f(xkAnt,d.sdf),xk,calcularErro(d.sf,xk,xkAnt,xk)))
 		k+=1
-	print("\nRaiz:%f \t f(raiz)=%f \t Erro Final:%f\n\n"%(xk,f(xk,sf),calcularErro(sf,xk,xkAnt,xk)))
+	s="Newton-Raphson x= %f \t f(x)= %f \t e= %f"%(xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk))
+	print("\n"+s+"\n\n")
+
+	return s

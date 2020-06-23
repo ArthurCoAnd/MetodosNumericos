@@ -3,20 +3,17 @@ import matplotlib.pyplot as pp
 import numpy as np
 # Importando Ferramentas
 from Ferramentas.título import título
-from Ferramentas.pedirFloat import pedirFloat
-from Ferramentas.pedirFloatMaiorQue import pedirFloatMaiorQue
+from ZeroDeFunções.dadosZDF import dados
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def gerarGráfico(sf,sdf):
+def gerarGráfico(d):
 	título("Gráfico da Função", '=')
-	pos = pedirFloat(s="X INICIAL do Gráfico")
-	posF = pedirFloatMaiorQue(pos, s="X FINAL do Gráfico")
-	delta = pedirFloat(s="Tamanho Entre os Intervalos")
+	delta = 1e-3
 
-	x=np.arange(pos,posF,delta)
+	x=np.arange(d.a,d.b,delta)
 	pp.title("Gráfico Função e Derivada")
 	pp.xlabel("X")
 	pp.ylabel("f (X)")
-	pp.plot(x,x-x,'k',x,f(x,sf),'k',x,f(x,sdf),'r')
+	pp.plot(x,x-x,'k',x,f(x,d.sf),'k',x,f(x,d.sdf),'r')
 	pp.show()

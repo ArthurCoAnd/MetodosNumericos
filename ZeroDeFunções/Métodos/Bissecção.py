@@ -2,21 +2,24 @@ import math
 # Importando Ferramentas
 from Ferramentas.título import título
 from ZeroDeFunções.Métodos.CalcularErro import calcularErro
+from ZeroDeFunções.dadosZDF import dados as d
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def bissecção(a,b,e,kmax,sf):
+def bissecção(d):
 	título("Bissecçâo", '=')
 	k = 1
-	# xk = metade entre as pontas do intervalo
-	xk = (a+b)/2
+	xk = (d.a+d.b)/2
 	print("%-5s%-12s%-12s%-12s%-12s%-12s%-12s%-12s"%("K","A","xk","B","e","f(a)","f(xk)","f(b)"))
-	while(calcularErro(sf,a,b,xk)>e and k<=kmax):
-		xk = (b+a)/2
-		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,a,xk,b,calcularErro(sf,a,b,xk),f(a,sf),f(xk,sf), f(b,sf)))
-		if ( f(a,sf) * f(xk,sf) < 0 ):
-			b = xk
+	while(calcularErro(d.sf,d.a,d.b,xk)>d.e and k<=d.kmax):
+		xk = (d.b+d.a)/2
+		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,d.a,xk,d.b,calcularErro(d.sf,d.a,d.b,xk),f(d.a,d.sf),f(xk,d.sf), f(d.b,d.sf)))
+		if ( f(d.a,d.sf) * f(xk,d.sf) < 0 ):
+			d.b = xk
 		else:
-			a = xk
+			d.a = xk
 		k+=1
-	print("\nRaiz:%f \t f(raiz)=%f \t Erro Final:%f\n\n"%(xk,f(xk,sf),calcularErro(sf,a,b,xk)))
+	s="Bissecção x= %f \t f(x)= %f \t e= %f"%(xk,f(xk,d.sf),calcularErro(d.sf,d.a,d.b,xk))
+	print("\n"+s+"\n\n")
+
+	return s
