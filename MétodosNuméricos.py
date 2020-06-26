@@ -17,75 +17,72 @@ app.iconbitmap("./Extras/UfsmLogo.ico")
 l=30
 # Linha das Respostas
 lr=14
-d = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+# Padrão de Dados
+p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+
+def lerDados():
+	x = dados(0,0,0,0,"","","")
+	x.a = float(aE.get())
+	x.b = float(bE.get())
+	x.e = float(eE.get())
+	x.kmax = float(kmaxE.get())
+	x.sf = sfE.get()
+	x.sdf = sdfE.get()
+	x.spf = spfE.get()
+	return x
 
 # Clique Botão Bissecção
 def cBissecção():
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
-	d.sf = sfE.get()
-	d.sdf = sdfE.get()
-	d.spf = spfE.get()
-	s=bissecção(d)
+	# Gambiarra Pra Mostrar Erro
+	s = "ERRO"
+	Label(app, text=s, bg="red", width=2*l).grid(row=lr, column=0, columnspan=2)
+	#
+	d = lerDados()
+	s = bissecção(d)
 	Label(app, text=s, width=2*l).grid(row=lr, column=0, columnspan=2)
 
 # Clique Botão Posição Falsa
 def cPosiçãoFalse():
-	d.sf = sfE.get()
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
+	# Gambiarra Pra Mostrar Erro
+	s = "ERRO"
+	Label(app, text=s, bg="red", width=2*l).grid(row=lr, column=0, columnspan=2)
+	#
+	d = lerDados()
 	s=posiçãoFalsa(d)
 	Label(app, text=s, width=2*l).grid(row=lr, column=0, columnspan=2)
 
 # Clique Botão Ponto Fixo
 def cPontoFixo():
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
-	d.sf = sfE.get()
-	d.sdf = sdfE.get()
-	d.spf = spfE.get()
+	# Gambiarra Pra Mostrar Erro
+	s = "ERRO"
+	Label(app, text=s, bg="red", width=2*l).grid(row=lr, column=0, columnspan=2)
+	#
+	d = lerDados()
 	s=pontoFixo(d)
 	Label(app, text=s, width=2*l).grid(row=lr, column=0, columnspan=2)
 
 # Clique Botão Newton Raphson
 def cNewtonRaphson():
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
-	d.sf = sfE.get()
-	d.sdf = sdfE.get()
-	d.spf = spfE.get()
+	# Gambiarra Pra Mostrar Erro
+	s = "ERRO"
+	Label(app, text=s, bg="red", width=2*l).grid(row=lr, column=0, columnspan=2)
+	#
+	d = lerDados()
 	s=newtonRaphson(d)
 	Label(app, text=s, width=2*l).grid(row=lr, column=0, columnspan=2)
 
 # Clique Botão Secante
 def cSecante():
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
-	d.sf = sfE.get()
-	d.sdf = sdfE.get()
-	d.spf = spfE.get()
+	# Gambiarra Pra Mostrar Erro
+	s = "ERRO"
+	Label(app, text=s, bg="red", width=2*l).grid(row=lr, column=0, columnspan=2)
+	#
+	d = lerDados()
 	s=secante(d)
 	Label(app, text=s, width=2*l).grid(row=lr, column=0, columnspan=2)
 
 def cgfr():
-	d.a = float(aE.get())
-	d.b = float(bE.get())
-	d.e = float(eE.get())
-	d.kmax = float(kmaxE.get())
-	d.sf = sfE.get()
-	d.sdf = sdfE.get()
-	d.spf = spfE.get()
-	s=secante(d)
+	d = lerDados()
 	gG(d)
 
 # ===== Definir Elementos =====
@@ -117,13 +114,13 @@ eE = Entry(app, width=l)
 kmaxE = Entry(app, width=l)
 
 # ===== Preset de valores para testes rápidos =====
-aE.insert(END,d.a)
-bE.insert(END,d.b)
-eE.insert(END,d.e)
-kmaxE.insert(END,d.kmax)
-sfE.insert(END,d.sf)
-sdfE.insert(END,d.sdf)
-spfE.insert(END,d.spf)
+aE.insert(END,p.a)
+bE.insert(END,p.b)
+eE.insert(END,p.e)
+kmaxE.insert(END,p.kmax)
+sfE.insert(END,p.sf)
+sdfE.insert(END,p.sdf)
+spfE.insert(END,p.spf)
 
 # ===== Construir Elementos =====
 	# Textos
