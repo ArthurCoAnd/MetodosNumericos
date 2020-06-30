@@ -1,29 +1,41 @@
-import math
-# Importando Ferramentas
-from Ferramentas.título import título
-from Ferramentas.pedirInt import pedirInt
-from Ferramentas.pedirIntPos import pedirIntPos
-from Ferramentas.pedirFloat import pedirFloat
-from Ferramentas.pedirFloatMaiorQue import pedirFloatMaiorQue
-# Importando
-import AjusteDeFunções.MenuDados as MD
+from tkinter import *
+# Importar Ferramentas
+	#from ZeroDeFunções.dadosZDF import dados
 
-def printMenu():
-	título("Menu Ajuste de Funções", '=')
-	print("1 - Gerenciameno de Dados")
-	print("2 - Ajustar Funções")
-	print("0 - Voltar")
+# Tamanho Largura das Colunas
+l=30
+# Linha das Respostas
+lr=15
 
-def menu():
-	escolha = -1
-	while (escolha != 0):
-		printMenu()
-		escolha = pedirInt(s="Escolha")
-		if (escolha==1):
-			MD.menuDados()
-		elif (escolha==2):
-			print("Escolha 2")
-		elif (escolha==0):
-			escolha==0
-		else:
-			título("ERRO - Escolha Inválida", '*')
+class AdF:
+	def __init__(self, raiz):
+		janela = Frame(raiz)
+		janela.grid(row=0, column=0)
+
+		# ===== Definir Elementos =====
+			# Textos
+		self.t_título = Label(janela, text="Ajuste de Funções", width=3*l)
+		self.t_nPontos = Label(janela, text="Número de Pontos (n)", width=l)
+
+			# Botôes
+		self.b_criarPontos = Button(janela, text="Criar Pontos", command=self.bNada, fg="white", bg="black",width=l)
+		self.b_funcLinear = Button(janela, text="Função Linear", command=self.bNada, fg="white", bg="black", width=3*l)
+
+			# Entradas
+		self.e_nPontos = Entry(janela, width=l)
+
+		# ===== Construir Elementos =====
+			# Textos
+		self.t_título.grid(row=0 ,column=0, columnspan=3)
+		self.t_nPontos.grid(row=1,column=0)
+
+			# Botôes
+		self.b_criarPontos.grid(row=1,column=2)
+		self.b_funcLinear.grid(row=2,column=0, columnspan=3)
+
+			# Entradas
+		self.e_nPontos.grid(row=1, column=1)
+
+
+	def bNada(self):
+		print("Botão Apertado")

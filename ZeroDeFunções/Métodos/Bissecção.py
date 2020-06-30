@@ -19,7 +19,7 @@ def bissecção(d):
 		else:
 			d.a = xk
 		k+=1
-	s="Bissecção x= %f \t f(x)= %f \t e= %f"%(xk,f(xk,d.sf),calcularErro(d.sf,d.a,d.b,xk))
+	s="Bissecção\n%-15s\tk = %i\n%-15s\tx = %f\n%-15s\tf(x) = %f\n%-15s\te = %f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,d.a,d.b,xk))
 	print("\n"+s+"\n\n")
 
 	return s

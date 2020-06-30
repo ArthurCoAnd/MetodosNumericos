@@ -2,6 +2,7 @@ from tkinter import *
 # Importar Ferramentas
 from ZeroDeFunções.dadosZDF import dados
 from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
+from ZeroDeFunções.Funções.validarIntervalo import validarIntervalo as vI
 # Importar Métodos
 from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
@@ -9,24 +10,22 @@ from ZeroDeFunções.Métodos.PontoFixo import pontoFixo
 from ZeroDeFunções.Métodos.NewtonRaphson import newtonRaphson
 from ZeroDeFunções.Métodos.Secante import secante
 
+# Tamanho Largura das Colunas
 l=30
+# Linha das Respostas
+lr=15
+# Padrão de Dados Para Testres - Deletar no Futuro
+p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
 
 class ZdF:
 	def __init__(self, raiz):
 		janela = Frame(raiz)
 		janela.grid(row=0, column=0)
 
-		# Tamanho Largura das Colunas
-		l=30
-		# Linha das Respostas
-		lr=14
-		# Padrão de Dados Para Testres - Deletar no Futuro
-		p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
-
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(janela, text="Zero de Funções", width=(2*l))
-		self.t_resposta = Label(janela, text="Aperte um Método Para Calcular a Raiz", width=(2*l))
+		self.t_resposta = Label(janela, text="Aperte um Método Para Calcular a Raiz", width=(2*l), anchor=W, justify=LEFT)
 		self.t_sf = Label(janela, text="Função - f(x)", width=l)
 		self.t_sdf = Label(janela, text="Derivada da Função - f'(x)", width=l)
 		self.t_spf = Label(janela, text="Função Ponto Fixo", width=l)
@@ -36,7 +35,9 @@ class ZdF:
 		self.t_kmax = Label(janela, text="Interações Máximas", width=l)
 
 			# Botões
+		# self.b_voltar = Button(janela, text="<", command=self.cVoltar, fg="white", bg="black", anchor=W)
 		self.b_gfr = Button(janela, text="Gerar Gráfico", command=self.cgfr, fg="white", bg="black", width=(2*l))
+		self.b_vi = Button(janela, text="Verificar Intervalo", command=self.cvi, fg="white", bg="black", width=(2*l))
 		self.b_Bissecção = Button(janela, text="Bissecção", command=self.cBissecção, fg="white", bg="black", width=(2*l))
 		self.b_PosiçãoFalsa = Button(janela, text="Posição Falsa", command=self.cPosiçãoFalse, fg="white", bg="black", width=(2*l))
 		self.b_PontoFixo = Button(janela, text="Ponto Fixo", command=self.cPontoFixo, fg="white", bg="black", width=(2*l))
@@ -74,12 +75,14 @@ class ZdF:
 		self.t_kmax.grid(row=7 ,column=0)
 
 			# Botões
+		# self.b_voltar.grid(row=0, column=0)
 		self.b_Bissecção.grid(row=8 ,column=0, columnspan=2)
 		self.b_PosiçãoFalsa.grid(row=9 ,column=0, columnspan=2)
 		self.b_PontoFixo.grid(row=10 ,column=0, columnspan=2)
 		self.b_NewtonRaphson.grid(row=11 ,column=0, columnspan=2)
 		self.b_Secante.grid(row=12 ,column=0, columnspan=2)
 		self.b_gfr.grid(row=13 ,column=0, columnspan=2)
+		self.b_vi.grid(row=14, column=0, columnspan=2)
 
 			# Entradas
 		self.e_sf.grid(row=1 ,column=1)
@@ -145,3 +148,12 @@ class ZdF:
 	def cgfr(self):
 		d = self.lerDados()
 		gG(d)
+
+	# Cliqeu Botâo Verificar Intervalo
+	def cvi(self):
+		d = self.lerDados()
+		chave = vI(d)
+		if(chave):
+			self.t_resposta.config(text="Intervalo VÁLIDO", bg="green", width=2*l)
+		else:
+			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
