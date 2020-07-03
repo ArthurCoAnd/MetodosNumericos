@@ -36,4 +36,6 @@ class Métodos(Frame):
 		self.b_adf.grid(row=1, column=0, columnspan=2)
 
 app = Aplicativo()
+app.title("Métodos Numéricos - UFSM")
+app.iconbitmap("./Extras/UfsmLogo.ico")
 app.mainloop()
