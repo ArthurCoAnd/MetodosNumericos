@@ -14,44 +14,43 @@ from ZeroDeFunções.Métodos.Secante import secante
 l=30
 # Linha das Respostas
 lr=15
-# Padrão de Dados Para Testres - Deletar no Futuro
-p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+# ===== Padrão de Dados Para Testres - Deletar no Futuro ======
+#p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)-log(x)","((4*x**4)-(15*x**3)-1)/x","((3*x**3)-(4*x**2)+10)/10")
 
-class ZdF:
+class ZdF(Frame):
 	def __init__(self, raiz):
-		janela = Frame(raiz)
-		janela.grid(row=0, column=0)
-
+		Frame.__init__(self, raiz)
 		# ===== Definir Elementos =====
 			# Textos
-		self.t_título = Label(janela, text="Zero de Funções", width=(2*l))
-		self.t_resposta = Label(janela, text="Aperte um Método Para Calcular a Raiz", width=(2*l), anchor=W, justify=LEFT)
-		self.t_sf = Label(janela, text="Função - f(x)", width=l)
-		self.t_sdf = Label(janela, text="Derivada da Função - f'(x)", width=l)
-		self.t_spf = Label(janela, text="Função Ponto Fixo", width=l)
-		self.t_a = Label(janela, text="Intervalo Inicial - a/xk", width=l)
-		self.t_b = Label(janela, text="Intervalo Final - b/xkm", width=l)
-		self.t_e = Label(janela, text="Erro - e ", width=l)
-		self.t_kmax = Label(janela, text="Interações Máximas", width=l)
+		self.t_título = Label(self, text="Zero de Funções", width=(2*l))
+		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Raiz da Função", width=(2*l), anchor=W, justify=LEFT)
+		self.t_sf = Label(self, text="Função - f(x)", width=l)
+		self.t_sdf = Label(self, text="Derivada da Função - f'(x)", width=l)
+		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
+		self.t_a = Label(self, text="Intervalo Inicial - a/xk", width=l)
+		self.t_b = Label(self, text="Intervalo Final - b/xkm", width=l)
+		self.t_e = Label(self, text="Erro - e ", width=l)
+		self.t_kmax = Label(self, text="Interações Máximas", width=l)
 
 			# Botões
-		# self.b_voltar = Button(janela, text="<", command=self.cVoltar, fg="white", bg="black", anchor=W)
-		self.b_gfr = Button(janela, text="Gerar Gráfico", command=self.cgfr, fg="white", bg="black", width=(2*l))
-		self.b_vi = Button(janela, text="Verificar Intervalo", command=self.cvi, fg="white", bg="black", width=(2*l))
-		self.b_Bissecção = Button(janela, text="Bissecção", command=self.cBissecção, fg="white", bg="black", width=(2*l))
-		self.b_PosiçãoFalsa = Button(janela, text="Posição Falsa", command=self.cPosiçãoFalse, fg="white", bg="black", width=(2*l))
-		self.b_PontoFixo = Button(janela, text="Ponto Fixo", command=self.cPontoFixo, fg="white", bg="black", width=(2*l))
-		self.b_NewtonRaphson = Button(janela, text="Newton-Raphson", command=self.cNewtonRaphson, fg="white", bg="black", width=(2*l))
-		self.b_Secante = Button(janela, text="Secante", command=self.cSecante, fg="white", bg="black", width=(2*l))
+		# self.b_voltar = Button(self, text="<", command=cVoltar, fg="white", bg="black", anchor=W)
+		self.b_gfr = Button(self, text="Gerar Gráfico", command=self.cgfr, fg="white", bg="black", width=(2*l))
+		self.b_vi = Button(self, text="Verificar Intervalo", command=self.cvi, fg="white", bg="black", width=(2*l))
+		self.b_Bissecção = Button(self, text="Bissecção", command=self.cBissecção, fg="white", bg="black", width=(2*l))
+		self.b_PosiçãoFalsa = Button(self, text="Posição Falsa", command=self.cPosiçãoFalse, fg="white", bg="black", width=(2*l))
+		self.b_PontoFixo = Button(self, text="Ponto Fixo", command=self.cPontoFixo, fg="white", bg="black", width=(2*l))
+		self.b_NewtonRaphson = Button(self, text="Newton-Raphson", command=self.cNewtonRaphson, fg="white", bg="black", width=(2*l))
+		self.b_Secante = Button(self, text="Secante", command=self.cSecante, fg="white", bg="black", width=(2*l))
 
 			# Entradas
-		self.e_sf = Entry(janela, width=l)
-		self.e_sdf = Entry(janela, width=l)
-		self.e_spf = Entry(janela, width=l)
-		self.e_a = Entry(janela, width=l)
-		self.e_b = Entry(janela, width=l)
-		self.e_e = Entry(janela, width=l)
-		self.e_kmax = Entry(janela, width=l)
+		self.e_sf = Entry(self, width=l)
+		self.e_sdf = Entry(self, width=l)
+		self.e_spf = Entry(self, width=l)
+		self.e_a = Entry(self, width=l)
+		self.e_b = Entry(self, width=l)
+		self.e_e = Entry(self, width=l)
+		self.e_kmax = Entry(self, width=l)
 
 		# ===== Preset de valores para testes rápidos =====
 		self.e_a.insert(END,p.a)

@@ -6,30 +6,34 @@ from AjusteDeFunções.AjusteDeFunções import AdF
 # Tamanho Largura das Colunas
 l=30
 
-class Menu:
+class Aplicativo(Tk):
+	def __init__(self):
+		Tk.__init__(self)
+		# ===== Definir Elementos =====
+		self.t_título = Label(self, text="Menu", width=2*l)
+		self.b_voltar = Button(self, text="<", command=lambda: self.TrocarJanela(Métodos), fg="white", bg="black")
+		# ===== Construir Elementos =====
+		self.t_título.grid(row=0, column=0, columnspan=2)
+		self.b_voltar.grid(row=0, column=0, sticky=W)
+		self.janela = None
+		self.TrocarJanela(Métodos)
+
+	def TrocarJanela(self, tipoJanela):
+		novaJanela = tipoJanela(self)
+		if self.janela is not None:
+			self.janela.destroy()
+		self.janela = novaJanela
+		self.janela.grid(row=1, column=0)
+
+class Métodos(Frame):
 	def __init__(self, raiz):
-		janela = Frame(raiz)
-		janela.grid(row=0, column=0)
+		Frame.__init__(self, raiz)
+		# ===== Definir Elementos =====
+		self.b_zdf = Button(self, text="Zero De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
+		self.b_adf = Button(self, text="Ajuste De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
+		# ===== Construir Elementos =====
+		self.b_zdf.grid(row=0, column=0, columnspan=2)
+		self.b_adf.grid(row=1, column=0, columnspan=2)
 
-		self.t_título = Label(janela, text="Menu", width=(2*l))
-		self.t_título.grid(row=0, column=0)
-
-		self.b_ZDF = Button(janela, text="Zero de Funções", command=self.c_zdf, fg="white", bg="black", width=(2*l))
-		self.b_ZDF.grid(row=1, column=0)
-
-		self.b_ADF = Button(janela, text="Ajuste de Funções", command=self.c_adf, fg="white", bg="black", width=(2*l))
-		self.b_ADF.grid(row=3, column=0)
-
-	def c_zdf(self):
-		janela = ZdF(raiz)
-
-	def c_adf(self):
-		janela = AdF(raiz)
-
-raiz=Tk()
-raiz.title("Métodos Numéricos - UFSM")
-raiz.iconbitmap("./Extras/UfsmLogo.ico")
-
-app = Menu(raiz)
-
-raiz.mainloop()
+app = Aplicativo()
+app.mainloop()

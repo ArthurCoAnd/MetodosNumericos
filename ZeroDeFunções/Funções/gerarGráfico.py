@@ -12,8 +12,10 @@ def gerarGráfico(d):
 	delta = 1e-3
 
 	x=np.arange(d.a,d.b,delta)
+	y=np.vectorize(f)
+	dy=np.vectorize(f)
 	pp.title("Gráfico Função e Derivada")
 	pp.xlabel("X")
-	pp.ylabel("f (X)")
-	pp.plot(x,x-x,'k',x,f(x,d.sf),'k',x,f(x,d.sdf),'r')
+	pp.ylabel("f(X) & f'(X)")
+	pp.plot(x,x-x,'k',x,y(x,d.sf),'k',x,dy(x,d.sdf),'r')
 	pp.show()
