@@ -12,7 +12,7 @@ def newtonRaphson(d):
 	xkAnt=999
 	k=1
 	print("%-5s%-12s%-12s%-12s%-12s%-12s"%("K","xk","f(xk)","f'(xk-1)","xk+1","e"))
-	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and k<=d.kmax ):
+	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax) ):
 		xkAnt=xk
 		xk = xkAnt - (f(xkAnt,d.sf)/f(xkAnt,d.sdf))
 		# Printa-se xkAnt como xk

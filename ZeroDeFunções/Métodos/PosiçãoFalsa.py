@@ -12,7 +12,7 @@ def posiçãoFalsa(d):
 	xkAnt = 0
 	xk = (d.a*abs(f(d.b,d.sf)) + d.b*abs(f(d.a,d.sf))) / (abs(f(d.a,d.sf)) + abs(f(d.b,d.sf)))
 	print("%-5s%-12s%-12s%-12s%-12s%-12s%-12s%-12s"%("K","A","xk","B","e","f(a)","f(xk)","f(b)"))
-	while((calcularErro(d.sf,d.a,d.b,xk)>d.e) and (k<=d.kmax)):
+	while( (calcularErro(d.sf,d.a,d.b,xk)>d.e) and (k<=d.kmax) ):
 		xkAnt = xk
 		xk = (d.a*abs(f(d.b,d.sf)) + d.b*abs(f(d.a,d.sf))) / (abs(f(d.a,d.sf)) + abs(f(d.b,d.sf)))
 		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,d.a,xk,d.b,calcularErro(d.sf,d.a,d.b,xk),f(d.a,d.sf),f(xk,d.sf),f(d.b,d.sf)))

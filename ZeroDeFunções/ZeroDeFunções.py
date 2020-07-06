@@ -16,7 +16,7 @@ l=30
 lr=15
 # ===== Padrão de Dados Para Testres - Deletar no Futuro ======
 #p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
-p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)-log(x)","((4*x**4)-(15*x**3)-1)/x","((3*x**3)-(4*x**2)+10)/10")
+p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")
 
 class ZdF(Frame):
 	def __init__(self, raiz):
@@ -105,19 +105,27 @@ class ZdF(Frame):
 
 	# Clique Botão Bissecção
 	def cBissecção(self):
-		s = "ERRO"
-		self.t_resposta.config(text=s, bg="red", width=2*l)
 		d = self.lerDados()
-		s = bissecção(d)
-		self.t_resposta.config(text=s, bg="white", width=2*l)
+		chave = vI(d)
+		if(chave):
+			s = "ERRO"
+			self.t_resposta.config(text=s, bg="red", width=2*l)
+			s = bissecção(d)
+			self.t_resposta.config(text=s, bg="white", width=2*l)
+		else:
+			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
 
 	# Clique Botão Posição Falsa
 	def cPosiçãoFalse(self):
-		s = "ERRO"
-		self.t_resposta.config(text=s, bg="red", width=2*l)
 		d = self.lerDados()
-		s=posiçãoFalsa(d)
-		self.t_resposta.config(text=s, bg="white", width=2*l)
+		chave = vI(d)
+		if(chave):
+			s = "ERRO"
+			self.t_resposta.config(text=s, bg="red", width=2*l)
+			s = posiçãoFalsa(d)
+			self.t_resposta.config(text=s, bg="white", width=2*l)
+		else:
+			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
 
 	# Clique Botão Ponto Fixo
 	def cPontoFixo(self):

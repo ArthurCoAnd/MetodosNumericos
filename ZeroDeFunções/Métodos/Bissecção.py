@@ -11,7 +11,7 @@ def bissecção(d):
 	k = 1
 	xk = (d.a+d.b)/2
 	print("%-5s%-12s%-12s%-12s%-12s%-12s%-12s%-12s"%("K","A","xk","B","e","f(a)","f(xk)","f(b)"))
-	while(calcularErro(d.sf,d.a,d.b,xk)>d.e and k<=d.kmax):
+	while( (calcularErro(d.sf,d.a,d.b,xk)>d.e) and (k<=d.kmax) ):
 		xk = (d.b+d.a)/2
 		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f"%(k,d.a,xk,d.b,calcularErro(d.sf,d.a,d.b,xk),f(d.a,d.sf),f(xk,d.sf), f(d.b,d.sf)))
 		if ( f(d.a,d.sf) * f(xk,d.sf) < 0 ):

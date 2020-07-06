@@ -12,7 +12,7 @@ def secante(d):
 	xkAnt=d.b
 	k = 1
 	print("%-5s%-12s%-12s%-12s"%("K","xk","f(xk)","e"))
-	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax)):
+	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax) ):
 		aux = xk
 		xk = (xkAnt*f(xk,d.sf)-xk*f(xkAnt,d.sf))/(f(xk,d.sf)-f(xkAnt,d.sf))
 		xkAnt = aux
