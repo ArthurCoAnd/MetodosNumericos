@@ -3,6 +3,7 @@ from tkinter import *
 from ZeroDeFunções.dadosZDF import dados
 from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
 from ZeroDeFunções.Funções.validarIntervalo import validarIntervalo as vI
+from Ferramentas.fts import fts
 # Importar Métodos
 from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
@@ -15,8 +16,8 @@ l=30
 # Linha das Respostas
 lr=15
 # ===== Padrão de Dados Para Testres - Deletar no Futuro ======
-#p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
-p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")
+p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+#p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")
 
 class ZdF(Frame):
 	def __init__(self, raiz):
@@ -34,7 +35,8 @@ class ZdF(Frame):
 		self.t_kmax = Label(self, text="Interações Máximas", width=l)
 
 			# Botões
-		# self.b_voltar = Button(self, text="<", command=cVoltar, fg="white", bg="black", anchor=W)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
 		self.b_gfr = Button(self, text="Gerar Gráfico", command=self.cgfr, fg="white", bg="black", width=(2*l))
 		self.b_vi = Button(self, text="Verificar Intervalo", command=self.cvi, fg="white", bg="black", width=(2*l))
 		self.b_Bissecção = Button(self, text="Bissecção", command=self.cBissecção, fg="white", bg="black", width=(2*l))
@@ -63,34 +65,35 @@ class ZdF(Frame):
 
 		# ===== Construir Elementos =====
 			# Textos
-		self.t_título.grid(row=0 ,column=0, columnspan=2)
-		self.t_resposta.grid(row=lr ,column=0, columnspan=2)
-		self.t_sf.grid(row=1 ,column=0)
-		self.t_sdf.grid(row=2 ,column=0)
-		self.t_spf.grid(row=3 ,column=0)
-		self.t_a.grid(row=4 ,column=0)
-		self.t_b.grid(row=5 ,column=0)
-		self.t_e.grid(row=6 ,column=0)
-		self.t_kmax.grid(row=7 ,column=0)
+		self.t_título.grid(row=0, column=0, columnspan=2)
+		self.t_resposta.grid(row=lr, column=0, columnspan=2)
+		self.t_sf.grid(row=1, column=0)
+		self.t_sdf.grid(row=2, column=0)
+		self.t_spf.grid(row=3, column=0)
+		self.t_a.grid(row=4, column=0)
+		self.t_b.grid(row=5, column=0)
+		self.t_e.grid(row=6, column=0)
+		self.t_kmax.grid(row=7, column=0)
 
 			# Botões
-		# self.b_voltar.grid(row=0, column=0)
-		self.b_Bissecção.grid(row=8 ,column=0, columnspan=2)
-		self.b_PosiçãoFalsa.grid(row=9 ,column=0, columnspan=2)
-		self.b_PontoFixo.grid(row=10 ,column=0, columnspan=2)
-		self.b_NewtonRaphson.grid(row=11 ,column=0, columnspan=2)
-		self.b_Secante.grid(row=12 ,column=0, columnspan=2)
-		self.b_gfr.grid(row=13 ,column=0, columnspan=2)
+		self.b_carregar.grid(row=0, column=0)
+		self.b_salvar.grid(row=0, column=1)
+		self.b_Bissecção.grid(row=8, column=0, columnspan=2)
+		self.b_PosiçãoFalsa.grid(row=9, column=0, columnspan=2)
+		self.b_PontoFixo.grid(row=10, column=0, columnspan=2)
+		self.b_NewtonRaphson.grid(row=11, column=0, columnspan=2)
+		self.b_Secante.grid(row=12, column=0, columnspan=2)
+		self.b_gfr.grid(row=13, column=0, columnspan=2)
 		self.b_vi.grid(row=14, column=0, columnspan=2)
 
 			# Entradas
-		self.e_sf.grid(row=1 ,column=1)
-		self.e_sdf.grid(row=2 ,column=1)
-		self.e_spf.grid(row=3 ,column=1)
-		self.e_a.grid(row=4 ,column=1)
-		self.e_b.grid(row=5 ,column=1)
-		self.e_e.grid(row=6 ,column=1)
-		self.e_kmax.grid(row=7 ,column=1)
+		self.e_sf.grid(row=1, column=1)
+		self.e_sdf.grid(row=2, column=1)
+		self.e_spf.grid(row=3, column=1)
+		self.e_a.grid(row=4, column=1)
+		self.e_b.grid(row=5, column=1)
+		self.e_e.grid(row=6, column=1)
+		self.e_kmax.grid(row=7, column=1)
 
 	def lerDados(self):
 		x = dados(0,0,0,0,"","","")
@@ -102,6 +105,19 @@ class ZdF(Frame):
 		x.sdf = self.e_sdf.get()
 		x.spf = self.e_spf.get()
 		return x
+
+	# Clique Botão Carregar
+	def cCarregar(self):
+		self.t_resposta.config(text="EM DESENVOLVIMENTO", bg="red", width=2*l)
+
+	# Clique Botão Salvar
+	def cSalvar(self):
+		d = self.lerDados()
+		arqS = fts(d.sf)
+		arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
+		arq.write(d.sf+"\n"+d.sdf+"\n"+d.spf)
+		arq.close()
+		self.t_resposta.config(text="Arquivo Salvo", bg="green", width=2*l)
 
 	# Clique Botão Bissecção
 	def cBissecção(self):

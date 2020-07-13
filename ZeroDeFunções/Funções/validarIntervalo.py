@@ -9,7 +9,9 @@ def validarIntervalo(d):
 	título("Validar Intervalo", '=')
 	resposta = False
 
-	if( ((f(d.a,d.sf)*f(d.b,d.sf))<0) and (f(d.a,d.sdf)*f(d.b,d.sdf)>0)):
+	# if alternativo para melhor validação, mas que está danto problema
+	# if( ( (f(d.a,d.sf)*f(d.b,d.sf)) < 0 ) and ( (f(d.a,d.sdf)*f(d.b,d.sdf)) > 0 ) ):
+	if( (f(d.a,d.sf)*f(d.b,d.sf)) < 0 ):
 		print("Válido em - [%f]:[%f]"%(d.a,d.b))
 		resposta = True
 	else:

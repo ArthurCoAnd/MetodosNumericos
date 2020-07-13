@@ -18,7 +18,7 @@ def pontoFixo(d):
 		print("%-5d%-10f%-10f%-10f"%(k,xk,calcularErro(d.sf,xk,xkAnt,xk),f(xk,d.sf)))
 		k+=1
 
-	s="Ponto Fixo\n%-15s\tk = %i\n%-15s\tx = %f\n%-15s\tf(x) = %f\n%-15s\te = %f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
+	s="Ponto Fixo\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
 	print("\n"+s+"\n\n")
 
 	return s
