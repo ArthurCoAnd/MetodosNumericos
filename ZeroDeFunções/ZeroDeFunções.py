@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 # Importar Ferramentas
 from ZeroDeFunções.dadosZDF import dados
 from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
@@ -16,8 +17,8 @@ l=30
 # Linha das Respostas
 lr=15
 # ===== Padrão de Dados Para Testres - Deletar no Futuro ======
-p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
-#p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")
+#p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
+p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")	
 
 class ZdF(Frame):
 	def __init__(self, raiz):
@@ -108,7 +109,14 @@ class ZdF(Frame):
 
 	# Clique Botão Carregar
 	def cCarregar(self):
-		self.t_resposta.config(text="EM DESENVOLVIMENTO", bg="red", width=2*l)
+		arqN = filedialog.askopenfilename(initialdir="/ZeroDeFunções/Configurações", title="Escolha um Arquivo")
+		arq = open(arqN, "r")
+		self.e_sf.delete(0,END)
+		self.e_sf.insert(END,arq.readline())
+		self.e_sdf.delete(0,END)
+		self.e_sdf.insert(END,arq.readline())
+		self.e_spf.delete(0,END)
+		self.e_spf.insert(END,arq.readlines())
 
 	# Clique Botão Salvar
 	def cSalvar(self):
