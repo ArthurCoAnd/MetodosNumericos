@@ -17,8 +17,7 @@ l=30
 # Linha das Respostas
 lr=15
 # ===== Padrão de Dados Para Testres - Deletar no Futuro ======
-#p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
-p = dados(0.1,1,1e-3,10,"(x**4)-(5*x**3)+x-log(x)","((4*x**4)-(15*x**3)+x-1)/x","-(x**4)+(5*x**3)+log(x)")	
+p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
 
 class ZdF(Frame):
 	def __init__(self, raiz):
