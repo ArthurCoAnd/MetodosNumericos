@@ -5,6 +5,7 @@ from ZeroDeFunções.dadosZDF import dados
 from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
 from ZeroDeFunções.Funções.validarIntervalo import validarIntervalo as vI
 from Ferramentas.fts import fts
+from Ferramentas.rmve import rmve
 # Importar Métodos
 from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
@@ -110,46 +111,64 @@ class ZdF(Frame):
 	def cCarregar(self):
 		arqN = filedialog.askopenfilename(initialdir="/ZeroDeFunções/Configurações", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
+		
 		self.e_sf.delete(0,END)
-		self.e_sf.insert(END,arq.readline())
+		self.e_sf.insert(END,rmve(arq.readline()))
+		
 		self.e_sdf.delete(0,END)
-		self.e_sdf.insert(END,arq.readline())
+		self.e_sdf.insert(END,rmve(arq.readline()))
+		
 		self.e_spf.delete(0,END)
-		self.e_spf.insert(END,arq.readlines())
+		self.e_spf.insert(END,rmve(arq.readline()))
+
+		self.e_a.delete(0,END)
+		self.e_a.insert(END,rmve(arq.readline()))
+
+		self.e_b.delete(0,END)
+		self.e_b.insert(END,rmve(arq.readline()))
+
+		self.e_e.delete(0,END)
+		self.e_e.insert(END,rmve(arq.readline()))
+
+		self.e_kmax.delete(0,END)
+		self.e_kmax.insert(END,rmve(arq.readline()))
+
+		self.t_resposta.config(text="Arquivo Carregado", bg="green", width=2*l)
 
 	# Clique Botão Salvar
 	def cSalvar(self):
-		d = self.lerDados()
-		arqS = fts(d.sf)
+		arqS = fts(self.e_sf.get())
 		arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
-		arq.write(d.sf+"\n"+d.sdf+"\n"+d.spf)
+		arq.write(self.e_sf.get())
+		arq.write("\n")
+		arq.write(self.e_sdf.get())
+		arq.write("\n")
+		arq.write(self.e_spf.get())
+		arq.write("\n")
+		arq.write(self.e_a.get())
+		arq.write("\n")
+		arq.write(self.e_b.get())
+		arq.write("\n")
+		arq.write(self.e_e.get())
+		arq.write("\n")
+		arq.write(self.e_kmax.get())
 		arq.close()
 		self.t_resposta.config(text="Arquivo Salvo", bg="green", width=2*l)
 
 	# Clique Botão Bissecção
 	def cBissecção(self):
 		d = self.lerDados()
-		chave = vI(d)
-		if(chave):
-			s = "ERRO"
-			self.t_resposta.config(text=s, bg="red", width=2*l)
-			s = bissecção(d)
-			self.t_resposta.config(text=s, bg="white", width=2*l)
-		else:
-			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
-
+		self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
+		s = bissecção(d)
+		self.t_resposta.config(text=s, bg="white", width=2*l)
+			
 	# Clique Botão Posição Falsa
 	def cPosiçãoFalse(self):
 		d = self.lerDados()
-		chave = vI(d)
-		if(chave):
-			s = "ERRO"
-			self.t_resposta.config(text=s, bg="red", width=2*l)
-			s = posiçãoFalsa(d)
-			self.t_resposta.config(text=s, bg="white", width=2*l)
-		else:
-			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
-
+		self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
+		s = posiçãoFalsa(d)
+		self.t_resposta.config(text=s, bg="white", width=2*l)
+			
 	# Clique Botão Ponto Fixo
 	def cPontoFixo(self):
 		s = "ERRO"
@@ -182,8 +201,8 @@ class ZdF(Frame):
 	# Cliqeu Botâo Verificar Intervalo
 	def cvi(self):
 		d = self.lerDados()
+		self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
 		chave = vI(d)
 		if(chave):
 			self.t_resposta.config(text="Intervalo VÁLIDO", bg="green", width=2*l)
-		else:
-			self.t_resposta.config(text="Intervalo INVÁLIDO", bg="red", width=2*l)
+			
