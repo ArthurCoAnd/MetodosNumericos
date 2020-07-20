@@ -133,12 +133,16 @@ class ZdF(Frame):
 		self.e_kmax.delete(0,END)
 		self.e_kmax.insert(END,rmve(arq.readline()))
 
+		arq.close()
+
 		self.t_resposta.config(text="Arquivo Carregado", bg="green", width=2*l)
 
 	# Clique Botão Salvar
 	def cSalvar(self):
 		arqS = fts(self.e_sf.get())
-		arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
+		arqN = filedialog.asksaveasfilename(initialdir="/ZeroDeFunções/Configurações", title="Escolha um Arquivo", initialfile=arqS, filetypes=[("Text files",".txt")], defaultextension=".txt")
+		#arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
+		arq = open(arqN, "w")
 		arq.write(self.e_sf.get())
 		arq.write("\n")
 		arq.write(self.e_sdf.get())

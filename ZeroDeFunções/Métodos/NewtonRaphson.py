@@ -11,12 +11,12 @@ def newtonRaphson(d):
 	xk=d.a
 	xkAnt=999
 	k=1
-	print("%-5s%-12s%-12s%-12s%-12s%-12s"%("K","xk","f(xk)","f'(xk-1)","xk+1","e"))
+	print("%-5s%-12s%-12s%-12s%-12s%-12s%-12s"%("K","xk-1","f(xk-1)","f'(xk-1)","xk","f(xk)","e"))
 	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax) ):
 		xkAnt=xk
 		xk = xkAnt - (f(xkAnt,d.sf)/f(xkAnt,d.sdf))
 		# Printa-se xkAnt como xk
-		print("%-5d%-12f%-12f%-12f%-12f%-12f"%(k,xkAnt,f(xkAnt,d.sf),f(xkAnt,d.sdf),xk,calcularErro(d.sf,xk,xkAnt,xk)))
+		print("%-5d%-12f%-12f%-12f%-12f%-12f%-12f"%(k,xkAnt,f(xkAnt,d.sf),f(xkAnt,d.sdf),xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk)))
 		k+=1
 
 	s="Newton-Raphson\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
