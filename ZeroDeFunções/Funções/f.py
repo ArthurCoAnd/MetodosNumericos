@@ -7,6 +7,5 @@ def f(x,s="x"):
     s = vX(s)
     s = tC(s)
     s = l2l(s)
-    print(s)
     y = eval(s)
     return y
