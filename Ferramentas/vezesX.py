@@ -4,11 +4,15 @@ def vezesX(s):
 	p = 0
 	while(p<tam):
 		if(s[p]=="x" or s[p]=="X"):
+			chave = True
 			if(s[p-1]!="*" and s[p-1]!="(" and p>0):
 				r += "*x"
-			if(s[p+1]!="*" and s[p+1]!="," and s[p+1]!=")" and p<tam-1):
-				r += "x*"
-			else:
+				chave = False
+			if(p+1<tam):
+				if(s[p+1]!="*" and s[p+1]!="," and s[p+1]!=")"):
+					r += "x*"
+					chave = False
+			if(chave):
 				r += s[p]
 		else:
 			r += s[p]
