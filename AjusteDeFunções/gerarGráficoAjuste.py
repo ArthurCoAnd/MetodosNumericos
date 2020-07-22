@@ -7,7 +7,6 @@ from Ferramentas.título import título
 from ZeroDeFunções.Funções.f import f
 
 def gerarGráfico(pts,sf):
-	título("Gráfico da Função", '=')
 	delta = 1e-3
 
 	x=np.arange(int(min(pts[0])-2),int(max(pts[0])+2),delta)

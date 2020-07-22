@@ -1,7 +1,8 @@
 from tkinter import *
+from tkinter import filedialog
 # Importar Ferramentas
-from Ferramentas.título import título
-from AjusteDeFunções.gerarGráfico import gerarGráfico as GG
+from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as GG
+from Ferramentas.rmve import rmve
 # Tamanho Largura das Colunas
 l=30
 
@@ -14,6 +15,8 @@ class AdF(Frame):
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
 			# Botôes
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="black")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="black")
 			# Entradas
 		self.e_nPontos = Entry(self, width=l)
 		# ===== Construir Elementos =====
@@ -22,18 +25,41 @@ class AdF(Frame):
 		self.t_nPontos.grid(row=1,column=0)
 			# Botôes
 		self.b_criarPontos.grid(row=1,column=2)
+		self.b_carregar.grid(row=0, column=0)
 			# Entradas
 		self.e_nPontos.grid(row=1, column=1)
 
 		self.jPontos = None
 
 	def cGerarPontos(self):
+		self.b_salvar.grid(row=0, column=2)
 		nP = int(self.e_nPontos.get())
 		novaJanela = Pontos(self, nP)
 		if self.jPontos is not None:
 			self.jPontos.destroy()
 		self.jPontos = novaJanela
 		self.jPontos.grid(row=2, column=0, columnspan=3)
+
+	def cSalvarPontos(self):
+		self.jPontos.Salvar()
+
+	def cCarregarPontos(self):
+		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
+		arq = open(arqN, "r")
+
+		np = int(rmve(arq.readline()))
+		self.e_nPontos.delete(0,END)
+		self.e_nPontos.insert(END, np)
+
+		self.cGerarPontos()
+
+		for p in range (np):
+			self.jPontos.pontos[0][p].insert(END,rmve(arq.readline()))
+			self.jPontos.pontos[1][p].insert(END,rmve(arq.readline()))
+
+		arq.close()
+
+
 
 class Pontos(Frame):
 	def __init__(self, raiz, n):
@@ -63,6 +89,18 @@ class Pontos(Frame):
 			pts[0].append(float(self.pontos[0][p].get()))
 			pts[1].append(float(self.pontos[1][p].get()))
 		return pts
+
+	def Salvar(self):
+		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile="Ajuste de Funções", filetypes=[("Text files",".txt")], defaultextension=".txt")
+		arq = open(arqN, "w")
+		arq.write(str(self.n))
+		arq.write("\n")
+		pts = self.lerDados()
+		for p in range (self.n):
+			for xy in range (2):
+				arq.write(str(pts[xy][p]))
+				arq.write("\n")
+		arq.close()
 
 	def fatorarMat(self, mat):
 		for d in range (len(mat)-1):

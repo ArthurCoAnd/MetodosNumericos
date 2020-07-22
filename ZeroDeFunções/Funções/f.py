@@ -4,7 +4,7 @@ from Ferramentas.log2log import log2log as l2l
 from Ferramentas.vezesX import vezesX as vX
 
 def f(x,s="x"):
-    s = vX(s)
+    #s = vX(s)
     s = tC(s)
     s = l2l(s)
     y = eval(s)

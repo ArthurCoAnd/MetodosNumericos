@@ -109,7 +109,7 @@ class ZdF(Frame):
 
 	# Clique Botão Carregar
 	def cCarregar(self):
-		arqN = filedialog.askopenfilename(initialdir="/ZeroDeFunções/Configurações", title="Escolha um Arquivo")
+		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
 		
 		self.e_sf.delete(0,END)
@@ -140,7 +140,7 @@ class ZdF(Frame):
 	# Clique Botão Salvar
 	def cSalvar(self):
 		arqS = fts(self.e_sf.get())
-		arqN = filedialog.asksaveasfilename(initialdir="/ZeroDeFunções/Configurações", title="Escolha um Arquivo", initialfile=arqS, filetypes=[("Text files",".txt")], defaultextension=".txt")
+		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile=arqS, filetypes=[("Text files",".txt")], defaultextension=".txt")
 		#arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
 		arq = open(arqN, "w")
 		arq.write(self.e_sf.get())
