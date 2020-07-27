@@ -59,13 +59,11 @@ class AdF(Frame):
 
 		arq.close()
 
-
-
 class Pontos(Frame):
 	def __init__(self, raiz, n):
 		Frame.__init__(self, raiz)
 		self.n = n
-		self.lr = 5
+		self.lr = 7
 		self.pontos = [[],[]]
 		for p in range (0,self.n):
 			# X
@@ -79,6 +77,12 @@ class Pontos(Frame):
 
 		self.b_funcLinear = Button(self, text="Função Linear", command=self.cFuncLinear, fg="white", bg="black", width=l*3)
 		self.b_funcLinear.grid(row=4, column=0, columnspan=n)
+
+		self.b_funcQuadOri = Button(self, text="Função Quadrada Vértice Origem", command=self.cFuncQuadOri, fg="white", bg="black", width=l*3)
+		self.b_funcQuadOri.grid(row=5, column=0, columnspan=n)
+
+		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="black", width=l*3)
+		self.b_funcQuadOri.grid(row=6, column=0, columnspan=n)
 
 		self.t_resposta = Label(self, text="Clique em um Método", width=(3*l))
 		self.t_resposta.grid(row=self.lr, column=0, columnspan=n)
@@ -138,5 +142,57 @@ class Pontos(Frame):
 
 		GG(pts,sf)
 
+	def cFuncQuadOri(self):
+		pts = self.lerDados()
 
+		SumX2Y = 0
+		SumX4 = 0
 		
+		for p in range (self.n):
+			SumX2Y += (pts[0][p]**2)*(pts[1][p])
+			SumX4 += (pts[0][p]**4)
+
+		a = SumX2Y/SumX4
+		s = ""
+		s += "Função Quadrada Vértice na Origem Base:\n"
+		s += "f(x) = ax²\n"
+		s += "Resposta Função Quadrada Vértice na Origem:\n"
+		s += "f(x) = %fx²"%(a)
+
+		self.t_resposta.config(text=s)
+
+		sf = "%f*x**2"%(a)
+
+		GG(pts,sf)
+
+	def cFuncQuad(self):
+		pts = self.lerDados()
+		mat = [[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0]]
+
+		# Registrando Parte Esquerda da Igualdade da Matriz
+		for l in range (0,3):
+			for c in range (0,3):
+				for k in range (0, self.n):
+					mat[l][c] += (pts[0][k]**l)*(pts[0][k]**c)
+
+		# Registrando Parte Direita da Igualdade da Matriz
+		for l in range (0,3):
+			for k in range (0, self.n):
+				mat[l][3] += (pts[1][k])*(pts[0][k]**l)
+
+		self.fatorarMat(mat)
+
+		a = mat[2][3]/mat[2][2]
+		b = (mat[1][3]-(mat[1][2]*a))/mat[1][1]
+		c = (mat[0][3]-(mat[0][1]*b)-(mat[0][2]*a))/mat[0][0]
+		s = ""
+		s += "Função Quadrada Vértice na Origem Base:\n"
+		s += "f(x) = ax² + bx + c\n"
+		s += "Resposta Função Quadrada Vértice na Origem:\n"
+		s += "f(x) = %fx² + %fx + %f"%(a,b,c)
+
+		self.t_resposta.config(text=s)
+
+		sf = "(%f*x**2)+(%f*x)+%f"%(a,b,c)
+
+		GG(pts,sf)

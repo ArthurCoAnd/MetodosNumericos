@@ -9,7 +9,7 @@ from ZeroDeFunções.Funções.f import f
 def gerarGráfico(pts,sf):
 	delta = 1e-3
 
-	x=np.arange(int(min(pts[0])-2),int(max(pts[0])+2),delta)
+	x=np.arange(int(min(pts[0])-1),int(max(pts[0])+1),delta)
 	y=np.vectorize(f)
 	pp.title("Gráfico da Função e do Pontos")
 	pp.xlabel("X")
