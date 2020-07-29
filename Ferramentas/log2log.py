@@ -1,3 +1,12 @@
+'''
+log2log - log base e para log base 10
+
+Transforma strings de "log" em log 10
+	ex: "log(x)" -> "log(x,10)"
+
+Transforma strings "ln" em log e
+	ex: "ln(x)" -> "log(x)"
+'''
 def log2log(s):
 	r = ""
 	tam = len(s)

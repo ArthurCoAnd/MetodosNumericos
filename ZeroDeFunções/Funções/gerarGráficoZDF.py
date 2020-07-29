@@ -7,10 +7,9 @@ from ZeroDeFunções.dadosZDF import dados
 # Importando Funções
 from ZeroDeFunções.Funções.f import f
 
-def gerarGráfico(d):
+def gerarGráficoZDF(d):
 	título("Gráfico da Função", '=')
 	delta = 1e-3
-
 	x=np.arange(d.a,d.b,delta)
 	y=np.vectorize(f)
 	dy=np.vectorize(f)

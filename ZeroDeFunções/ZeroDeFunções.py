@@ -2,10 +2,10 @@ from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
 from ZeroDeFunções.dadosZDF import dados
-from ZeroDeFunções.Funções.gerarGráfico import gerarGráfico as gG
+from ZeroDeFunções.Funções.gerarGráficoZDF import gerarGráficoZDF as gG
 from ZeroDeFunções.Funções.validarIntervalo import validarIntervalo as vI
 from Ferramentas.fts import fts
-from Ferramentas.rmve import rmve
+from Ferramentas.rmvE import rmvE
 # Importar Métodos
 from ZeroDeFunções.Métodos.Bissecção import bissecção
 from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
@@ -17,8 +17,6 @@ from ZeroDeFunções.Métodos.Secante import secante
 l=30
 # Linha das Respostas
 lr=15
-# ===== Padrão de Dados Para Testres - Deletar no Futuro ======
-p = dados(0,1,1e-3,10,"(3*x**3)-(4*x**2)-(10*x)+10","(9*x**2)-(8*x)-10","((3*x**3)-(4*x**2)+10)/10")
 
 class ZdF(Frame):
 	def __init__(self, raiz):
@@ -54,15 +52,6 @@ class ZdF(Frame):
 		self.e_b = Entry(self, width=l)
 		self.e_e = Entry(self, width=l)
 		self.e_kmax = Entry(self, width=l)
-
-		# ===== Preset de valores para testes rápidos =====
-		self.e_a.insert(END,p.a)
-		self.e_b.insert(END,p.b)
-		self.e_e.insert(END,p.e)
-		self.e_kmax.insert(END,p.kmax)
-		self.e_sf.insert(END,p.sf)
-		self.e_sdf.insert(END,p.sdf)
-		self.e_spf.insert(END,p.spf)
 
 		# ===== Construir Elementos =====
 			# Textos
@@ -111,37 +100,27 @@ class ZdF(Frame):
 	def cCarregar(self):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
-		
 		self.e_sf.delete(0,END)
-		self.e_sf.insert(END,rmve(arq.readline()))
-		
+		self.e_sf.insert(END,rmvE(arq.readline()))
 		self.e_sdf.delete(0,END)
-		self.e_sdf.insert(END,rmve(arq.readline()))
-		
+		self.e_sdf.insert(END,rmvE(arq.readline()))
 		self.e_spf.delete(0,END)
-		self.e_spf.insert(END,rmve(arq.readline()))
-
+		self.e_spf.insert(END,rmvE(arq.readline()))
 		self.e_a.delete(0,END)
-		self.e_a.insert(END,rmve(arq.readline()))
-
+		self.e_a.insert(END,rmvE(arq.readline()))
 		self.e_b.delete(0,END)
-		self.e_b.insert(END,rmve(arq.readline()))
-
+		self.e_b.insert(END,rmvE(arq.readline()))
 		self.e_e.delete(0,END)
-		self.e_e.insert(END,rmve(arq.readline()))
-
+		self.e_e.insert(END,rmvE(arq.readline()))
 		self.e_kmax.delete(0,END)
-		self.e_kmax.insert(END,rmve(arq.readline()))
-
+		self.e_kmax.insert(END,rmvE(arq.readline()))
 		arq.close()
-
 		self.t_resposta.config(text="Arquivo Carregado", bg="green", width=2*l)
 
 	# Clique Botão Salvar
 	def cSalvar(self):
 		arqS = fts(self.e_sf.get())
 		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile=arqS, filetypes=[("Text files",".txt")], defaultextension=".txt")
-		#arq = open("ZeroDeFunções/Configurações/"+arqS+".txt", "w")
 		arq = open(arqN, "w")
 		arq.write(self.e_sf.get())
 		arq.write("\n")

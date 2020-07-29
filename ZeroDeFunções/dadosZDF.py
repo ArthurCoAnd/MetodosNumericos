@@ -1,3 +1,4 @@
+# Classe com padrão de dados para usar nos Métodos de Zeros de Funções
 class dados:
 	def __init__(self,a,b,e,kmax,sf,sdf,spf):
 		self.a=a

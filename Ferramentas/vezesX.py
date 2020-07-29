@@ -1,3 +1,9 @@
+'''
+vezesX - Vezes X
+
+Tenta adicionar o Char '*' antes e depois de x
+	ex: "4x(5/7)" -> "4*x*(5/7)"
+'''
 def vezesX(s):
 	r = ""
 	tam = len(s)

@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
-from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as GG
-from Ferramentas.rmve import rmve
+from Ferramentas.título import título
+from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as gG
+from Ferramentas.rmvE import rmvE
+
 # Tamanho Largura das Colunas
 l=30
 
@@ -40,23 +42,21 @@ class AdF(Frame):
 		self.jPontos = novaJanela
 		self.jPontos.grid(row=2, column=0, columnspan=3)
 
+	# Clique Salvar
 	def cSalvarPontos(self):
 		self.jPontos.Salvar()
 
+	# Clique Carregar
 	def cCarregarPontos(self):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
-
-		np = int(rmve(arq.readline()))
+		np = int(rmvE(arq.readline()))
 		self.e_nPontos.delete(0,END)
 		self.e_nPontos.insert(END, np)
-
 		self.cGerarPontos()
-
 		for p in range (np):
-			self.jPontos.pontos[0][p].insert(END,rmve(arq.readline()))
-			self.jPontos.pontos[1][p].insert(END,rmve(arq.readline()))
-
+			self.jPontos.pontos[0][p].insert(END,rmvE(arq.readline()))
+			self.jPontos.pontos[1][p].insert(END,rmvE(arq.readline()))
 		arq.close()
 
 class Pontos(Frame):
@@ -75,6 +75,7 @@ class Pontos(Frame):
 			self.pontos[1].append(Entry(self, width=int(l*3/n)))
 			self.pontos[1][p].grid(row=3, column=p)
 
+		# ===== Definir e Cosntruir Elementos =====
 		self.b_funcLinear = Button(self, text="Função Linear", command=self.cFuncLinear, fg="white", bg="black", width=l*3)
 		self.b_funcLinear.grid(row=4, column=0, columnspan=n)
 
@@ -94,6 +95,7 @@ class Pontos(Frame):
 			pts[1].append(float(self.pontos[1][p].get()))
 		return pts
 
+	# Função chamada pelo Clique Salvar
 	def Salvar(self):
 		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile="Ajuste de Funções", filetypes=[("Text files",".txt")], defaultextension=".txt")
 		arq = open(arqN, "w")
@@ -106,6 +108,16 @@ class Pontos(Frame):
 				arq.write("\n")
 		arq.close()
 
+	# Print Matriz mat
+	def printMat(self, mat):
+		for l in range (len(mat)):
+			r = "|\t"
+			for c in range (len(mat[0])):
+				r += "%-12f\t"%(mat[l][c])
+			r += "|"
+			print(r)
+
+	# Fatorar Matriz mat
 	def fatorarMat(self, mat):
 		for d in range (len(mat)-1):
 			for l in range (d+1, len(mat)):
@@ -113,86 +125,130 @@ class Pontos(Frame):
 				for c in range (len(mat[0])):
 					mat[l][c]=mat[l][c]-(div*mat[d][c])
 
+	# Clique Função Linear
 	def cFuncLinear(self):
+		título("Função Linear", "=")
+		print("Matriz Base:")
+		print("f(x) = a + bx")
+
+		# Ler Dados
 		pts = self.lerDados()
+
+		# Gerar Matriz Base de Análise
 		mat = [[0.0,0.0,0.0],[0.0,0.0,0.0]]
-		# Registrando Parte Esquerda da Igualdade da Matriz
+			# Registrando Parte Esquerda da Igualdade da Matriz
 		for l in range (0,2):
 			for c in range (0,2):
 				for k in range (0,self.n):
 					mat[l][c] += ((pts[0][k])**l)*((pts[0][k])**c)	
-		# Registrando Parte Direita da Igualdade da Matriz
+			# Registrando Parte Direita da Igualdade da Matriz
 		for l in range (0,2):
 			for k in range (0,self.n):
 				mat[l][2] += pts[1][k]*(pts[0][k]**l)
+			# Print Matriz Base de Análise
+		print("\nMatriz Base:")
+		self.printMat(mat)
 
+		# Fatorar Matriz Base de Análise
 		self.fatorarMat(mat)
+		print("\nMatriz Base Fatorada:")
+		self.printMat(mat)
 
+		# Processar Dados Finais
 		b = mat[1][2]/mat[1][1]
 		a = (mat[0][2]-(mat[0][1]*b))/mat[0][0]
+
+		# Gerar Resposta
+		print("\nFunção Aproximada:")
+		print("f(x) = %f + %fx"%(a,b))
 		s = ""
 		s += "Função Linear Base:\n"
 		s += "f(x) = a + bx\n"
 		s += "Resposta Função Linear:\n"
 		s += "f(x) = %f + %fx"%(a,b)
-
 		self.t_resposta.config(text=s)
 
+		# Gerar Gráfico
 		sf = "%f+%f*x"%(a,b)
+		gG(pts,sf)
 
-		GG(pts,sf)
-
+	# Clique Função Quadrada com Vértice na Origem
 	def cFuncQuadOri(self):
+		título("Função Quadrada Vértice na Origem", "=")
+		print("Matriz Base:")
+		print("f(x) = ax²")
+
+		# Ler Dados
 		pts = self.lerDados()
 
+		# Gerar Dados Base de Análise
 		SumX2Y = 0
 		SumX4 = 0
-		
 		for p in range (self.n):
 			SumX2Y += (pts[0][p]**2)*(pts[1][p])
 			SumX4 += (pts[0][p]**4)
 
+		# Processar Dados Finais
 		a = SumX2Y/SumX4
+
+		# Gerar Resposta
+		print("\nFunção Aproximada:")
+		print("f(x) = %fx²"%(a))
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax²\n"
 		s += "Resposta Função Quadrada Vértice na Origem:\n"
 		s += "f(x) = %fx²"%(a)
-
 		self.t_resposta.config(text=s)
 
+		# Gerar Gráfico
 		sf = "%f*x**2"%(a)
+		gG(pts,sf)
 
-		GG(pts,sf)
-
+	# Clique Função Quadrada
 	def cFuncQuad(self):
-		pts = self.lerDados()
-		mat = [[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0]]
+		título("Função Quadrada", "=")
+		print("Matriz Base:")
+		print("f(x) = ax² + bx + c")
 
-		# Registrando Parte Esquerda da Igualdade da Matriz
+		# Ler Dados
+		pts = self.lerDados()
+
+		# Gerar Matriz Base de Análise
+		mat = [[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0]]
+			# Registrando Parte Esquerda da Igualdade da Matriz
 		for l in range (0,3):
 			for c in range (0,3):
 				for k in range (0, self.n):
 					mat[l][c] += (pts[0][k]**l)*(pts[0][k]**c)
-
-		# Registrando Parte Direita da Igualdade da Matriz
+			# Registrando Parte Direita da Igualdade da Matriz
 		for l in range (0,3):
 			for k in range (0, self.n):
 				mat[l][3] += (pts[1][k])*(pts[0][k]**l)
+			# Print Matriz Base de Análise
+		print("\nMatriz Base:")
+		self.printMat(mat)
 
+		# Fatorar Matriz Base de Análise
 		self.fatorarMat(mat)
+		print("\nMatriz Base Fatorada:")
+		self.printMat(mat)
 
+		# Porcessar Dados Finais
 		a = mat[2][3]/mat[2][2]
 		b = (mat[1][3]-(mat[1][2]*a))/mat[1][1]
 		c = (mat[0][3]-(mat[0][1]*b)-(mat[0][2]*a))/mat[0][0]
+
+		# Gerar Respostas
+		print("\nFunção Aproximada:")
+		print("f(x) = %fx² + %fx + %f"%(a,b,c))
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax² + bx + c\n"
 		s += "Resposta Função Quadrada Vértice na Origem:\n"
 		s += "f(x) = %fx² + %fx + %f"%(a,b,c)
-
 		self.t_resposta.config(text=s)
 
+		# Gerar Gráfico
 		sf = "(%f*x**2)+(%f*x)+%f"%(a,b,c)
-
-		GG(pts,sf)
+		gG(pts,sf)
