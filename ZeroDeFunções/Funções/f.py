@@ -6,7 +6,7 @@ from Ferramentas.vezesX import vezesX as vX
 
 # f - Função
 def f(x,s="x"):
-    #s = vX(s)
+    s = vX(s)
     s = aAC(s)
     s = l2l(s)
     y = eval(s)

@@ -11,11 +11,13 @@ def vezesX(s):
 	while(p<tam):
 		if(s[p]=="x" or s[p]=="X"):
 			chave = True
-			if(s[p-1]!="*" and s[p-1]!="(" and p>0):
+			# Verificar se ANTES do X pede Multiplicação
+			if(s[p-1]!="*" and s[p-1]!="(" and s[p-1]!="^" and s[p-1]!="+" and s[p-1]!="-" and s[p-1]!="/" and p>0):
 				r += "*x"
 				chave = False
+			# Verificar se DEPOIS do X pede Multiplicação
 			if(p+1<tam):
-				if(s[p+1]!="*" and s[p+1]!="," and s[p+1]!=")"):
+				if(s[p+1]!="*" and s[p+1]!="," and s[p+1]!=")" and s[p+1]!="^" and s[p+1]!="+" and s[p+1]!="-" and s[p+1]!="/"):
 					r += "x*"
 					chave = False
 			if(chave):
