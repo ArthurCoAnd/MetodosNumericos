@@ -2,6 +2,7 @@ from tkinter import *
 # Importar Métodos
 from ZeroDeFunções.ZeroDeFunções import ZdF
 from AjusteDeFunções.AjusteDeFunções import AdF
+from IntegraçãoNumérica.IntegraçãoNumérica import iNum
 
 # Tamanho Largura das Colunas
 l=30
@@ -31,9 +32,11 @@ class Métodos(Frame):
 		# ===== Definir Elementos =====
 		self.b_zdf = Button(self, text="Zero De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
 		self.b_adf = Button(self, text="Ajuste De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
+		self.b_iNum = Button(self, text="Integração Numérica", command=lambda: raiz.TrocarJanela(iNum), fg="white", bg="black", width=2*l)
 		# ===== Construir Elementos =====
 		self.b_zdf.grid(row=0, column=0, columnspan=2)
 		self.b_adf.grid(row=1, column=0, columnspan=2)
+		self.b_iNum.grid(row=2, column=0, columnspan=2)
 
 app = Aplicativo()
 app.title("Métodos Numéricos - UFSM")

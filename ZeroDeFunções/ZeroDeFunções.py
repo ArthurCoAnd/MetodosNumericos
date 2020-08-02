@@ -30,9 +30,8 @@ class ZdF(Frame):
 		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
 		self.t_a = Label(self, text="Intervalo Inicial - a/xk", width=l)
 		self.t_b = Label(self, text="Intervalo Final - b/xkm", width=l)
-		self.t_e = Label(self, text="Erro - e ", width=l)
+		self.t_e = Label(self, text="Epsilon - ε ", width=l)
 		self.t_kmax = Label(self, text="Interações Máximas", width=l)
-
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
@@ -43,7 +42,6 @@ class ZdF(Frame):
 		self.b_PontoFixo = Button(self, text="Ponto Fixo", command=self.cPontoFixo, fg="white", bg="black", width=(2*l))
 		self.b_NewtonRaphson = Button(self, text="Newton-Raphson", command=self.cNewtonRaphson, fg="white", bg="black", width=(2*l))
 		self.b_Secante = Button(self, text="Secante", command=self.cSecante, fg="white", bg="black", width=(2*l))
-
 			# Entradas
 		self.e_sf = Entry(self, width=l)
 		self.e_sdf = Entry(self, width=l)
@@ -64,7 +62,6 @@ class ZdF(Frame):
 		self.t_b.grid(row=5, column=0)
 		self.t_e.grid(row=6, column=0)
 		self.t_kmax.grid(row=7, column=0)
-
 			# Botões
 		self.b_carregar.grid(row=0, column=0)
 		self.b_salvar.grid(row=0, column=1)
@@ -75,7 +72,6 @@ class ZdF(Frame):
 		self.b_Secante.grid(row=12, column=0, columnspan=2)
 		self.b_gfr.grid(row=13, column=0, columnspan=2)
 		self.b_vi.grid(row=14, column=0, columnspan=2)
-
 			# Entradas
 		self.e_sf.grid(row=1, column=1)
 		self.e_sdf.grid(row=2, column=1)

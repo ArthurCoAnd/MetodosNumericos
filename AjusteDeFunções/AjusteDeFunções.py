@@ -15,17 +15,18 @@ class AdF(Frame):
 			# Textos
 		self.t_título = Label(self, text="Ajuste de Funções", width=3*l)
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
-			# Botôes
+			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="black")
 			# Entradas
 		self.e_nPontos = Entry(self, width=l)
+		
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0 ,column=0, columnspan=3)
 		self.t_nPontos.grid(row=1,column=0)
-			# Botôes
+			# Botões
 		self.b_criarPontos.grid(row=1,column=2)
 		self.b_carregar.grid(row=0, column=0)
 			# Entradas
