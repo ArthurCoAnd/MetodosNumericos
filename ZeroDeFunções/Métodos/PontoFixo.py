@@ -11,14 +11,15 @@ def pontoFixo(d):
 	xk=d.a
 	xkAnt=d.b
 	k = 1
-	print("%-5s%-10s%-10s%-10s"%("K","xk","e","f(xk)"))
+	s = ""
+	s += "%-5s%-10s%-10s%-10s\n"%("K","xk","e","f(xk)")
 	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax) ):
 		xkAnt=xk
 		xk = f(xkAnt,d.spf)
-		print("%-5d%-10f%-10f%-10f"%(k,xk,calcularErro(d.sf,xk,xkAnt,xk),f(xk,d.sf)))
+		s += "%-5d%-10f%-10f%-10f\n"%(k,xk,calcularErro(d.sf,xk,xkAnt,xk),f(xk,d.sf))
 		k+=1
 
-	s="Ponto Fixo\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
+	s += "\nPonto Fixo\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
 	print("\n"+s+"\n\n")
 
 	return s

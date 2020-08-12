@@ -2,8 +2,10 @@ from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
 from Ferramentas.título import título
+from Ferramentas.rmve import rmve
 from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as gG
-from Ferramentas.rmvE import rmvE
+from ZeroDeFunções.Funções.f import f
+
 
 # Tamanho Largura das Colunas
 l=30
@@ -51,20 +53,19 @@ class AdF(Frame):
 	def cCarregarPontos(self):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
-		np = int(rmvE(arq.readline()))
+		np = int(rmve(arq.readline()))
 		self.e_nPontos.delete(0,END)
 		self.e_nPontos.insert(END, np)
 		self.cGerarPontos()
 		for p in range (np):
-			self.jPontos.pontos[0][p].insert(END,rmvE(arq.readline()))
-			self.jPontos.pontos[1][p].insert(END,rmvE(arq.readline()))
+			self.jPontos.pontos[0][p].insert(END,rmve(arq.readline()))
+			self.jPontos.pontos[1][p].insert(END,rmve(arq.readline()))
 		arq.close()
 
 class Pontos(Frame):
 	def __init__(self, raiz, n):
 		Frame.__init__(self, raiz)
 		self.n = n
-		self.lr = 7
 		self.pontos = [[],[]]
 		for p in range (0,self.n):
 			# X
@@ -86,8 +87,8 @@ class Pontos(Frame):
 		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="black", width=l*3)
 		self.b_funcQuadOri.grid(row=6, column=0, columnspan=n)
 
-		self.t_resposta = Label(self, text="Clique em um Método", width=(3*l))
-		self.t_resposta.grid(row=self.lr, column=0, columnspan=n)
+		self.jResposta = Resposta(self, self.n)
+		self.jResposta.grid(row=7, column=0, columnspan=n)
 
 	def lerDados(self):
 		pts = [[],[]]
@@ -167,11 +168,12 @@ class Pontos(Frame):
 		s += "f(x) = a + bx\n"
 		s += "Resposta Função Linear:\n"
 		s += "f(x) = %f + %fx"%(a,b)
-		self.t_resposta.config(text=s)
+		self.jResposta.txtResp = s
+		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
-		# Gerar Gráfico
-		sf = "%f+%f*x"%(a,b)
-		gG(pts,sf)
+		# Finalizar
+		self.jResposta.sf = "%f+%f*x"%(a,b)
+		self.jResposta.opçõesRespostas()
 
 	# Clique Função Quadrada com Vértice na Origem
 	def cFuncQuadOri(self):
@@ -200,11 +202,12 @@ class Pontos(Frame):
 		s += "f(x) = ax²\n"
 		s += "Resposta Função Quadrada Vértice na Origem:\n"
 		s += "f(x) = %fx²"%(a)
-		self.t_resposta.config(text=s)
+		self.jResposta.txtResp = s
+		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
-		# Gerar Gráfico
-		sf = "%f*x**2"%(a)
-		gG(pts,sf)
+		# Finalizar
+		self.jResposta.sf = "%f*x**2"%(a)
+		self.jResposta.opçõesRespostas()
 
 	# Clique Função Quadrada
 	def cFuncQuad(self):
@@ -248,8 +251,51 @@ class Pontos(Frame):
 		s += "f(x) = ax² + bx + c\n"
 		s += "Resposta Função Quadrada Vértice na Origem:\n"
 		s += "f(x) = %fx² + %fx + %f"%(a,b,c)
-		self.t_resposta.config(text=s)
+		self.jResposta.txtResp = s
+		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
-		# Gerar Gráfico
-		sf = "(%f*x**2)+(%f*x)+%f"%(a,b,c)
-		gG(pts,sf)
+		# Finalizar
+		self.jResposta.sf = "(%f*x**2)+(%f*x)+%f"%(a,b,c)
+		self.jResposta.opçõesRespostas()
+
+class Resposta(Frame):
+	def __init__(self, raiz, n):
+		Frame.__init__(self, raiz)
+		self.n = n
+		self.sf = "x"
+		self.txtResp = "Clique em Algum Método"
+		# ===== Definir Elementos =====
+			# Textos
+		self.texto = Label(self, text=self.txtResp, width=3*l)
+		self.t_extrapolar = Label(self, text="X para Extrapolar", width=l)
+			# Botões
+		self.b_extrapolar = Button(self, text="Extrapolar", command=self.cExtrapolar, fg="white", bg="black", width=l)
+		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="black", width=3*l)
+			# Entradas
+		self.e_extrapolar = Entry(self)
+		
+		# ===== Construir Elementos =====
+			# Textos
+		self.texto.grid(row=0, column=0, columnspan=3)
+			# Botões
+			# Entradas
+
+	def opçõesRespostas(self):
+		# ===== Construir Elementos =====
+			# Textos
+		self.t_extrapolar.grid(row=1, column=0)
+			# Botões
+		self.b_extrapolar.grid(row=1, column=2)
+		self.b_gerarGráfico.grid(row=2, column=0, columnspan=3)
+			# Entradas
+		self.e_extrapolar.grid(row=1, column=1)
+
+	def cExtrapolar(self):
+		xs = self.e_extrapolar.get()
+		x = float(xs)
+		self.txtResp += "\nExtrapolação em %s = %f"%(xs,f(x,self.sf))
+		self.texto.config(text=self.txtResp)
+
+	def cGerarGráfico(self, raiz):
+		pts = raiz.lerDados()
+		gG(pts, self.sf)
