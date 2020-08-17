@@ -7,7 +7,7 @@ from Ferramentas.título import título
 from ZeroDeFunções.Funções.f import f
 
 def gerarGráfico(pts,sf):
-	delta = 1e-3
+	delta = (max(pts[0]) - min(pts[0]))/1000
 
 	x=np.arange(int(min(pts[0])-1),int(max(pts[0])+1),delta)
 	y=np.vectorize(f)

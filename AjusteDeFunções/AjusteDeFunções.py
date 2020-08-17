@@ -5,6 +5,7 @@ from Ferramentas.título import título
 from Ferramentas.rmve import rmve
 from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as gG
 from ZeroDeFunções.Funções.f import f
+from AjusteDeFunções.secanteADF import secanteADF
 
 
 # Tamanho Largura das Colunas
@@ -166,7 +167,7 @@ class Pontos(Frame):
 		s = ""
 		s += "Função Linear Base:\n"
 		s += "f(x) = a + bx\n"
-		s += "Resposta Função Linear:\n"
+		s += "Ajuste Encontrado:\n"
 		s += "f(x) = %f + %fx"%(a,b)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
@@ -200,7 +201,7 @@ class Pontos(Frame):
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax²\n"
-		s += "Resposta Função Quadrada Vértice na Origem:\n"
+		s += "Ajuste Encontrado:\n"
 		s += "f(x) = %fx²"%(a)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
@@ -249,7 +250,7 @@ class Pontos(Frame):
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax² + bx + c\n"
-		s += "Resposta Função Quadrada Vértice na Origem:\n"
+		s += "Ajuste Encontrado:\n"
 		s += "f(x) = %fx² + %fx + %f"%(a,b,c)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
@@ -267,12 +268,15 @@ class Resposta(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.texto = Label(self, text=self.txtResp, width=3*l)
-		self.t_extrapolar = Label(self, text="X para Extrapolar", width=l)
+		self.t_extrapolarX = Label(self, text="X para Extrapolar", width=l)
+		self.t_extrapolarY = Label(self, text="Y para Extrapolar", width=l)
 			# Botões
-		self.b_extrapolar = Button(self, text="Extrapolar", command=self.cExtrapolar, fg="white", bg="black", width=l)
+		self.b_extrapolarX = Button(self, text="Extrapolar X", command=self.cExtrapolarX, fg="white", bg="black", width=l)
+		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="black", width=l)
 		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="black", width=3*l)
 			# Entradas
-		self.e_extrapolar = Entry(self)
+		self.e_extrapolarX = Entry(self)
+		self.e_extrapolarY = Entry(self)
 		
 		# ===== Construir Elementos =====
 			# Textos
@@ -283,18 +287,30 @@ class Resposta(Frame):
 	def opçõesRespostas(self):
 		# ===== Construir Elementos =====
 			# Textos
-		self.t_extrapolar.grid(row=1, column=0)
+		self.t_extrapolarX.grid(row=1, column=0)
+		self.t_extrapolarY.grid(row=2, column=0)
 			# Botões
-		self.b_extrapolar.grid(row=1, column=2)
-		self.b_gerarGráfico.grid(row=2, column=0, columnspan=3)
+		self.b_extrapolarX.grid(row=1, column=2)
+		self.b_extrapolarY.grid(row=2, column=2)
+		self.b_gerarGráfico.grid(row=3, column=0, columnspan=3)
 			# Entradas
-		self.e_extrapolar.grid(row=1, column=1)
+		self.e_extrapolarX.grid(row=1, column=1)
+		self.e_extrapolarY.grid(row=2, column=1)
 
-	def cExtrapolar(self):
-		xs = self.e_extrapolar.get()
+	def cExtrapolarX(self):
+		xs = self.e_extrapolarX.get()
 		x = float(xs)
-		self.txtResp += "\nExtrapolação em %s = %f"%(xs,f(x,self.sf))
-		self.texto.config(text=self.txtResp)
+		txt = self.txtResp + "\n\nExtrapolação em %s(x) = %f"%(xs,f(x,self.sf))
+		self.texto.config(text=txt)
+
+	def cExtrapolarY(self, raiz):
+		pts = raiz.lerDados()
+		ys = self.e_extrapolarY.get()
+		y = float(ys)
+		sfE = self.sf + "-" + ys
+		x = secanteADF(min(pts[0]),max(pts[0]),sfE)
+		txt = self.txtResp + "\n\nExtrapolação em %s(y) = %f"%(ys,x)
+		self.texto.config(text=txt)
 
 	def cGerarGráfico(self, raiz):
 		pts = raiz.lerDados()
