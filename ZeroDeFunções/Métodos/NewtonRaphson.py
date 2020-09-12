@@ -20,7 +20,7 @@ def newtonRaphson(d):
 		s += "%-5d%-12f%-12f%-12f%-12f%-12f%-12f\n"%(k,xkAnt,f(xkAnt,d.sf),f(xkAnt,d.sdf),xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk))
 		k+=1
 
-	s += "\nNewton-Raphson\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
+	s += "\nNewton-Raphson\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"e de parada",calcularErro(d.sf,xk,xkAnt,xk))
 	print("\n"+s+"\n\n")
 
 	return s

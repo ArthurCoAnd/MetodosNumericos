@@ -20,7 +20,7 @@ def secante(d):
 		s += "%-5d%-12f%-12f%-12f\n"%(k,xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk))
 		k+=1
 
-	s += "\nSecante\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,xk,xkAnt,xk))
+	s += "\nSecante\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"e de parada",calcularErro(d.sf,xk,xkAnt,xk))
 	print("\n"+s+"\n\n")
 
 	return s

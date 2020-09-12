@@ -23,7 +23,7 @@ def posiçãoFalsa(d):
 			d.a = xk
 		k+=1
 
-	s += "\nPosição Falsa\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"Erro",calcularErro(d.sf,d.a,d.b,xk))
+	s += "\nPosição Falsa\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"e de parada",calcularErro(d.sf,d.a,d.b,xk))
 	print("\n"+s+"\n\n")
 
 	return s
