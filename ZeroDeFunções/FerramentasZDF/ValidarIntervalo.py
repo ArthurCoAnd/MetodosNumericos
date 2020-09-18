@@ -2,9 +2,9 @@ import math
 import numpy as np
 # Importando Ferramentas
 from Ferramentas.título import título
-from ZeroDeFunções.dadosZDF import dados
+from ZeroDeFunções.FerramentasZDF.DadosZDF import dados
 # Importando Funções
-from ZeroDeFunções.Funções.f import f
+from Ferramentas.f import f
 # Import Métodos
 from ZeroDeFunções.Métodos.PontoFixo import pontoFixo
 from ZeroDeFunções.Métodos.NewtonRaphson import newtonRaphson

@@ -1,26 +1,57 @@
-import math
+# Importar Bibliotecas
+import mpmath as mm 
+import pandas as pd
 # Importando Ferramentas
+from Ferramentas.f import f
 from Ferramentas.título import título
-from ZeroDeFunções.Métodos.CalcularErro import calcularErro
-from ZeroDeFunções.dadosZDF import dados as d
-# Importando Funções
-from ZeroDeFunções.Funções.f import f
+from Ferramentas.tratamentoSf import tratamentoSf as tSf
+from ZeroDeFunções.FerramentasZDF.DadosZDF import dados as d
+from ZeroDeFunções.FerramentasZDF.CalcularE import calcularE as cE
 
 def secante(d):
 	título("Secante", '=')
-	xk=d.a
-	xkAnt=d.b
-	k = 1
-	s = ""
-	s += "%-5s%-12s%-12s%-12s\n"%("K","xk","f(xk)","e")
-	while( (calcularErro(d.sf,xk,xkAnt,xk)>d.e) and (k<=d.kmax) ):
-		aux = xk
-		xk = (xkAnt*f(xk,d.sf)-xk*f(xkAnt,d.sf))/(f(xk,d.sf)-f(xkAnt,d.sf))
-		xkAnt = aux
-		s += "%-5d%-12f%-12f%-12f\n"%(k,xk,f(xk,d.sf),calcularErro(d.sf,xk,xkAnt,xk))
-		k+=1
 
-	s += "\nSecante\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"e de parada",calcularErro(d.sf,xk,xkAnt,xk))
-	print("\n"+s+"\n\n")
+	# Definição das Variaveis Inicias
+		# Precisão
+	mm.dps = d.dec
+	xkAtual = mm.mpf(d.a)
+	xkProx = mm.mpf(d.b)
+	e = mm.mpf(d.e)
+	k = 0
+	kmax = (d.kmax-1)
+		# Tratamento das Strings de Funções
+	sf = tSf(d.sf)
+		# Matriz com dos resultados
+	resultados = [[]]
+
+	# Calculos
+	s = metodo(xkAtual,xkProx,e,k,kmax,sf,resultados)
+	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
+	print(tabelaResultados)
+	print("\n")
+	print(s)
+	return s
+	
+
+def metodo(xkAtual,xkProx,e,k,kmax,sf,r):
+	# Calculos de Variaveis
+	s = ""
+	fxkA = f(xkAtual,sf)
+	fxkP = f(xkProx,sf)
+	xkProxProx = ( (xkAtual*fxkP) - (xkProx*fxkA) ) / ( fxkP - fxkA )
+	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkProx))
+
+	# Registrar Resultados
+	r[k].append(xkAtual)
+	r[k].append(fxkA)
+	r[k].append(ek)
+	
+	# Recursividade
+	if((ek>e) and (k<kmax)):
+		k+=1
+		r.append([])
+		s = metodo(xkProx,xkProxProx,e,k,kmax,sf,r)
+	else:
+		s = ("Secante\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkProx)+"\nFunção da Raiz\t=\t"+str(fxkP)+"\ne de parada\t=\t"+str(ek))
 
 	return s

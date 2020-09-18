@@ -1,26 +1,68 @@
-import math
+# Importar Bibliotecas
+import mpmath as mm 
+import pandas as pd
 # Importando Ferramentas
+from Ferramentas.f import f
 from Ferramentas.título import título
-from ZeroDeFunções.Métodos.CalcularErro import calcularErro
-from ZeroDeFunções.dadosZDF import dados as d
-# Importando Funções
-from ZeroDeFunções.Funções.f import f
+from Ferramentas.tratamentoSf import tratamentoSf as tSf
+from ZeroDeFunções.FerramentasZDF.DadosZDF import dados as d
+from ZeroDeFunções.FerramentasZDF.CalcularE import calcularE as cE
 
 def bissecção(d):
 	título("Bissecçâo", '=')
-	k = 1
-	xk = (d.a+d.b)/2
-	s = ""
-	s += "%-5s%-12s%-12s%-12s%-12s%-12s%-12s%-12s\n"%("K","A","xk","B","e","f(a)","f(xk)","f(b)")
-	while( (calcularErro(d.sf,d.a,d.b,xk)>d.e) and (k<=d.kmax) ):
-		xk = (d.b+d.a)/2
-		s += "%-5d%-12f%-12f%-12f%-12f%-12f%-12f%-12f\n"%(k,d.a,xk,d.b,calcularErro(d.sf,d.a,d.b,xk),f(d.a,d.sf),f(xk,d.sf), f(d.b,d.sf))
-		if ( f(d.a,d.sf) * f(xk,d.sf) < 0 ):
-			d.b = xk
-		else:
-			d.a = xk
+	
+	# Definição das Variaveis Inicias
+		# Precisão
+	mm.dps = d.dec
+	a = mm.mpf(d.a)
+	b = mm.mpf(d.b)
+	e = mm.mpf(d.e)
+	k = 0
+	kmax = (d.kmax-1)
+		# Tratamento das Strings de Funções
+	sf = tSf(d.sf)
+		# Matriz com dos resultados
+	resultados = [[]]
+
+	# Calculos
+	s = metodo(a,b,e,k,kmax,sf,resultados)
+	tabelaResultados = pd.DataFrame(resultados,columns=["A","xk","B","e","f(a)","f(xk)","(fb)"])
+	print(tabelaResultados)
+	print("\n")
+	print(s)
+	return s
+	
+
+def metodo(a,b,e,k,kmax,sf,r):
+	# Calculos de Variaveis
+	s   = ""
+	xk  = mm.mpf((b+a)/2)
+	ek  = mm.mpf(cE(sf,a,b,xk))
+	fa  = f(a,sf)
+	fxk = f(xk,sf)
+	fb  = f(b,sf)
+
+	# Registrar Resultados
+	r[k].append(a)
+	r[k].append(xk)
+	r[k].append(b)
+	r[k].append(ek)
+	r[k].append(fa)
+	r[k].append(fxk)
+	r[k].append(fb)
+
+	# Definir Próximo Intervalo de Análise
+	if ((fa*fxk)<0):
+		b = xk
+	else:
+		a = xk
+	
+	# Recursividade
+	if((ek>e) and (k<kmax)):
 		k+=1
-	s += "\nBissecção\n%-15s\tk\t=\t%i\n%-15s\tx\t=\t%f\n%-15s\tf(x)\t=\t%f\n%-15s\te\t=\t%f"%("Interações",k-1,"Raiz",xk,"Função da Raiz",f(xk,d.sf),"e de parada",calcularErro(d.sf,d.a,d.b,xk))
-	print("\n"+s+"\n\n")
+		r.append([])
+		s = metodo(a,b,e,k,kmax,sf,r)
+	else:
+		s = ("Bissecção\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xk)+"\nFunção da Raiz\t=\t"+str(fxk)+"\ne de parada\t=\t"+str(ek))
 
 	return s

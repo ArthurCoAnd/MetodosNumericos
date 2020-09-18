@@ -1,6 +1,6 @@
 # Classe com padrão de dados para usar nos Métodos de Zeros de Funções
 class dados:
-	def __init__(self,a,b,e,kmax,sf,sdf,sddf,spf):
+	def __init__(self,a,b,e,kmax,sf,sdf,sddf,spf,dec):
 		self.a=a
 		self.b=b
 		self.e=e
@@ -9,3 +9,4 @@ class dados:
 		self.sdf=sdf
 		self.sddf=sddf
 		self.spf=spf
+		self.dec=dec

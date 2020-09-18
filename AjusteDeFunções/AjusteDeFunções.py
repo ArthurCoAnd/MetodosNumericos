@@ -4,9 +4,8 @@ from tkinter import filedialog
 from Ferramentas.título import título
 from Ferramentas.rmve import rmve
 from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as gG
-from ZeroDeFunções.Funções.f import f
+from Ferramentas.f import f
 from AjusteDeFunções.secanteADF import secanteADF
-
 
 # Tamanho Largura das Colunas
 l=30

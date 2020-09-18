@@ -40,5 +40,5 @@ class Métodos(Frame):
 
 app = Aplicativo()
 app.title("Métodos Numéricos - UFSM")
-app.iconbitmap("./Extras/UfsmLogo.ico")
+app.iconbitmap("Extras/UfsmLogo.ico")
 app.mainloop()

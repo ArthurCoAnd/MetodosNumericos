@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
-from ZeroDeFunções.dadosZDF import dados
-from ZeroDeFunções.Funções.gerarGráficoZDF import gerarGráficoZDF as gG
-from ZeroDeFunções.Funções.validarIntervalo import validarIntervalo as vI
+from ZeroDeFunções.FerramentasZDF.DadosZDF import dados
+from ZeroDeFunções.FerramentasZDF.GerarGráficoZDF import gerarGráficoZDF as gG
+from ZeroDeFunções.FerramentasZDF.ValidarIntervalo import validarIntervalo as vI
 from Ferramentas.fts import fts
 from Ferramentas.rmve import rmve
 # Importar Métodos
@@ -27,10 +27,11 @@ class ZdF(Frame):
 		self.t_sdf = Label(self, text="Derivada da Função - f'(x)", width=l)
 		self.t_sddf = Label(self, text="Derivada Segunda da Função - f''(x)", width=l)
 		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
-		self.t_a = Label(self, text="Intervalo Inicial - a/xk", width=l)
-		self.t_b = Label(self, text="Intervalo Final - b/xkm", width=l)
+		self.t_a = Label(self, text="Intervalo Inicial - a/xk0", width=l)
+		self.t_b = Label(self, text="Intervalo Final - b/xk1", width=l)
 		self.t_e = Label(self, text="Epsilon - ε ", width=l)
 		self.t_kmax = Label(self, text="Interações Máximas", width=l)
+		self.t_prec = Label(self, text="Precisão - Casas Decimais", width=l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
@@ -50,11 +51,12 @@ class ZdF(Frame):
 		self.e_b = Entry(self, width=l)
 		self.e_e = Entry(self, width=l)
 		self.e_kmax = Entry(self, width=l)
+		self.e_prec = Entry(self, width=l)
 
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.t_resposta.grid(row=16, column=0, columnspan=2)
+		self.t_resposta.grid(row=17, column=0, columnspan=2)
 		self.t_sf.grid(row=1, column=0)
 		self.t_sdf.grid(row=2, column=0)
 		self.t_sddf.grid(row=3, column=0)
@@ -63,16 +65,17 @@ class ZdF(Frame):
 		self.t_b.grid(row=6, column=0)
 		self.t_e.grid(row=7, column=0)
 		self.t_kmax.grid(row=8, column=0)
+		self.t_prec.grid(row=9, column=0)
 			# Botões
 		self.b_carregar.grid(row=0, column=0)
 		self.b_salvar.grid(row=0, column=1)
-		self.b_Bissecção.grid(row=9, column=0, columnspan=2)
-		self.b_PosiçãoFalsa.grid(row=10, column=0, columnspan=2)
-		self.b_PontoFixo.grid(row=11, column=0, columnspan=2)
-		self.b_NewtonRaphson.grid(row=12, column=0, columnspan=2)
-		self.b_Secante.grid(row=13, column=0, columnspan=2)
-		self.b_gfr.grid(row=14, column=0, columnspan=2)
-		self.b_vi.grid(row=15, column=0, columnspan=2)
+		self.b_Bissecção.grid(row=10, column=0, columnspan=2)
+		self.b_PosiçãoFalsa.grid(row=11, column=0, columnspan=2)
+		self.b_PontoFixo.grid(row=12, column=0, columnspan=2)
+		self.b_NewtonRaphson.grid(row=13, column=0, columnspan=2)
+		self.b_Secante.grid(row=14, column=0, columnspan=2)
+		self.b_gfr.grid(row=15, column=0, columnspan=2)
+		self.b_vi.grid(row=16, column=0, columnspan=2)
 			# Entradas
 		self.e_sf.grid(row=1, column=1)
 		self.e_sdf.grid(row=2, column=1)
@@ -82,9 +85,10 @@ class ZdF(Frame):
 		self.e_b.grid(row=6, column=1)
 		self.e_e.grid(row=7, column=1)
 		self.e_kmax.grid(row=8, column=1)
+		self.e_prec.grid(row=9, column=1)
 
 	def lerDados(self):
-		x = dados(0,0,0,0,"","","","")
+		x = dados(0,0,0,0,"","","","",1)
 		x.a = float(self.e_a.get())
 		x.b = float(self.e_b.get())
 		x.e = float(self.e_e.get())
@@ -93,6 +97,7 @@ class ZdF(Frame):
 		x.sdf = self.e_sdf.get()
 		x.sddf = self.e_sddf.get()
 		x.spf = self.e_spf.get()
+		x.dec = int(self.e_prec.get())
 		return x
 
 	# Clique Botão Carregar
@@ -115,6 +120,8 @@ class ZdF(Frame):
 		self.e_e.insert(END,rmve(arq.readline()))
 		self.e_kmax.delete(0,END)
 		self.e_kmax.insert(END,rmve(arq.readline()))
+		self.e_prec.delete(0,END)
+		self.e_prec.insert(END,rmve(arq.readline()))
 		arq.close()
 		self.t_resposta.config(text="Arquivo Carregado", bg="green", width=2*l)
 
@@ -138,6 +145,8 @@ class ZdF(Frame):
 		arq.write(self.e_e.get())
 		arq.write("\n")
 		arq.write(self.e_kmax.get())
+		arq.write("\n")
+		arq.write(self.e_prec.get())
 		arq.close()
 		self.t_resposta.config(text="Arquivo Salvo", bg="green", width=2*l)
 

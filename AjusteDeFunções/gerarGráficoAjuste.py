@@ -4,7 +4,7 @@ import numpy as np
 # Importando Ferramentas
 from Ferramentas.título import título
 # Importando Funções
-from ZeroDeFunções.Funções.f import f
+from Ferramentas.f import f
 
 def gerarGráfico(pts,sf):
 	delta = (max(pts[0]) - min(pts[0]))/1000
