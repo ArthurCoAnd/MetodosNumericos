@@ -6,9 +6,9 @@ from ZeroDeFunções.FerramentasZDF.DadosZDF import dados
 # Importando Funções
 from Ferramentas.f import f
 # Import Métodos
-from ZeroDeFunções.Métodos.PontoFixo import pontoFixo
-from ZeroDeFunções.Métodos.NewtonRaphson import newtonRaphson
-from ZeroDeFunções.Métodos.Secante import secante
+from ZeroDeFunções.MétodosZDF.PontoFixo import pontoFixo
+from ZeroDeFunções.MétodosZDF.NewtonRaphson import newtonRaphson
+from ZeroDeFunções.MétodosZDF.Secante import secante
 
 def validarIntervalo(d):
 	título("Validar Intervalo", '=')

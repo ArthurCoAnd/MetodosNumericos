@@ -1,11 +1,13 @@
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
+from Ferramentas.f import f
 from Ferramentas.título import título
 from Ferramentas.rmve import rmve
-from AjusteDeFunções.gerarGráficoAjuste import gerarGráfico as gG
-from Ferramentas.f import f
-from AjusteDeFunções.secanteADF import secanteADF
+from AjusteDeFunções.FerramentasADF.gerarGráficoAjuste import gerarGráfico as gG
+from AjusteDeFunções.FerramentasADF.secanteADF import secanteADF
+# Importar Métodos
+from AjusteDeFunções.MétodosADF.Linear import linear
 
 # Tamanho Largura das Colunas
 l=30
@@ -17,33 +19,38 @@ class AdF(Frame):
 			# Textos
 		self.t_título = Label(self, text="Ajuste de Funções", width=3*l)
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
+		self.t_precisão = Label(self, text="Precisão Casas Decimais", width=l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="black")
 			# Entradas
 		self.e_nPontos = Entry(self, width=l)
+		self.e_precisão = Entry(self, width=l)
 		
 		# ===== Construir Elementos =====
 			# Textos
-		self.t_título.grid(row=0 ,column=0, columnspan=3)
-		self.t_nPontos.grid(row=1,column=0)
+		self.t_título.grid(row=0, column=0, columnspan=3)
+		self.t_nPontos.grid(row=1, column=0)
 			# Botões
 		self.b_criarPontos.grid(row=1,column=2)
 		self.b_carregar.grid(row=0, column=0)
 			# Entradas
 		self.e_nPontos.grid(row=1, column=1)
-
+		
 		self.jPontos = None
 
+	# Clique Gerar Pontos
 	def cGerarPontos(self):
 		self.b_salvar.grid(row=0, column=2)
 		nP = int(self.e_nPontos.get())
+		self.t_precisão.grid(row=2, column=0)
+		self.e_precisão.grid(row=2, column=1)
 		novaJanela = Pontos(self, nP)
 		if self.jPontos is not None:
 			self.jPontos.destroy()
 		self.jPontos = novaJanela
-		self.jPontos.grid(row=2, column=0, columnspan=3)
+		self.jPontos.grid(row=3, column=0, columnspan=3)
 
 	# Clique Salvar
 	def cSalvarPontos(self):
@@ -54,9 +61,12 @@ class AdF(Frame):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
 		np = int(rmve(arq.readline()))
+		prec = int(rmve(arq.readline()))
 		self.e_nPontos.delete(0,END)
 		self.e_nPontos.insert(END, np)
 		self.cGerarPontos()
+		self.e_precisão.delete(0,END)
+		self.e_precisão.insert(END, prec)
 		for p in range (np):
 			self.jPontos.pontos[0][p].insert(END,rmve(arq.readline()))
 			self.jPontos.pontos[1][p].insert(END,rmve(arq.readline()))
@@ -66,6 +76,7 @@ class Pontos(Frame):
 	def __init__(self, raiz, n):
 		Frame.__init__(self, raiz)
 		self.n = n
+		self.prec = 0
 		self.pontos = [[],[]]
 		for p in range (0,self.n):
 			# X
@@ -91,6 +102,7 @@ class Pontos(Frame):
 		self.jResposta.grid(row=7, column=0, columnspan=n)
 
 	def lerDados(self):
+		self.prec = int(raiz.e_precisão.get())
 		pts = [[],[]]
 		for p in range (0,self.n):
 			pts[0].append(float(self.pontos[0][p].get()))

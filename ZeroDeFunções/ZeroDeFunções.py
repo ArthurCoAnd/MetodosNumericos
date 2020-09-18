@@ -1,17 +1,17 @@
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
+from Ferramentas.fts import fts
+from Ferramentas.rmve import rmve
 from ZeroDeFunções.FerramentasZDF.DadosZDF import dados
 from ZeroDeFunções.FerramentasZDF.GerarGráficoZDF import gerarGráficoZDF as gG
 from ZeroDeFunções.FerramentasZDF.ValidarIntervalo import validarIntervalo as vI
-from Ferramentas.fts import fts
-from Ferramentas.rmve import rmve
 # Importar Métodos
-from ZeroDeFunções.Métodos.Bissecção import bissecção
-from ZeroDeFunções.Métodos.PosiçãoFalsa import posiçãoFalsa
-from ZeroDeFunções.Métodos.PontoFixo import pontoFixo
-from ZeroDeFunções.Métodos.NewtonRaphson import newtonRaphson
-from ZeroDeFunções.Métodos.Secante import secante
+from ZeroDeFunções.MétodosZDF.Bissecção import bissecção
+from ZeroDeFunções.MétodosZDF.PosiçãoFalsa import posiçãoFalsa
+from ZeroDeFunções.MétodosZDF.PontoFixo import pontoFixo
+from ZeroDeFunções.MétodosZDF.NewtonRaphson import newtonRaphson
+from ZeroDeFunções.MétodosZDF.Secante import secante
 
 # Tamanho Largura das Colunas
 l=45
