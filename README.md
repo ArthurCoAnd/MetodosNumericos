@@ -1,4 +1,4 @@
-![/Extras/UfsmLogo.png]
+![](/Extras/UfsmLogo.png)
 
 # Dependências
 Para utilizar deve-se instalar:
