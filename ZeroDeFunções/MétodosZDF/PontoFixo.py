@@ -13,12 +13,14 @@ def pontoFixo(d):
 
 	# Definição das Variaveis Inicias
 		# Precisão
-	mm.dps = d.dec
-	xkAtual = mm.mpf(0.0)
+	pDec = d.dec
+	mm.mp.dps = pDec
+	mm.mp.trap_complex = True
+	xkAtual = mm.mpf('0.0')
 	xkProx = mm.mpf(d.a)
 	e = mm.mpf(d.e)
 	k = 0
-	kmax = (d.kmax-1)
+	kmax = (int(d.kmax)-1)
 		# Tratamento das Strings de Funções
 	sf = tSf(d.sf)
 	spf = tSf(d.spf)
@@ -26,32 +28,33 @@ def pontoFixo(d):
 	resultados = [[]]
 
 	# Calculos
-	s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,resultados)
-	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
+	s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,resultados,pDec)
+	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e","xk+1"])
 	print(tabelaResultados)
 	print("\n")
 	print(s)
 	return s
 
-def metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r):
+def metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r,pDec):
 	# Calculos de Variaveis
 	s = ""
 	xkAtual = xkProx
-	fxkA = f(xkAtual,sf)
-	xkProx = f(xkAtual,spf)
-	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkProx))
+	fxkA = f(xkAtual,sf,pDec)
+	xkProx = f(xkAtual,spf,pDec)
+	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkAtual,pDec))
 
 	# Registrar Resultados
 	r[k].append(xkAtual)
 	r[k].append(fxkA)
 	r[k].append(ek)
+	r[k].append(xkProx)
 
 	if((ek>e) and (k<kmax)):
 		k += 1
 		r.append([])
-		s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r)
+		s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r,pDec)
 	else:
-		fxkP = f(xkProx,sf)
-		s = ("Ponto Fixo\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkProx)+"\nFunção da Raiz\t=\t"+str(fxkP)+"\ne de parada\t=\t"+str(ek))
+		fxkP = f(xkProx,sf,pDec)
+		s = ("Ponto Fixo\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
 
 	return s

@@ -13,19 +13,21 @@ def bissecção(d):
 	
 	# Definição das Variaveis Inicias
 		# Precisão
-	mm.dps = d.dec
+	pDec = d.dec
+	mm.mp.dps = pDec
+	mm.mp.trap_complex = True
 	a = mm.mpf(d.a)
 	b = mm.mpf(d.b)
 	e = mm.mpf(d.e)
 	k = 0
-	kmax = (d.kmax-1)
+	kmax = (int(d.kmax)-1)
 		# Tratamento das Strings de Funções
 	sf = tSf(d.sf)
 		# Matriz com dos resultados
 	resultados = [[]]
 
 	# Calculos
-	s = metodo(a,b,e,k,kmax,sf,resultados)
+	s = metodo(a,b,e,k,kmax,sf,resultados,pDec)
 	tabelaResultados = pd.DataFrame(resultados,columns=["A","xk","B","e","f(a)","f(xk)","(fb)"])
 	print(tabelaResultados)
 	print("\n")
@@ -33,14 +35,14 @@ def bissecção(d):
 	return s
 	
 
-def metodo(a,b,e,k,kmax,sf,r):
+def metodo(a,b,e,k,kmax,sf,r,pDec):
 	# Calculos de Variaveis
 	s   = ""
 	xk  = mm.mpf((b+a)/2)
-	ek  = mm.mpf(cE(sf,a,b,xk))
-	fa  = f(a,sf)
-	fxk = f(xk,sf)
-	fb  = f(b,sf)
+	ek  = mm.mpf(cE(sf,a,b,xk,pDec))
+	fa  = f(a,sf,pDec)
+	fxk = f(xk,sf,pDec)
+	fb  = f(b,sf,pDec)
 
 	# Registrar Resultados
 	r[k].append(a)
@@ -61,7 +63,7 @@ def metodo(a,b,e,k,kmax,sf,r):
 	if((ek>e) and (k<kmax)):
 		k+=1
 		r.append([])
-		s = metodo(a,b,e,k,kmax,sf,r)
+		s = metodo(a,b,e,k,kmax,sf,r,pDec)
 	else:
 		s = ("Bissecção\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xk)+"\nFunção da Raiz\t=\t"+str(fxk)+"\ne de parada\t=\t"+str(ek))
 

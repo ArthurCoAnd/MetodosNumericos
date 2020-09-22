@@ -12,7 +12,7 @@ def gerarGráficoZDF(d):
 	sf = tSf(d.sf)
 	sdf = tSf(d.sdf)
 	delta = 0.001
-	x=np.arange(d.a,d.b,delta)
+	x=np.arange(float(d.a),float(d.b),delta)
 	y=np.vectorize(f)
 	dy=np.vectorize(f)
 	pp.title("Gráfico Função e Derivada")

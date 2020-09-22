@@ -4,7 +4,7 @@ import pandas as pd
 # Importar Ferramentas
 from Ferramentas.título import título
 
-def linear(raiz):
+def linear():
 	título("Função Linear", "=")
 	print("Matriz Base:")
 	print("f(x) = a + bx")

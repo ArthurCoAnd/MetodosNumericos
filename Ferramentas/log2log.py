@@ -16,6 +16,7 @@ def log2log(s):
 			if(s[p+1]=="o"):
 				if(s[p+2]=="g"):
 					if(s[p+3]=="("):
+						'''
 						aux = 4
 						strAux = ""
 						while (s[p+aux] != ")"):
@@ -23,11 +24,14 @@ def log2log(s):
 							aux += 1
 						r += "log("+strAux+",10)"
 						p += aux
+						'''
+						r += "log10("
+						p += 3
 					else:
 						continue
 				else:
 					continue
-						
+			'''	
 			elif(s[p+1]=="n"):
 				if(s[p+2]=="("):
 					aux = 3
@@ -39,8 +43,10 @@ def log2log(s):
 					p += aux
 				else:
 					continue
+			
 			else:
 				continue
+			'''
 		else:
 			r += s[p]
 		p += 1

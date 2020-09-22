@@ -30,8 +30,8 @@ class ZdF(Frame):
 		self.t_a = Label(self, text="Intervalo Inicial - a/xk0", width=l)
 		self.t_b = Label(self, text="Intervalo Final - b/xk1", width=l)
 		self.t_e = Label(self, text="Epsilon - ε ", width=l)
-		self.t_kmax = Label(self, text="Interações Máximas", width=l)
-		self.t_prec = Label(self, text="Precisão - Casas Decimais", width=l)
+		self.t_kmax = Label(self, text="Interações Máximas - kmax", width=l)
+		self.t_prec = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
@@ -88,16 +88,16 @@ class ZdF(Frame):
 		self.e_prec.grid(row=9, column=1)
 
 	def lerDados(self):
-		x = dados(0,0,0,0,"","","","",1)
-		x.a = float(self.e_a.get())
-		x.b = float(self.e_b.get())
-		x.e = float(self.e_e.get())
-		x.kmax = float(self.e_kmax.get())
+		x = dados("","","","","","","","","")
+		x.a = self.e_a.get()
+		x.b = self.e_b.get()
+		x.e = self.e_e.get()
+		x.kmax = self.e_kmax.get()
 		x.sf = self.e_sf.get()
 		x.sdf = self.e_sdf.get()
 		x.sddf = self.e_sddf.get()
 		x.spf = self.e_spf.get()
-		x.dec = int(self.e_prec.get())
+		x.dec = self.e_prec.get()
 		return x
 
 	# Clique Botão Carregar

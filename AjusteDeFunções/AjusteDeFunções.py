@@ -1,3 +1,6 @@
+# Importar Bibliotecas
+import mpmath as mm 
+import pandas as pd
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
@@ -19,7 +22,7 @@ class AdF(Frame):
 			# Textos
 		self.t_título = Label(self, text="Ajuste de Funções", width=3*l)
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
-		self.t_precisão = Label(self, text="Precisão Casas Decimais", width=l)
+		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="black")
@@ -75,6 +78,7 @@ class AdF(Frame):
 class Pontos(Frame):
 	def __init__(self, raiz, n):
 		Frame.__init__(self, raiz)
+		self.raiz = raiz
 		self.n = n
 		self.prec = 0
 		self.pontos = [[],[]]
@@ -102,11 +106,12 @@ class Pontos(Frame):
 		self.jResposta.grid(row=7, column=0, columnspan=n)
 
 	def lerDados(self):
-		self.prec = int(raiz.e_precisão.get())
+		self.prec = int(self.raiz.e_precisão.get())
+		mm.mp.dps = self.prec
 		pts = [[],[]]
 		for p in range (0,self.n):
-			pts[0].append(float(self.pontos[0][p].get()))
-			pts[1].append(float(self.pontos[1][p].get()))
+			pts[0].append(mm.mpf(self.pontos[0][p].get()))
+			pts[1].append(mm.mpf(self.pontos[1][p].get()))
 		return pts
 
 	# Função chamada pelo Clique Salvar
@@ -124,18 +129,23 @@ class Pontos(Frame):
 
 	# Print Matriz mat
 	def printMat(self, mat):
+		'''
 		for l in range (len(mat)):
 			r = "|\t"
 			for c in range (len(mat[0])):
 				r += "%-12f\t"%(mat[l][c])
 			r += "|"
 			print(r)
+		'''
+		tabelaMatriz = pd.DataFrame(mat)
+		print(tabelaMatriz)
 
 	# Fatorar Matriz mat
 	def fatorarMat(self, mat):
+		mm.mp.dps = self.prec
 		for d in range (len(mat)-1):
 			for l in range (d+1, len(mat)):
-				div = mat[l][d]/mat[d][d]
+				div = mm.mpf(mat[l][d]/mat[d][d])
 				for c in range (len(mat[0])):
 					mat[l][c]=mat[l][c]-(div*mat[d][c])
 
@@ -154,7 +164,7 @@ class Pontos(Frame):
 		for l in range (0,2):
 			for c in range (0,2):
 				for k in range (0,self.n):
-					mat[l][c] += ((pts[0][k])**l)*((pts[0][k])**c)	
+					mat[l][c] += ((pts[0][k])**l)*((pts[0][k])**c)
 			# Registrando Parte Direita da Igualdade da Matriz
 		for l in range (0,2):
 			for k in range (0,self.n):
@@ -173,13 +183,16 @@ class Pontos(Frame):
 		a = (mat[0][2]-(mat[0][1]*b))/mat[0][0]
 
 		# Gerar Resposta
+		mm.mp.pretty = True
+		stra = str(a)
+		strb = str(b)
 		print("\nFunção Aproximada:")
-		print("f(x) = %f + %fx"%(a,b))
+		print("f(x) = %s + %sx"%(stra,strb))
 		s = ""
 		s += "Função Linear Base:\n"
 		s += "f(x) = a + bx\n"
 		s += "Ajuste Encontrado:\n"
-		s += "f(x) = %f + %fx"%(a,b)
+		s += "f(x) = %s + %sx"%(stra,strb)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
@@ -207,13 +220,15 @@ class Pontos(Frame):
 		a = SumX2Y/SumX4
 
 		# Gerar Resposta
+		mm.mp.pretty = True
+		stra = str(a)
 		print("\nFunção Aproximada:")
-		print("f(x) = %fx²"%(a))
+		print("f(x) = %sx²"%(stra))
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax²\n"
 		s += "Ajuste Encontrado:\n"
-		s += "f(x) = %fx²"%(a)
+		s += "f(x) = %sx²"%(stra)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
@@ -255,14 +270,18 @@ class Pontos(Frame):
 		b = (mat[1][3]-(mat[1][2]*a))/mat[1][1]
 		c = (mat[0][3]-(mat[0][1]*b)-(mat[0][2]*a))/mat[0][0]
 
-		# Gerar Respostas
+		# Gerar Resposta
+		mm.mp.pretty = True
+		stra = str(a)
+		strb = str(b)
+		strc = str(c)
 		print("\nFunção Aproximada:")
-		print("f(x) = %fx² + %fx + %f"%(a,b,c))
+		print("f(x) = %sx² + %sx + %s"%(stra,strb,strc))
 		s = ""
 		s += "Função Quadrada Vértice na Origem Base:\n"
 		s += "f(x) = ax² + bx + c\n"
 		s += "Ajuste Encontrado:\n"
-		s += "f(x) = %fx² + %fx + %f"%(a,b,c)
+		s += "f(x) = %sx² + %sx + %s"%(stra,strb,strc)
 		self.jResposta.txtResp = s
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 
