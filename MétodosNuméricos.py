@@ -30,8 +30,8 @@ class Métodos(Frame):
 	def __init__(self, raiz):
 		Frame.__init__(self, raiz)
 		# ===== Definir Elementos =====
-		self.b_zdf = Button(self, text="Zero De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
-		self.b_adf = Button(self, text="Ajuste De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
+		self.b_zdf = Button(self, text="Zeros De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
+		self.b_adf = Button(self, text="Aproximações De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
 		self.b_iNum = Button(self, text="Integração Numérica", command=lambda: raiz.TrocarJanela(iNum), fg="white", bg="black", width=2*l)
 		# ===== Construir Elementos =====
 		self.b_zdf.grid(row=0, column=0, columnspan=2)
