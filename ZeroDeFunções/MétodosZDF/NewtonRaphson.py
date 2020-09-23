@@ -29,7 +29,7 @@ def newtonRaphson(d):
 
 	# Calculos
 	s = metodo(xkAtual,xkProx,e,k,kmax,sf,sdf,resultados,pDec)
-	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e","xk+1"])
+	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
 	print(tabelaResultados)
 	print("\n")
 	print(s)
@@ -39,17 +39,17 @@ def newtonRaphson(d):
 def metodo(xkAtual,xkProx,e,k,kmax,sf,sdf,r,pDec):
 	# Calculos de Variaveis
 	s = ""
+	xkAnterior = xkAtual
 	xkAtual = xkProx
 	fxkA = f(xkAtual,sf,pDec)
 	dfxkA = f(xkAtual,sdf,pDec)
 	xkProx = xkAtual - (fxkA/dfxkA)
-	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkAtual,pDec))
+	ek = mm.mpf(cE(sf,xkAtual,xkAnterior,xkAtual,pDec,k))
 
 	# Registrar Resultados
 	r[k].append(xkAtual)
 	r[k].append(fxkA)
 	r[k].append(ek)
-	r[k].append(xkProx)
 	
 	# Recursividade
 	if((ek>e) and (k<kmax)):

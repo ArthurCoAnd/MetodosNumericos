@@ -29,7 +29,7 @@ def pontoFixo(d):
 
 	# Calculos
 	s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,resultados,pDec)
-	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e","xk+1"])
+	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
 	print(tabelaResultados)
 	print("\n")
 	print(s)
@@ -38,16 +38,16 @@ def pontoFixo(d):
 def metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r,pDec):
 	# Calculos de Variaveis
 	s = ""
+	xkAnterior = xkAtual
 	xkAtual = xkProx
 	fxkA = f(xkAtual,sf,pDec)
 	xkProx = f(xkAtual,spf,pDec)
-	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkAtual,pDec))
+	ek = mm.mpf(cE(sf,xkAtual,xkAnterior,xkAtual,pDec,k))
 
 	# Registrar Resultados
 	r[k].append(xkAtual)
 	r[k].append(fxkA)
 	r[k].append(ek)
-	r[k].append(xkProx)
 
 	if((ek>e) and (k<kmax)):
 		k += 1

@@ -16,6 +16,7 @@ def secante(d):
 	pDec = d.dec
 	mm.mp.dps = pDec
 	mm.mp.trap_complex = True
+	xkAnterior = mm.mpf('0.0')
 	xkAtual = mm.mpf(d.a)
 	xkProx = mm.mpf(d.b)
 	e = mm.mpf(d.e)
@@ -27,33 +28,32 @@ def secante(d):
 	resultados = [[]]
 
 	# Calculos
-	s = metodo(xkAtual,xkProx,e,k,kmax,sf,resultados,pDec)
-	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e","xk+1"])
+	s = metodo(xkAnterior,xkAtual,xkProx,e,k,kmax,sf,resultados,pDec)
+	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
 	print(tabelaResultados)
 	print("\n")
 	print(s)
 	return s
 	
 
-def metodo(xkAtual,xkProx,e,k,kmax,sf,r,pDec):
+def metodo(xkAnterior,xkAtual,xkProx,e,k,kmax,sf,r,pDec):
 	# Calculos de Variaveis
 	s = ""
 	fxkA = f(xkAtual,sf,pDec)
 	fxkP = f(xkProx,sf,pDec)
 	xkProxProx = ( (xkAtual*fxkP) - (xkProx*fxkA) ) / ( fxkP - fxkA )
-	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkAtual,pDec))
+	ek = mm.mpf(cE(sf,xkAtual,xkAnterior,xkAtual,pDec,k))
 
 	# Registrar Resultados
 	r[k].append(xkAtual)
 	r[k].append(fxkA)
 	r[k].append(ek)
-	r[k].append(xkProx)
 	
 	# Recursividade
 	if((ek>e) and (k<kmax)):
 		k+=1
 		r.append([])
-		s = metodo(xkProx,xkProxProx,e,k,kmax,sf,r,pDec)
+		s = metodo(xkAtual,xkProx,xkProxProx,e,k,kmax,sf,r,pDec)
 	else:
 		s = ("Secante\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
 
