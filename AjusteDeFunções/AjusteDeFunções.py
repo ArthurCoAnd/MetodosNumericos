@@ -337,9 +337,10 @@ class Resposta(Frame):
 		pts = raiz.lerDados()
 		ys = self.e_extrapolarY.get()
 		y = float(ys)
-		sfE = self.sf + "-" + ys
-		x = secanteADF(min(pts[0]),max(pts[0]),sfE)
-		txt = self.txtResp + "\n\nExtrapolação em %s(y) = %f"%(ys,x)
+		sfE = self.sf + "-(" + ys +")"
+		prec = int(raiz.raiz.e_precisão.get())
+		x = secanteADF(min(pts[0]),(sum(pts[0])/len(pts[0])),sfE,prec)
+		txt = self.txtResp + "\n\nExtrapolação em %s(y) = %g"%(ys,x)
 		self.texto.config(text=txt)
 
 	def cGerarGráfico(self, raiz):

@@ -12,29 +12,32 @@ def secanteADF(xkA,xkP,sf,prec):
 
 	# Definição das Variaveis Inicias
 		# Precisão
-	mm.dps = prec
+	mm.mp.dps = prec
+	mm.mp.trap_complex = True
+	xkAnterior = mm.mpf('0.0')
 	xkAtual = mm.mpf(xkA)
 	xkProx = mm.mpf(xkP)
-	e = mm.mpf('10e-(prec-2)')
+	e = mm.mpf(10**(3-prec))
 	k = 0
 		# Tratamento das Strings de Funções
-	sf = tSf(d.sf)
+	sf = tSf(sf)
 		# Matriz com dos resultados
 	resultados = [[]]
 
 	# Calculos
-	resposta = metodo(xkAtual,xkProx,e,k,kmax,sf,resultados)
+	s = metodo(xkAnterior,xkAtual,xkProx,e,k,sf,resultados,prec)
 	tabelaResultados = pd.DataFrame(resultados,columns=["xk","f(xk)","e"])
 	print(tabelaResultados)
-	return resposta
+	return s
 	
-def metodo(xkAtual,xkProx,e,k,sf,r):
+
+def metodo(xkAnterior,xkAtual,xkProx,e,k,sf,r,pDec):
 	# Calculos de Variaveis
 	s = ""
-	fxkA = f(xkAtual,sf)
-	fxkP = f(xkProx,sf)
+	fxkA = f(xkAtual,sf,pDec)
+	fxkP = f(xkProx,sf,pDec)
 	xkProxProx = ( (xkAtual*fxkP) - (xkProx*fxkA) ) / ( fxkP - fxkA )
-	ek = mm.mpf(cE(sf,xkAtual,xkProx,xkProx))
+	ek = mm.mpf(cE(sf,xkAtual,xkAnterior,xkAtual,pDec,k))
 
 	# Registrar Resultados
 	r[k].append(xkAtual)
@@ -45,8 +48,10 @@ def metodo(xkAtual,xkProx,e,k,sf,r):
 	if(ek>e):
 		k+=1
 		r.append([])
-		s = metodo(xkProx,xkProxProx,e,k,sf,r)
+		s = metodo(xkAtual,xkProx,xkProxProx,e,k,sf,r,pDec)
 	else:
-		print("Secante\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkProx)+"\nFunção da Raiz\t=\t"+str(fxkP)+"\ne de parada\t=\t"+str(ek))
+		s = ("Secante\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
+		print(s)
+		s = xkAtual
 
-	return xkAtual
+	return s
