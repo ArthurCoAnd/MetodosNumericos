@@ -1,6 +1,7 @@
 # Importar Bibliotecas
 import mpmath as mm 
 import pandas as pd
+import random as rd
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
@@ -278,7 +279,7 @@ class Pontos(Frame):
 		print("\nFunção Aproximada:")
 		print("f(x) = %sx² + %sx + %s"%(stra,strb,strc))
 		s = ""
-		s += "Função Quadrada Vértice na Origem Base:\n"
+		s += "Função Quadrada:\n"
 		s += "f(x) = ax² + bx + c\n"
 		s += "Ajuste Encontrado:\n"
 		s += "f(x) = %sx² + %sx + %s"%(stra,strb,strc)
@@ -339,7 +340,7 @@ class Resposta(Frame):
 		y = float(ys)
 		sfE = self.sf + "-(" + ys +")"
 		prec = int(raiz.raiz.e_precisão.get())
-		x = secanteADF(min(pts[0]),(sum(pts[0])/len(pts[0])),sfE,prec)
+		x = secanteADF(min(pts[0]),pts[0][rd.randrange(1,len(pts[0]))],sfE,prec)
 		txt = self.txtResp + "\n\nExtrapolação em %s(y) = %g"%(ys,x)
 		self.texto.config(text=txt)
 
