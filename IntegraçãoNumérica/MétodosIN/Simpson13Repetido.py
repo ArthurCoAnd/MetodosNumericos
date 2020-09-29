@@ -1,6 +1,5 @@
 # Importar Bibliotecas
 import mpmath as mm
-import numpy as np
 # Importar Ferramentas
 from Ferramentas.f import f
 from Ferramentas.tratamentoSf import tratamentoSf as tSf
@@ -48,6 +47,7 @@ def método(I,E,a,b,sf,sdf,m,mk,h,chave,pDec):
 	xh = mm.mpf((a+b)/2)
 	fxh = f(xh,sf,pDec)
 	fdc = mm.mpf('0')
+	# Cálculo do erro SEM valor de c definido pelo usuário -> c = metade do intervalo
 	if(chave):
 		c = mm.mpf((a+b)/2)
 		fdc = f(c,sdf,pDec)

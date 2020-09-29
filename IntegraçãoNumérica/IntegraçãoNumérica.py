@@ -11,11 +11,13 @@ from IntegraçãoNumérica.MétodosIN.Trapézio import Trapézio
 from IntegraçãoNumérica.MétodosIN.TrapézioRepetido import TrapézioRepetido
 from IntegraçãoNumérica.MétodosIN.Simpson13 import Simpson13
 from IntegraçãoNumérica.MétodosIN.Simpson13Repetido import Simpson13Repetido
+from IntegraçãoNumérica.MétodosIN.Simpson38 import Simpson38
+from IntegraçãoNumérica.MétodosIN.Simpson38Repetido import Simpson38Repetido
 
 # Tamanho Largura das Colunas
 l=30
 # Linha das Respostas
-lr=14
+lr=15
 
 class iNum(Frame):
 	def __init__(self, raiz):
@@ -36,10 +38,11 @@ class iNum(Frame):
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
 		self.b_Trap = Button(self, text="Trapézios", command=self.cTrap, fg="white", bg="black", width=(2*l))
-		self.b_TrapR = Button(self, text="Trapézios Repetidos", command=self.cTrapR, fg="white", bg="black", width=(2*l))
+		self.b_TrapR = Button(self, text="Trapézios Repetido", command=self.cTrapR, fg="white", bg="black", width=(2*l))
 		self.b_Simp13 = Button(self, text="1/3 de Simpson", command=self.cSimp13, fg="white", bg="black", width=(2*l))
 		self.b_Simp13R = Button(self, text="1/3 de Simpson Repetido", command=self.cSimp13R, fg="white", bg="black", width=(2*l))
 		self.b_Simp38 = Button(self, text="3/8 de Simpson", command=self.cSimp38, fg="white", bg="black", width=(2*l))
+		self.b_Simp38R = Button(self, text="3/8 de Simpson Repetido", command=self.cSimp38R, fg="white", bg="black", width=(2*l))
 		self.b_GerarGráfico = Button(self, text="Gerar Gráfico", command=self.cGerarGráfico, fg="white", bg="black", width=(2*l))
 			# Botões Verificadores
 		self.bv_sdf_var = IntVar()
@@ -80,6 +83,7 @@ class iNum(Frame):
 		self.b_Simp13.grid(row=11, column=0, columnspan=2)
 		self.b_Simp13R.grid(row=12, column=0, columnspan=2)
 		self.b_Simp38.grid(row=13, column=0, columnspan=2)
+		self.b_Simp38R.grid(row=14, column=0, columnspan=2)
 			# Botões Verificadores
 		self.bv_sdf.grid(row=2 ,column=0, sticky=E)
 		self.bv_c.grid(row=4 ,column=0, sticky=E)
@@ -196,7 +200,16 @@ class iNum(Frame):
 		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
 
 	def cSimp38(self):
-		print("Botão Simpson 3/8 Apertado")
+		dados = self.lerDados()
+		Resp = Simpson38(dados)
+		sResp = ("3/8 de Simpson\nI = "+str(Resp))
+		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+
+	def cSimp38R(self):
+		dados = self.lerDados()
+		Resp = Simpson38Repetido(dados)
+		sResp = ("3/8 de Simpson Repetido\nI = "+str(Resp))
+		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
 
 	def cGerarGráfico(self):
 		print("Botão Gerar Gráfico Apertado")

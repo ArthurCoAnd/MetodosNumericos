@@ -5,19 +5,20 @@ from Ferramentas.f import f
 from Ferramentas.tratamentoSf import tratamentoSf as tSf
 	# Ferramentas Integração Numérica
 from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN as dIN
-#from IntegraçãoNumérica.FerramentasIN.RespostaIN import RespostaIN as rIN
 
 def Trapézio(dIN):
 	# Definir Dados
 		# Precisão
 	pDec = dIN.pDec
 	mm.mp.dps = pDec
-		#
+		# Tratamento das String de Função
+	sf = tSf(dIN.sf)
+	sdf = tSf(dIN.sdf)
+		# Pontos de Análise
 	a = mm.mpf(dIN.a)
 	b = mm.mpf(dIN.b)
 	h = mm.mpf(b-a)
-	sf = tSf(dIN.sf)
-	sdf = tSf(dIN.sdf)
+		# Funções Pontos de Análise
 	fa = f(a,sf,pDec)
 	fb = f(b,sf,pDec)
 	
@@ -32,6 +33,7 @@ def Trapézio(dIN):
 		else:
 			c = mm.mpf((a+b)/2)
 		fdc = f(c,sdf,pDec)
+		
 		E = mm.mpf((mm.power(h,3)/12)*fdc)
 		I = mm.mpf(I-E)
 

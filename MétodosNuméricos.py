@@ -31,12 +31,22 @@ class Métodos(Frame):
 		Frame.__init__(self, raiz)
 		# ===== Definir Elementos =====
 		self.b_zdf = Button(self, text="Zeros De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
+		self.b_zdp = Button(self, text="Zeros De Polinômios", command=self.cNada, fg="white", bg="black", width=2*l)
+		self.b_sl = Button(self, text="Sistemas Lineares", command=self.cNada, fg="white", bg="black", width=2*l)
 		self.b_adf = Button(self, text="Aproximações De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
+		self.b_inter = Button(self, text="Interpolação", command=self.cNada, fg="white", bg="black", width=2*l)
 		self.b_iNum = Button(self, text="Integração Numérica", command=lambda: raiz.TrocarJanela(iNum), fg="white", bg="black", width=2*l)
 		# ===== Construir Elementos =====
 		self.b_zdf.grid(row=0, column=0, columnspan=2)
-		self.b_adf.grid(row=1, column=0, columnspan=2)
-		self.b_iNum.grid(row=2, column=0, columnspan=2)
+		self.b_adf.grid(row=4, column=0, columnspan=2)
+		self.b_iNum.grid(row=6, column=0, columnspan=2)
+		
+		self.b_zdp.grid(row=2, column=0, columnspan=2)
+		self.b_sl.grid(row=3, column=0, columnspan=2)
+		self.b_inter.grid(row=5, column=0, columnspan=2)
+
+	def cNada(self):
+		print("\n\nBotão Apertado\n\n")
 
 app = Aplicativo()
 app.title("Métodos Numéricos - UFSM")

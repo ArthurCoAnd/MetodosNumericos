@@ -6,7 +6,7 @@ from Ferramentas.tratamentoSf import tratamentoSf as tSf
 	# Ferramentas Integração Numérica
 from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN as dIN
 
-def Simpson13(dIN):
+def Simpson38(dIN):
 	# Definir Dados
 		# Precisão
 	pDec = dIN.pDec
@@ -17,14 +17,16 @@ def Simpson13(dIN):
 		# Pontos de Análise
 	a = mm.mpf(dIN.a)
 	b = mm.mpf(dIN.b)
-	h = mm.mpf((b-a)/2)
-	xh = mm.mpf(a+h)
+	h = mm.mpf((b-a)/3)
+	xh1 = mm.mpf(a+h)
+	xh2 = mm.mpf(b-h)
 		# Funções dos pontos
 	fa = f(a,sf,pDec)
-	fxh = f(xh,sf,pDec)
+	fxh1 = f(xh1,sf,pDec)
+	fxh2 = f(xh2,sf,pDec)
 	fb = f(b,sf,pDec)
 	
-	I = mm.mpf((h/3)*((fa)+(4*fxh)+(fb)))
+	I = mm.mpf(((3*h)/8)*((fa)+(3*fxh1)+(3*fxh2)+(fb)))
 	# Executar Cálculo de Erro
 	if(dIN.vsdf==1):
 		c = mm.mpf('0')
@@ -37,7 +39,7 @@ def Simpson13(dIN):
 			c = xh
 		fdc = f(c,sdf,pDec)
 		
-		E = mm.mpf((mm.power(h,5)/90)*fdc)
+		E = mm.mpf((3/80)*mm.power(h,5)*fdc)
 		I = mm.mpf(I-E)
 
 	# Retornar Resposta
