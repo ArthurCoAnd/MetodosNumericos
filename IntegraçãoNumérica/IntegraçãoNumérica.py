@@ -10,6 +10,7 @@ from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN
 from IntegraçãoNumérica.MétodosIN.Trapézio import Trapézio
 from IntegraçãoNumérica.MétodosIN.TrapézioRepetido import TrapézioRepetido
 from IntegraçãoNumérica.MétodosIN.Simpson13 import Simpson13
+from IntegraçãoNumérica.MétodosIN.Simpson13Repetido import Simpson13Repetido
 
 # Tamanho Largura das Colunas
 l=30
@@ -28,8 +29,8 @@ class iNum(Frame):
 		self.t_a = Label(self, text="Intervalo Inicial - a", width=l)
 		self.t_c = Label(self, text="c para a < c < b", width=l)
 		self.t_b = Label(self, text="Intervalo Final - b", width=l)
-		self.t_m = Label(self, text="Erro Máximo - e", width=l)
-		self.t_e = Label(self, text="Subdivisões - m", width=l)
+		self.t_m = Label(self, text="Subdivisões - m", width=l)
+		self.t_e = Label(self, text="Erro Máximo - e", width=l)
 		self.t_pDec = Label(self, text="Precisão - Decimais", width=l)
 			# Botões
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
@@ -187,8 +188,12 @@ class iNum(Frame):
 		Resp = Simpson13(dados)
 		sResp = ("1/3 de Simpson\nI = "+str(Resp))
 		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+
 	def cSimp13R(self):
-		print("Botão Simpson 1/3 Repetido Apertado")
+		dados = self.lerDados()
+		Resp = Simpson13Repetido(dados)
+		sResp = ("1/3 de Simpson Repetido\nI = "+str(Resp))
+		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
 
 	def cSimp38(self):
 		print("Botão Simpson 3/8 Apertado")
