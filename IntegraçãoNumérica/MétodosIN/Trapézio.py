@@ -23,6 +23,7 @@ def Trapézio(dIN):
 	fb = f(b,sf,pDec)
 	
 	I = mm.mpf((h/2)*(fa+fb))
+	E = mm.mpf('0')
 	# Executar Cálculo de Erro
 	if(dIN.vsdf==1):
 		c = mm.mpf('0')
@@ -35,7 +36,13 @@ def Trapézio(dIN):
 		fdc = f(c,sdf,pDec)
 		
 		E = mm.mpf((mm.power(h,3)/12)*fdc)
-		I = mm.mpf(I-E)
 
-	# Retornar Resposta
-	return I
+	# Gerar e Retornar Resposta
+	resp = ""
+	if(dIN.vsdf==1):
+		resp += ("Trapézio\n\nI = "+str(I)+" ± "+str(E))
+		resp += ("\n\nI+E = "+str(mm.mpf(I+E)))
+		resp += ("\nI-E = "+str(mm.mpf(I-E)))
+	else:
+		resp += ("Trapézio\n\nI = "+str(I))
+	return resp

@@ -25,6 +25,7 @@ def Simpson13(dIN):
 	fb = f(b,sf,pDec)
 	
 	I = mm.mpf((h/3)*((fa)+(4*fxh)+(fb)))
+	E = mm.mpf('0')
 	# Executar Cálculo de Erro
 	if(dIN.vsdf==1):
 		c = mm.mpf('0')
@@ -38,7 +39,13 @@ def Simpson13(dIN):
 		fdc = f(c,sdf,pDec)
 		
 		E = mm.mpf((mm.power(h,5)/90)*fdc)
-		I = mm.mpf(I-E)
 
-	# Retornar Resposta
-	return I
+	# Gerar e Retornar Resposta
+	resp = ""
+	if(dIN.vsdf==1):
+		resp += ("1/3 de Simpson\n\nI = "+str(I)+" ± "+str(E))
+		resp += ("\n\nI+E = "+str(mm.mpf(I+E)))
+		resp += ("\nI-E = "+str(mm.mpf(I-E)))
+	else:
+		resp += ("1/3 de Simpson\n\nI = "+str(I))
+	return resp

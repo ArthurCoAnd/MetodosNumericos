@@ -49,8 +49,6 @@ class iNum(Frame):
 		self.bv_sdf = Checkbutton(self, variable=self.bv_sdf_var, onvalue=1, offvalue=0)
 		self.bv_c_var = IntVar()
 		self.bv_c = Checkbutton(self, variable=self.bv_c_var, onvalue=1, offvalue=0)
-		self.bv_m_var = IntVar()
-		self.bv_m = Checkbutton(self, variable=self.bv_m_var, onvalue=1, offvalue=0)
 		self.bv_e_var = IntVar()
 		self.bv_e = Checkbutton(self, variable=self.bv_e_var, onvalue=1, offvalue=0)
 			# Entradas
@@ -87,7 +85,6 @@ class iNum(Frame):
 			# Botões Verificadores
 		self.bv_sdf.grid(row=2 ,column=0, sticky=E)
 		self.bv_c.grid(row=4 ,column=0, sticky=E)
-		self.bv_m.grid(row=6 ,column=0, sticky=E)
 		self.bv_e.grid(row=7 ,column=0, sticky=E)
 			# Entradas
 		self.e_sf.grid(row=1, column=1)
@@ -108,12 +105,11 @@ class iNum(Frame):
 		c = self.e_c.get()
 		vc = self.bv_c_var.get()
 		b = self.e_b.get()
+		m = self.e_m.get()
 		e = self.e_e.get()
 		ve = self.bv_e_var.get()
-		m = self.e_m.get()
-		vm = self.bv_m_var.get()
 		pDec = self.e_pDec.get()
-		dados = DadosIN(sf,sdf,vsdf,a,c,vc,b,m,vm,e,ve,pDec)
+		dados = DadosIN(sf,sdf,vsdf,a,c,vc,b,m,e,ve,pDec)
 		return dados
 
 	# Clique do Botão Salvar - Salva dados em um arquivo e pasta de escolha do usuário
@@ -136,8 +132,6 @@ class iNum(Frame):
 		arq.write(self.e_b.get())
 		arq.write("\n")
 		arq.write(self.e_m.get())
-		arq.write("\n")
-		arq.write(str(self.bv_m_var.get()))
 		arq.write("\n")
 		arq.write(self.e_e.get())
 		arq.write("\n")
@@ -165,7 +159,6 @@ class iNum(Frame):
 		self.e_b.insert(END,rmve(arq.readline()))
 		self.e_m.delete(0,END)
 		self.e_m.insert(END,rmve(arq.readline()))
-		self.bv_m_var.set(rmve(arq.readline()))
 		self.e_e.delete(0,END)
 		self.e_e.insert(END,rmve(arq.readline()))
 		self.bv_e_var.set(rmve(arq.readline()))
@@ -178,38 +171,32 @@ class iNum(Frame):
 	def cTrap(self):
 		dados = self.lerDados()
 		Resp = Trapézio(dados)
-		sResp = ("Trapézio\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cTrapR(self):
 		dados = self.lerDados()
 		Resp = TrapézioRepetido(dados)
-		sResp = ("Trapézio Repetido\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cSimp13(self):
 		dados = self.lerDados()
 		Resp = Simpson13(dados)
-		sResp = ("1/3 de Simpson\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cSimp13R(self):
 		dados = self.lerDados()
 		Resp = Simpson13Repetido(dados)
-		sResp = ("1/3 de Simpson Repetido\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cSimp38(self):
 		dados = self.lerDados()
 		Resp = Simpson38(dados)
-		sResp = ("3/8 de Simpson\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cSimp38R(self):
 		dados = self.lerDados()
 		Resp = Simpson38Repetido(dados)
-		sResp = ("3/8 de Simpson Repetido\nI = "+str(Resp))
-		self.t_resposta.config(text=sResp, bg="white", width=(2*l))
+		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
 
 	def cGerarGráfico(self):
 		print("Botão Gerar Gráfico Apertado")

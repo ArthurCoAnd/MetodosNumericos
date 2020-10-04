@@ -5,6 +5,7 @@ from Ferramentas.f import f
 from Ferramentas.tratamentoSf import tratamentoSf as tSf
 	# Ferramentas Integração Numérica
 from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN as dIN
+from IntegraçãoNumérica.FerramentasIN.RespostaIN import RespostaIN as rIN
 
 def Simpson38Repetido(dIN):
 	# Definir Dados
@@ -20,7 +21,13 @@ def Simpson38Repetido(dIN):
 		# Pontos de Análise
 	a = mm.mpf(dIN.a)
 	b = mm.mpf(dIN.b)
+		# Quantidade e Tamanho dos Intervalos
 	m = int(dIN.m)
+	if(dIN.ve==1):
+		c = (a+b)/2
+		if(dIN.vc==1):
+			c = dIN.c
+		m = mDe(a,b,c,dIN.e,sdf,pDec)
 	h = mm.mpf((b-a)/(3*m))
 	bi = mm.mpf(a+(3*h))
 
@@ -29,19 +36,27 @@ def Simpson38Repetido(dIN):
 	if(dIN.vsdf==1 and dIN.vc==0):
 		chave = True
 
-	I = método(I,E,a,bi,sf,sdf,m,1,h,chave,pDec)
+	r = método(I,E,a,bi,sf,sdf,m,1,h,chave,pDec)
 
 		# Calular Erro com c definido pelo usuário
 	if(dIN.vsdf==1 and dIN.vc==1):
 		c = mm.mpf(dIN.c)
 		fdc = f(c,sdf,pDec)
-		E = mm.mpf((m/80)*mm.power(h,5)*fdc)
-		I = mm.mpf(I-E)
+		r.E = mm.mpf((m/80)*mm.power(h,5)*fdc)
 
-	return I
+	# Gerar e Retornar Resposta
+	resp = ""
+	if(dIN.vsdf==1):
+		resp += ("3/8 de Simpson Repetido\n\nI = "+str(r.I)+" ± "+str(r.E))
+		resp += ("\n\nI+E = "+str(mm.mpf(r.I+r.E)))
+		resp += ("\nI-E = "+str(mm.mpf(r.I-r.E)))
+	else:
+		resp += ("3/8 de Simpson Repetido\n\nI = "+str(r.I))
+	return resp
 
 def método(I,E,a,b,sf,sdf,m,mk,h,chave,pDec):
 	mm.mp.dps = pDec
+	resp = rIN(I,E)
 	xh1 = mm.mpf(a+h)
 	xh2 = mm.mpf(b-h)
 	fa = f(a,sf,pDec)
@@ -54,15 +69,30 @@ def método(I,E,a,b,sf,sdf,m,mk,h,chave,pDec):
 		c = mm.mpf((a+b)/2)
 		fdc = f(c,sdf,pDec)
 
-	I = mm.mpf(I+(((3*h)/8)*((fa)+(3*fxh1)+(3*fxh2)+(fb))))
-	E = mm.mpf(E+((3/80)*mm.power(h,5)*fdc))
+	resp.I = mm.mpf(resp.I+(((3*h)/8)*((fa)+(3*fxh1)+(3*fxh2)+(fb))))
+	resp.E = mm.mpf(resp.E+((3/80)*mm.power(h,5)*fdc))
 
 	if(mk<m):
 		a = b
 		b = mm.mpf(b+(3*h))
 		mk += 1
-		I = método(I,E,a,b,sf,sdf,m,mk,h,chave,pDec)
-	
-	I = mm.mpf(I-E)
-	
-	return I
+		resp = método(resp.I,resp.E,a,b,sf,sdf,m,mk,h,chave,pDec)
+
+	return resp
+
+# Calcular quantidade de intervalos m para garantir um erro menor que e
+def mDe(a,b,c,e,sdf,pDec):
+	mm.mp.dps = pDec
+	# h = (b-a)/(3*m) => m = (b-a)/(3*h)
+	# e > -m(h^5/80)fdc => e > -(b-a)(h^4/240)fdc => h < sqrt(sqrt( 240*e / (b-a)fdc ))
+	# m > (b-a)/sqrt(sqrt( 240*e / (b-a)fdc ))
+	a = mm.mpf(a)
+	b = mm.mpf(b)
+	c = mm.mpf(c)
+	e = mm.mpf(e)
+	fdc = mm.mpf(f(c,sdf,pDec))
+	difBA = mm.mpf(b-a)
+
+	m = mt.ceil(abs(difBA/mm.sqrt(mm.sqrt((240*e)/(difBA*fdc)))))
+
+	return m

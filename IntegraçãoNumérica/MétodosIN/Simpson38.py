@@ -27,6 +27,7 @@ def Simpson38(dIN):
 	fb = f(b,sf,pDec)
 	
 	I = mm.mpf(((3*h)/8)*((fa)+(3*fxh1)+(3*fxh2)+(fb)))
+	E = mm.mpf('0')
 	# Executar Cálculo de Erro
 	if(dIN.vsdf==1):
 		c = mm.mpf('0')
@@ -36,11 +37,17 @@ def Simpson38(dIN):
 			c = mm.mpf(dIN.c)
 		# SEM valor de C definido -> c = metade do intervalo
 		else:
-			c = xh
+			c = mm.mpf((a+b)/2)
 		fdc = f(c,sdf,pDec)
 		
 		E = mm.mpf((3/80)*mm.power(h,5)*fdc)
-		I = mm.mpf(I-E)
 
-	# Retornar Resposta
-	return I
+	# Gerar e Retornar Resposta
+	resp = ""
+	if(dIN.vsdf==1):
+		resp += ("3/8 de Simpson\n\nI = "+str(I)+" ± "+str(E))
+		resp += ("\n\nI+E = "+str(mm.mpf(I+E)))
+		resp += ("\nI-E = "+str(mm.mpf(I-E)))
+	else:
+		resp += ("3/8 de Simpson\n\nI = "+str(I))
+	return resp

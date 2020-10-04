@@ -6,6 +6,7 @@ from Ferramentas.f import f
 from Ferramentas.título import título
 from Ferramentas.tratamentoSf import tratamentoSf as tSf
 from ZeroDeFunções.FerramentasZDF.DadosZDF import dados as d
+from ZeroDeFunções.FerramentasZDF.RespostaZDF import RespostaZDF as rZDF
 from ZeroDeFunções.FerramentasZDF.CalcularE import calcularE as cE
 
 def bissecção(d):
@@ -32,7 +33,10 @@ def bissecção(d):
 	print(tabelaResultados)
 	print("\n")
 	print(s)
-	return s
+
+	resp = rZDF(s,str(tabelaResultados))
+	
+	return resp
 	
 
 def metodo(a,b,e,k,kmax,sf,r,pDec):

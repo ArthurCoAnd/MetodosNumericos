@@ -50,11 +50,11 @@ def metodo(xkAnterior,xkAtual,xkProx,e,k,kmax,sf,r,pDec):
 	r[k].append(ek)
 	
 	# Recursividade
-	if((ek>e) and (k<kmax)):
+	if((ek>e) and (k<=kmax)):
 		k+=1
 		r.append([])
 		s = metodo(xkAtual,xkProx,xkProxProx,e,k,kmax,sf,r,pDec)
 	else:
-		s = ("Secante\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
+		s = ("Secante\nInterações\t=\t"+str(k)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
 
 	return s
