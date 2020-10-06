@@ -169,6 +169,9 @@ class ZdF(Frame):
 		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
 		r = bissecção(d)
 		self.t_resposta.config(text=r.resp, bg="white", width=2*l)
+		
+		# self.t_calculos.grid(row=0, column=2, rowspan=18)
+		# self.t_calculos.config(text=r.calc)
 
 	# Clique Botão Posição Falsa
 	def cPosiçãoFalse(self):

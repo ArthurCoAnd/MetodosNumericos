@@ -6,6 +6,7 @@ from Ferramentas.fts import fts
 from Ferramentas.rmve import rmve
 	# Ferramentas Integração Numérica
 from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN
+from IntegraçãoNumérica.FerramentasIN.GerarGráficoIN import gerarGráficoIN
 
 from IntegraçãoNumérica.MétodosIN.Trapézio import Trapézio
 from IntegraçãoNumérica.MétodosIN.TrapézioRepetido import TrapézioRepetido
@@ -16,8 +17,6 @@ from IntegraçãoNumérica.MétodosIN.Simpson38Repetido import Simpson38Repetido
 
 # Tamanho Largura das Colunas
 l=30
-# Linha das Respostas
-lr=15
 
 class iNum(Frame):
 	def __init__(self, raiz):
@@ -37,6 +36,7 @@ class iNum(Frame):
 			# Botões
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
+		self.b_GerarGráfico = Button(self, text="Gerar Gráfico", command=lambda: self.cGerarGráfico(False, 1), fg="white", bg="black", width=(2*l))
 		self.b_Trap = Button(self, text="Trapézios", command=self.cTrap, fg="white", bg="black", width=(2*l))
 		self.b_TrapR = Button(self, text="Trapézios Repetido", command=self.cTrapR, fg="white", bg="black", width=(2*l))
 		self.b_Simp13 = Button(self, text="1/3 de Simpson", command=self.cSimp13, fg="white", bg="black", width=(2*l))
@@ -64,7 +64,7 @@ class iNum(Frame):
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.t_resposta.grid(row=lr, column=0, columnspan=2)
+		self.t_resposta.grid(row=15, column=0, columnspan=2)
 		self.t_sf.grid(row=1, column=0)
 		self.t_sdf.grid(row=2, column=0)
 		self.t_a.grid(row=3, column=0)
@@ -76,6 +76,7 @@ class iNum(Frame):
 			# Botões
 		self.b_carregar.grid(row=0, column=0)
 		self.b_salvar.grid(row=0, column=1)
+		# self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
 		self.b_Trap.grid(row=9, column=0, columnspan=2)
 		self.b_TrapR.grid(row=10, column=0, columnspan=2)
 		self.b_Simp13.grid(row=11, column=0, columnspan=2)
@@ -172,31 +173,44 @@ class iNum(Frame):
 		dados = self.lerDados()
 		Resp = Trapézio(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(False, 1))
 
 	def cTrapR(self):
 		dados = self.lerDados()
 		Resp = TrapézioRepetido(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(True, 1))
 
 	def cSimp13(self):
 		dados = self.lerDados()
 		Resp = Simpson13(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(False, 2))
 
 	def cSimp13R(self):
 		dados = self.lerDados()
 		Resp = Simpson13Repetido(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(True, 2))
 
 	def cSimp38(self):
 		dados = self.lerDados()
 		Resp = Simpson38(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(False, 3))
 
 	def cSimp38R(self):
 		dados = self.lerDados()
 		Resp = Simpson38Repetido(dados)
 		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
+		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+		self.b_GerarGráfico.config(command=lambda: self.cGerarGráfico(True, 3))
 
-	def cGerarGráfico(self):
-		print("Botão Gerar Gráfico Apertado")
+	def cGerarGráfico(self, rep, divs):
+		dados = self.lerDados()
+		gerarGráficoIN(dados, rep, divs)
