@@ -121,6 +121,8 @@ class Pontos(Frame):
 		arq = open(arqN, "w")
 		arq.write(str(self.n))
 		arq.write("\n")
+		arq.write(str(self.prec))
+		arq.write("\n")
 		pts = self.lerDados()
 		for p in range (self.n):
 			for xy in range (2):

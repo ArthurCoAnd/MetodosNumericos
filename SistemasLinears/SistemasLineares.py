@@ -1,7 +1,13 @@
 # Importar Bibliotecas
+import mpmath as mm
+import pandas as pd
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
+from Ferramentas.fatorarMatriz import fatorarMatriz as fM
+from Ferramentas.rmve import rmve
+	# Importar Métodos
+from SistemasLinears.MétodosSL.Cramer import Cramer
 
 # Tamanho Largura das Colunas
 l=30
@@ -9,15 +15,124 @@ l=30
 class SL(Frame):
 	def __init__(self, raiz):
 		Frame.__init__(self, raiz)
+		# ===== Definir Elementos =====
+			# Textos
+		self.t_título = Label(self, text="Sistemas Lineares", width=3*l)
+		self.t_nVar = Label(self, text="Número de Variáveis (n)", width=l)
+		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
+			# Botões
+		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="black",width=l)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="black")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarMatriz, fg="white", bg="black")
+			# Entradas
+		self.e_nVar = Entry(self, width=l)
+		self.e_precisão = Entry(self, width=l)
+		
+		# ===== Construir Elementos =====
+			# Textos
+		self.t_título.grid(row=0, column=0, columnspan=3)
+		self.t_nVar.grid(row=1, column=0)
+			# Botões
+		self.b_gerarMatriz.grid(row=1,column=2)
+		self.b_carregar.grid(row=0, column=0)
+			# Entradas
+		self.e_nVar.grid(row=1, column=1)
+		
+		self.jMatriz = None
 
-	# ===== Definir Elementos =====
-		# Textos
-		# Botões
-		# Botões Verificadores
-		# Entradas
+	# Clique Gerar Pontos
+	def cGerarMatriz(self):
+		self.b_salvar.grid(row=0, column=2)
+		nV = int(self.e_nVar.get())
+		self.t_precisão.grid(row=2, column=0)
+		self.e_precisão.grid(row=2, column=1)
+		novaJanela = Matriz(self, nV)
+		if self.jMatriz is not None:
+			self.jMatriz.destroy()
+		self.jMatriz = novaJanela
+		self.jMatriz.grid(row=3, column=0, columnspan=3)
 
-	# ===== Construir Elementos =====
-		# Textos
-		# Botões
-		# Botões Verificadores
-		# Entradas
+	# Clique Salvar
+	def cSalvarMatriz(self):
+		self.jMatriz.Salvar()
+
+	# Clique Carregar
+	def cCarregarMatriz(self):
+		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
+		arq = open(arqN, "r")
+		nV = int(rmve(arq.readline()))
+		prec = int(rmve(arq.readline()))
+		self.e_nVar.delete(0,END)
+		self.e_nVar.insert(END, nV)
+		self.cGerarMatriz()
+		self.e_precisão.delete(0,END)
+		self.e_precisão.insert(END, prec)
+		for pl in range (nV):
+			for pc in range(nV+1):
+				self.jMatriz.matriz[pl][pc].insert(END,rmve(arq.readline()))
+		arq.close()
+
+class Matriz(Frame):
+	def __init__(self, raiz, n):
+		Frame.__init__(self, raiz)
+		self.raiz = raiz
+		self.n = n
+		self.prec = 0
+		self.matriz = [[]]
+		self.wdt = int(l*3/n)
+		for pl in range (0,self.n):
+			for pc in range (0,(self.n+1)):
+				# X
+				if(pc<self.n):
+					Label(self, text=("a"+str(pl+1)+" x"+str(pc+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+					self.matriz[pl].append(Entry(self, width=self.wdt))
+					self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
+				# Y
+				else:
+					Label(self, text=("y"+str(pl+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+					self.matriz[pl].append(Entry(self, width=self.wdt))
+					self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
+			self.matriz.append([])
+
+		# ===== Definir e Cosntruir Elementos =====
+		self.lm = self.n*2
+		self.b_Cramer = Button(self, text="Cramer", command=self.cCramer, fg="white", bg="black", width=l*3)
+		self.b_Cramer.grid(row=self.lm+0, column=0, columnspan=n+1)
+
+		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=l*3)
+		self.t_Resposta.grid(row=self.lm+1, column=0, columnspan=n+1)
+
+		# self.jResposta = Resposta(self, self.n)
+		# self.jResposta.grid(row=self.lm+1, column=0, columnspan=n)
+
+	def lerDados(self):
+		self.prec = int(self.raiz.e_precisão.get())
+		mm.mp.dps = self.prec
+		mtz = []
+		for pl in range (0,self.n):
+			mtz.append([])
+			for pc in range(0,(self.n+1)):
+				mtz[pl].append(mm.mpf(self.matriz[pl][pc].get()))
+		return mtz
+
+	# Função chamada pelo Clique Salvar
+	def Salvar(self):
+		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile="Sistema Linear", filetypes=[("Text files",".txt")], defaultextension=".txt")
+		arq = open(arqN, "w")
+		arq.write(str(self.n))
+		arq.write("\n")
+		arq.write(str(self.prec))
+		arq.write("\n")
+		mtz = self.lerDados()
+		for pl in range (self.n):
+			for pc in range (self.n+1):
+				arq.write(str(mtz[pl][pc]))
+				arq.write("\n")
+		arq.close()
+
+	# Clique Método de Cramer
+	def cCramer(self):
+		mat = self.lerDados()
+		resp = Cramer(mat, self.prec)
+		self.t_Resposta.config(text=resp, bg="white", width=3*l)
+		
