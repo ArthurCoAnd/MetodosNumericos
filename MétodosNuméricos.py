@@ -1,3 +1,4 @@
+# Importar Bibliotecas
 from tkinter import *
 # Importar Métodos
 from ZeroDeFunções.ZeroDeFunções import ZdF

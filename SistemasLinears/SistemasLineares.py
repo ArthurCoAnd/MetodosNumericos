@@ -4,7 +4,7 @@ import pandas as pd
 from tkinter import *
 from tkinter import filedialog
 # Importar Ferramentas
-from Ferramentas.fatorarMatriz import fatorarMatriz as fM
+from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
 from Ferramentas.rmve import rmve
 	# Importar Métodos
 from SistemasLinears.MétodosSL.Cramer import Cramer

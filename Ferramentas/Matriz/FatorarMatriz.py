@@ -1,7 +1,7 @@
 # Importar Bibliotecas
 import mpmath as mm
 
-def fatorarMatriz(mat, prec):
+def FatorarMatriz(mat, prec):
 	mm.mp.dps = prec
 	for d in range (len(mat)):
 		for l in range (d+1, len(mat)):
