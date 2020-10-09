@@ -8,6 +8,7 @@ from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
 from Ferramentas.rmve import rmve
 	# Importar Métodos
 from SistemasLinears.MétodosSL.Cramer import Cramer
+from SistemasLinears.MétodosSL.Gauss import Gauss
 
 # Tamanho Largura das Colunas
 l=30
@@ -79,7 +80,7 @@ class Matriz(Frame):
 		self.n = n
 		self.prec = 0
 		self.matriz = [[]]
-		self.wdt = int(l*3/n)
+		self.wdt = int(l*3/(n+1))
 		for pl in range (0,self.n):
 			for pc in range (0,(self.n+1)):
 				# X
@@ -95,12 +96,17 @@ class Matriz(Frame):
 			self.matriz.append([])
 
 		# ===== Definir e Cosntruir Elementos =====
+			# Linha Inicial Dos Botões Dos Métodos
 		self.lm = self.n*2
+
 		self.b_Cramer = Button(self, text="Cramer", command=self.cCramer, fg="white", bg="black", width=l*3)
 		self.b_Cramer.grid(row=self.lm+0, column=0, columnspan=n+1)
 
-		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=l*3)
-		self.t_Resposta.grid(row=self.lm+1, column=0, columnspan=n+1)
+		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="black", width=l*3)
+		self.b_Gauss.grid(row=self.lm+1, column=0, columnspan=n+1)
+
+		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=l*3, anchor=W, justify=LEFT, font="Consolas 9")
+		self.t_Resposta.grid(row=self.lm+2, column=0, columnspan=n+1)
 
 		# self.jResposta = Resposta(self, self.n)
 		# self.jResposta.grid(row=self.lm+1, column=0, columnspan=n)
@@ -134,5 +140,11 @@ class Matriz(Frame):
 	def cCramer(self):
 		mat = self.lerDados()
 		resp = Cramer(mat, self.prec)
+		self.t_Resposta.config(text=resp, bg="white", width=3*l)
+
+	# Clique Método de Gauss
+	def cGauss(self):
+		mat = self.lerDados()
+		resp = Gauss(mat, self.prec)
 		self.t_Resposta.config(text=resp, bg="white", width=3*l)
 		

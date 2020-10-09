@@ -1,10 +1,12 @@
 # Importar Bibliotecas
 import mpmath as mm
 # Importar Ferramentas
-from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
-from Ferramentas.Matriz.MatrizInversa import MatrizInversa as MInv
+from Ferramentas.título import título
+# from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
+# from Ferramentas.Matriz.MatrizInversa import MatrizInversa as MInv
 
 def Cramer(mat, prec):
+	título("Cramer", "=")
 	# Precisão de Dígitos
 	mm.mp.dps = prec
 	
@@ -41,12 +43,12 @@ def Cramer(mat, prec):
 	print(str(matVer))
 
 	# Matriz X
-	X = matInvA * matB
+	matX = matInvA * matB
 	print("Matriz X")
-	print(str(X))
+	print(str(matX))
 
 	resp = "Cramer:"
 	for l in range (nV):
-		resp += "\nx("+str(l+1)+") = "+str(X[l])
+		resp += "\nx("+str(l+1)+") = "+str(matX[l])
 
 	return resp

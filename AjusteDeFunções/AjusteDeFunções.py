@@ -82,15 +82,16 @@ class Pontos(Frame):
 		self.raiz = raiz
 		self.n = n
 		self.prec = 0
+		self.wdt = int(l*3/n)
 		self.pontos = [[],[]]
 		for p in range (0,self.n):
 			# X
-			Label(self, text=("x"+str(p)), width=int(l*3/n)).grid(row=0, column=p)
-			self.pontos[0].append(Entry(self, width=int(l*3/n)))
+			Label(self, text=("x"+str(p)), width=self.wdt).grid(row=0, column=p)
+			self.pontos[0].append(Entry(self, width=self.wdt))
 			self.pontos[0][p].grid(row=1, column=p)
 			# Y
-			Label(self, text=("y"+str(p)), width=int(l*3/n)).grid(row=2, column=p)
-			self.pontos[1].append(Entry(self, width=int(l*3/n)))
+			Label(self, text=("y"+str(p)), width=self.wdt).grid(row=2, column=p)
+			self.pontos[1].append(Entry(self, width=self.wdt))
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
