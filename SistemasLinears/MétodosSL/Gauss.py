@@ -27,9 +27,9 @@ def Gauss(mat, prec):
 	matX = mm.zeros(nV,1)
 	for d in range (nV-1,-1,-1):
 		sub = mm.mpf('0.0')
-		for c in range (d-1,-1,-1):
+		for c in range (d+1,nV):
 			sub = mm.mpf(sub+(matFat[d,c]*matX[c]))
-		matX[d] = mm.mpf((matFat[d,d+1]-sub)/matFat[d,d])
+		matX[d] = mm.mpf((matFat[d,nV]-sub)/matFat[d,d])
 	print("Matriz X")
 	print(str(matX))
 
