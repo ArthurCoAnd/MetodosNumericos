@@ -2,8 +2,6 @@
 import mpmath as mm
 # Importar Ferramentas
 from Ferramentas.título import título
-# from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
-# from Ferramentas.Matriz.MatrizInversa import MatrizInversa as MInv
 
 def Cramer(mat, prec):
 	título("Cramer", "=")
@@ -47,8 +45,17 @@ def Cramer(mat, prec):
 	print("Matriz X")
 	print(str(matX))
 
+	# Erro
+	matE = mm.residual(matA, matX, matB)
+	print("Matriz Erro Residual")
+	print(str(matE))
+
+	# Resposta e Resíduo
 	resp = "Cramer:"
 	for l in range (nV):
 		resp += "\nx("+str(l+1)+") = "+str(matX[l])
+	ress = "Resíduo:"
+	for l in range (nV):
+		ress += "\nx("+str(l+1)+") = "+str(matE[l])
 
-	return resp
+	return resp, ress

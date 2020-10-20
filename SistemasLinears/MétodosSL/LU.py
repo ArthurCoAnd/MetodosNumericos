@@ -2,10 +2,9 @@
 import mpmath as mm
 # Importar Ferramentas
 from Ferramentas.título import título
-from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
 
-def Gauss(mat, prec):
-	título("Eliminação de Gauss", "=")
+def LU(mat, prec):
+	título("Fatoração LU", "=")
 	# Precisão de Dígitos
 	mm.mp.dps = prec
 	
@@ -19,8 +18,8 @@ def Gauss(mat, prec):
 		for c in range (nV):
 			matA[l].append(mat[l][c])
 	matA = mm.matrix(matA)
-	# print("Matriz A")
-	# print(str(matA))
+	print("Matriz A")
+	print(str(matA))
 
 	# Matriz B
 	matB = []
@@ -28,26 +27,11 @@ def Gauss(mat, prec):
 	for l in range (nV):
 		matB.append(mat[l][c])
 	matB = mm.matrix(matB)
-	# print("Matriz B")
-	# print(str(matB))
-
-	# Matriz
-	mat = mm.matrix(mat)
-	print("Matriz")
-	print(str(mat))
-
-	# Matriz Fatorada
-	matFat = fM(mat, prec)
-	print("Matriz Fatorada")
-	print(str(matFat))
+	print("Matriz B")
+	print(str(matB))
 
 	# Matriz X
-	matX = mm.zeros(nV,1)
-	for d in range (nV-1,-1,-1):
-		sub = mm.mpf('0.0')
-		for c in range (d+1,nV):
-			sub = mm.mpf(sub+(matFat[d,c]*matX[c]))
-		matX[d] = mm.mpf((matFat[d,nV]-sub)/matFat[d,d])
+	matX = mm.lu_solve(matA, matB)
 	print("Matriz X")
 	print(str(matX))
 
@@ -57,7 +41,7 @@ def Gauss(mat, prec):
 	print(str(matE))
 
 	# Resposta e Resíduo
-	resp = "Eliminação de Gauss:"
+	resp = "Fatoração LU:"
 	for l in range (nV):
 		resp += "\nx("+str(l+1)+") = "+str(matX[l])
 	ress = "Resíduo:"

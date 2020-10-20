@@ -9,6 +9,8 @@ from Ferramentas.rmve import rmve
 	# Importar Métodos
 from SistemasLinears.MétodosSL.Cramer import Cramer
 from SistemasLinears.MétodosSL.Gauss import Gauss
+from SistemasLinears.MétodosSL.LU import LU
+from SistemasLinears.MétodosSL.Cholesky import Cholesky
 
 # Tamanho Largura das Colunas
 l=30
@@ -105,8 +107,17 @@ class Matriz(Frame):
 		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="black", width=l*3)
 		self.b_Gauss.grid(row=self.lm+1, column=0, columnspan=n+1)
 
-		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=l*3, anchor=W, justify=LEFT, font="Consolas 9")
-		self.t_Resposta.grid(row=self.lm+2, column=0, columnspan=n+1)
+		self.b_LU = Button(self, text="Fatoração LU", command=self.cLU, fg="white", bg="black", width=l*3)
+		self.b_LU.grid(row=self.lm+2, column=0, columnspan=n+1)
+
+		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="black", width=l*3)
+		self.b_Cholesky.grid(row=self.lm+3, column=0, columnspan=n+1)
+
+		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=int(l*3/2), anchor=W, justify=LEFT, font="Consolas 9")
+		self.t_Resposta.grid(row=self.lm+4, column=0, columnspan=int((n+1)/2))
+
+		self.t_Ressíduo = Label(self, text="", width=int(l*3/2), anchor=E, justify=LEFT, font="Consolas 9")
+		self.t_Ressíduo.grid(row=self.lm+4, column=2, columnspan=int((n+1)/2))
 
 		# self.jResposta = Resposta(self, self.n)
 		# self.jResposta.grid(row=self.lm+1, column=0, columnspan=n)
@@ -139,12 +150,29 @@ class Matriz(Frame):
 	# Clique Método de Cramer
 	def cCramer(self):
 		mat = self.lerDados()
-		resp = Cramer(mat, self.prec)
-		self.t_Resposta.config(text=resp, bg="white", width=3*l)
+		resp, ress = Cramer(mat, self.prec)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
 
 	# Clique Método de Gauss
 	def cGauss(self):
 		mat = self.lerDados()
-		resp = Gauss(mat, self.prec)
-		self.t_Resposta.config(text=resp, bg="white", width=3*l)
+		resp, ress = Gauss(mat, self.prec)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
+
+	# Clique Método Fatoração LU
+	def cLU(self):
+		mat = self.lerDados()
+		resp, ress = LU(mat, self.prec)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
+
+	# Clique Método Fatoração Cholesky
+	def cCholesky(self):
+		mat = self.lerDados()
+		resp, ress = Cholesky(mat, self.prec)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
+
 		
