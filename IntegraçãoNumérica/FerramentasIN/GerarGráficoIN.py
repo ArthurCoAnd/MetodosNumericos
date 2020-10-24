@@ -21,7 +21,7 @@ def gerarGráficoIN(d,rep,divs):
 	# Gerar Gráfico da Função
 	pp.plot(x,x-x,'k',linewidth=3)
 	pp.plot(x,y(x,sf),'k',linewidth=2)
-	# Gerar Inegração Numérica
+	# Gerar Integração Numérica
 	if(rep):
 		n = (int(d.m)+1)*(divs)
 		x = np.linspace(float(d.a),float(d.b),n)

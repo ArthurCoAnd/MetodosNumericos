@@ -81,7 +81,7 @@ class ZdF(Frame):
 		self.b_NewtonRaphson.grid(row=14, column=0, columnspan=2)
 		self.b_Secante.grid(row=15, column=0, columnspan=2)
 		self.b_gfr.grid(row=16, column=0, columnspan=2)
-		self.b_vi.grid(row=17, column=0, columnspan=2)
+		# self.b_vi.grid(row=17, column=0, columnspan=2)
 			# Botões Verificadores
 		# self.bv_calculos.grid(row=10, column=0, columnspan=2)
 			# Entradas
