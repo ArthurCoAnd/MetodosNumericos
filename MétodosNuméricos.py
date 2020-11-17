@@ -41,13 +41,12 @@ class Métodos(Frame):
 		self.b_iNum = Button(self, text="Integração Numérica", command=lambda: raiz.TrocarJanela(iNum), fg="white", bg="black", width=2*l)
 		# ===== Construir Elementos =====
 		self.b_zdf.grid(row=0, column=0, columnspan=2)
+		self.b_zdp.grid(row=2, column=0, columnspan=2)
 		self.b_sl.grid(row=3, column=0, columnspan=2)
 		self.b_adf.grid(row=4, column=0, columnspan=2)
+		self.b_inter.grid(row=5, column=0, columnspan=2)
 		self.b_iNum.grid(row=6, column=0, columnspan=2)
 		
-		self.b_zdp.grid(row=2, column=0, columnspan=2)
-		self.b_inter.grid(row=5, column=0, columnspan=2)
-
 	def cNada(self):
 		print("\n\nBotão Apertado\n\n")
 

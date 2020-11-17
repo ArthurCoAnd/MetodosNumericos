@@ -10,11 +10,11 @@ def Newton(poli, prec, x0, e, k):
 		f = mm.mpf("0")
 		df = mm.mpf("0")
 		for p in range(n-1,-1,-1):
-			f += poli[p]*(x**p)
+			f = f + ( poli[p]*(x**p) )
 			if(p>0):
-				df += poli[p]*p*(x**(p-1))
+				df = df + ( poli[p]*p*(x**(p-1)) )
 		xAux = x
-		x += -(f/df)
+		x = x - (f/df)
 		if(abs(x-xAux)<e):
 			chave = False
 		i += 1
