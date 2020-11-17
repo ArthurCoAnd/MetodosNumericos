@@ -2,6 +2,7 @@
 from tkinter import *
 # Importar Métodos
 from ZeroDeFunções.ZeroDeFunções import ZdF
+from ZeroDePolinômios.ZeroDePolinômios import ZdP
 from SistemasLinears.SistemasLineares import SL
 from AjusteDeFunções.AjusteDeFunções import AdF
 from IntegraçãoNumérica.IntegraçãoNumérica import iNum
@@ -33,7 +34,7 @@ class Métodos(Frame):
 		Frame.__init__(self, raiz)
 		# ===== Definir Elementos =====
 		self.b_zdf = Button(self, text="Zeros De Funções", command=lambda: raiz.TrocarJanela(ZdF), fg="white", bg="black", width=2*l)
-		self.b_zdp = Button(self, text="Zeros De Polinômios", command=self.cNada, fg="white", bg="black", width=2*l)
+		self.b_zdp = Button(self, text="Zeros De Polinômios", command=lambda: raiz.TrocarJanela(ZdP), fg="white", bg="black", width=2*l)
 		self.b_sl = Button(self, text="Sistemas Lineares", command=lambda: raiz.TrocarJanela(SL), fg="white", bg="black", width=2*l)
 		self.b_adf = Button(self, text="Aproximações De Funções", command=lambda: raiz.TrocarJanela(AdF), fg="white", bg="black", width=2*l)
 		self.b_inter = Button(self, text="Interpolação", command=self.cNada, fg="white", bg="black", width=2*l)

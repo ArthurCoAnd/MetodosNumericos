@@ -32,7 +32,7 @@ class ZdF(Frame):
 		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
 		self.t_a = Label(self, text="Intervalo Inicial - a/xk0", width=l)
 		self.t_b = Label(self, text="Intervalo Final - b/xk1", width=l)
-		self.t_e = Label(self, text="Epsilon - ε ", width=l)
+		self.t_e = Label(self, text="Epsilon - ε", width=l)
 		self.t_kmax = Label(self, text="Interações Máximas - kmax", width=l)
 		self.t_prec = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões

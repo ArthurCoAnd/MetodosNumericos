@@ -1,6 +1,6 @@
 # Importar Bibliotecas
 from tkinter import *
-	# from tkinter import filedialog
+from tkinter import filedialog
 # Importar Ferramentas
 from Ferramentas.fts import fts
 from Ferramentas.rmve import rmve
