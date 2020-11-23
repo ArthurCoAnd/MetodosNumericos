@@ -4,7 +4,7 @@ import mpmath as mm
 from Ferramentas.título import título
 from Ferramentas.Matriz.FatorarMatriz import FatorarMatriz as fM
 
-def Gauss(mat, prec):
+def Gauss(mat, prec, piv, pivT):
 	título("Eliminação de Gauss", "=")
 	# Precisão de Dígitos
 	mm.mp.dps = prec
@@ -37,7 +37,7 @@ def Gauss(mat, prec):
 	print(str(mat))
 
 	# Matriz Fatorada
-	matFat = fM(mat, prec)
+	matFat = fM(mat, prec, piv, pivT)
 	print("Matriz Fatorada")
 	print(str(matFat))
 

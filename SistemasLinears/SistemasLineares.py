@@ -27,6 +27,11 @@ class SL(Frame):
 		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="black",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="black")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarMatriz, fg="white", bg="black")
+			# Botões Verificadores
+		self.bv_piv_var = IntVar()
+		self.bv_piv = Checkbutton(self, text="Pivotamento", variable=self.bv_piv_var, onvalue=1, offvalue=0)
+		self.bv_pivT_var = IntVar()
+		self.bv_pivT = Checkbutton(self, text="Total", variable=self.bv_pivT_var, onvalue=1, offvalue=0)
 			# Entradas
 		self.e_nVar = Entry(self, width=l)
 		self.e_precisão = Entry(self, width=l)
@@ -36,8 +41,8 @@ class SL(Frame):
 		self.t_título.grid(row=0, column=0, columnspan=3)
 		self.t_nVar.grid(row=1, column=0)
 			# Botões
-		self.b_gerarMatriz.grid(row=1,column=2)
-		self.b_carregar.grid(row=0, column=0)
+		self.b_gerarMatriz.grid(row=0,column=2)
+		self.b_carregar.grid(row=0, column=0, sticky=W)
 			# Entradas
 		self.e_nVar.grid(row=1, column=1)
 		
@@ -45,10 +50,12 @@ class SL(Frame):
 
 	# Clique Gerar Pontos
 	def cGerarMatriz(self):
-		self.b_salvar.grid(row=0, column=2)
+		self.b_salvar.grid(row=0, column=0, sticky=E)
 		nV = int(self.e_nVar.get())
 		self.t_precisão.grid(row=2, column=0)
 		self.e_precisão.grid(row=2, column=1)
+		self.bv_piv.grid(row=1, column=2)
+		self.bv_pivT.grid(row=2, column=2)
 		novaJanela = Matriz(self, nV)
 		if self.jMatriz is not None:
 			self.jMatriz.destroy()
@@ -156,8 +163,10 @@ class Matriz(Frame):
 
 	# Clique Método de Gauss
 	def cGauss(self):
+		piv = self.raiz.bv_piv_var.get()
+		pivT = self.raiz.bv_pivT_var.get()
 		mat = self.lerDados()
-		resp, ress = Gauss(mat, self.prec)
+		resp, ress = Gauss(mat, self.prec, piv, pivT)
 		self.t_Resposta.config(text=resp)
 		self.t_Ressíduo.config(text=ress)
 
