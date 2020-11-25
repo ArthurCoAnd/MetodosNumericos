@@ -11,6 +11,8 @@ from SistemasLinears.MétodosSL.Cramer import Cramer
 from SistemasLinears.MétodosSL.Gauss import Gauss
 from SistemasLinears.MétodosSL.LU import LU
 from SistemasLinears.MétodosSL.Cholesky import Cholesky
+from SistemasLinears.MétodosSL.GaussJacobi import GaussJacobi
+from SistemasLinears.MétodosSL.GaussSeidel import GaussSeidel
 
 # Tamanho Largura das Colunas
 l=30
@@ -23,6 +25,7 @@ class SL(Frame):
 		self.t_título = Label(self, text="Sistemas Lineares", width=3*l)
 		self.t_nVar = Label(self, text="Número de Variáveis (n)", width=l)
 		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
+		self.t_e = Label(self, text="Epsilon - ε", width=l)
 			# Botões
 		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="black",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="black")
@@ -35,14 +38,15 @@ class SL(Frame):
 			# Entradas
 		self.e_nVar = Entry(self, width=l)
 		self.e_precisão = Entry(self, width=l)
+		self.e_e = Entry(self, width=l)
 		
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0, column=0, columnspan=3)
 		self.t_nVar.grid(row=1, column=0)
 			# Botões
-		self.b_gerarMatriz.grid(row=0,column=2)
-		self.b_carregar.grid(row=0, column=0, sticky=W)
+		self.b_gerarMatriz.grid(row=1,column=2)
+		self.b_carregar.grid(row=0, column=0)
 			# Entradas
 		self.e_nVar.grid(row=1, column=1)
 		
@@ -50,17 +54,19 @@ class SL(Frame):
 
 	# Clique Gerar Pontos
 	def cGerarMatriz(self):
-		self.b_salvar.grid(row=0, column=0, sticky=E)
+		self.b_salvar.grid(row=0, column=2)
 		nV = int(self.e_nVar.get())
 		self.t_precisão.grid(row=2, column=0)
 		self.e_precisão.grid(row=2, column=1)
-		self.bv_piv.grid(row=1, column=2)
-		self.bv_pivT.grid(row=2, column=2)
+		self.t_e.grid(row=3, column=0)
+		self.e_e.grid(row=3, column=1)
+		self.bv_piv.grid(row=2, column=2)
+		self.bv_pivT.grid(row=3, column=2)
 		novaJanela = Matriz(self, nV)
 		if self.jMatriz is not None:
 			self.jMatriz.destroy()
 		self.jMatriz = novaJanela
-		self.jMatriz.grid(row=3, column=0, columnspan=3)
+		self.jMatriz.grid(row=4, column=0, columnspan=3)
 
 	# Clique Salvar
 	def cSalvarMatriz(self):
@@ -88,27 +94,36 @@ class Matriz(Frame):
 		self.raiz = raiz
 		self.n = n
 		self.prec = 0
+		self.e = None
 		self.matriz = [[]]
+		self.matrizX = []
 		self.wdt = int(l*3/(n+1))
-		for pl in range (0,self.n):
+		for pl in range (0,self.n+1):
 			for pc in range (0,(self.n+1)):
 				# X
 				if(pc<self.n):
-					Label(self, text=("a"+str(pl+1)+" x"+str(pc+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
-					self.matriz[pl].append(Entry(self, width=self.wdt))
-					self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
+					if(pl<self.n):
+						Label(self, text=("a"+str(pl+1)+" x"+str(pc+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+						self.matriz[pl].append(Entry(self, width=self.wdt))
+						self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
+					# X0 para métodos iterativos
+					if(pl>=self.n):
+						Label(self, text=("x"+str(pc+1)+"(0)"), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+						self.matrizX.append(Entry(self, width=self.wdt))
+						self.matrizX[pc].grid(row=(((pl+1)*2)-1), column=pc)
 				# Y
 				else:
-					Label(self, text=("y"+str(pl+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
-					self.matriz[pl].append(Entry(self, width=self.wdt))
-					self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
+					if(pl<self.n):
+						Label(self, text=("y"+str(pl+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+						self.matriz[pl].append(Entry(self, width=self.wdt))
+						self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
 			self.matriz.append([])
 
 		# ===== Definir e Cosntruir Elementos =====
 			# Linha Inicial Dos Botões Dos Métodos
-		self.lm = self.n*2
+		self.lm = self.n*2 + 2
 
-		self.b_Cramer = Button(self, text="Cramer", command=self.cCramer, fg="white", bg="black", width=l*3)
+		self.b_Cramer = Button(self, text="Fatoração Cramer", command=self.cCramer, fg="white", bg="black", width=l*3)
 		self.b_Cramer.grid(row=self.lm+0, column=0, columnspan=n+1)
 
 		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="black", width=l*3)
@@ -120,11 +135,17 @@ class Matriz(Frame):
 		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="black", width=l*3)
 		self.b_Cholesky.grid(row=self.lm+3, column=0, columnspan=n+1)
 
+		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="black", width=l*3)
+		self.b_GaussJacobi.grid(row=self.lm+4, column=0, columnspan=n+1)
+
+		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="black", width=l*3)
+		self.b_GaussJacobi.grid(row=self.lm+5, column=0, columnspan=n+1)
+
 		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=int(l*3/2), anchor=W, justify=LEFT, font="Consolas 9")
-		self.t_Resposta.grid(row=self.lm+4, column=0, columnspan=int((n+1)/2))
+		self.t_Resposta.grid(row=self.lm+6, column=0, columnspan=int((n+1)/2))
 
 		self.t_Ressíduo = Label(self, text="", width=int(l*3/2), anchor=E, justify=LEFT, font="Consolas 9")
-		self.t_Ressíduo.grid(row=self.lm+4, column=2, columnspan=int((n+1)/2))
+		self.t_Ressíduo.grid(row=self.lm+6, column=2, columnspan=int((n+1)/2))
 
 		# self.jResposta = Resposta(self, self.n)
 		# self.jResposta.grid(row=self.lm+1, column=0, columnspan=n)
@@ -137,7 +158,17 @@ class Matriz(Frame):
 			mtz.append([])
 			for pc in range(0,(self.n+1)):
 				mtz[pl].append(mm.mpf(self.matriz[pl][pc].get()))
+			
 		return mtz
+
+	def lerMatx(self):
+		self.prec = int(self.raiz.e_precisão.get())
+		mm.mp.dps = self.prec
+		self.e = mm.mpf(self.raiz.e_e.get())
+		mtzx = []
+		for pl in range (0,self.n):
+			mtzx.append(mm.mpf(self.matrizX[pl].get()))
+		return mtzx
 
 	# Função chamada pelo Clique Salvar
 	def Salvar(self):
@@ -147,7 +178,7 @@ class Matriz(Frame):
 		arq.write("\n")
 		arq.write(str(self.prec))
 		arq.write("\n")
-		mtz = self.lerDados()
+		mtz, mtzx = self.lerDados()
 		for pl in range (self.n):
 			for pc in range (self.n+1):
 				arq.write(str(mtz[pl][pc]))
@@ -181,6 +212,22 @@ class Matriz(Frame):
 	def cCholesky(self):
 		mat = self.lerDados()
 		resp, ress = Cholesky(mat, self.prec)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
+
+	# Clique Método de Fatoração Gauss-Jacobi
+	def cGaussJacobi(self):
+		mat = self.lerDados()
+		matx = self.lerMatx()
+		resp, ress = GaussJacobi(mat, matx, self.prec, self.e)
+		self.t_Resposta.config(text=resp)
+		self.t_Ressíduo.config(text=ress)
+
+	# Clique Método de Fatoração Gauss-Seidel
+	def cGaussSeidel(self):
+		mat = self.lerDados()
+		matx = self.lerMatx()
+		resp, ress = GaussSeidel(mat, matx, self.prec, self.e)
 		self.t_Resposta.config(text=resp)
 		self.t_Ressíduo.config(text=ress)
 
