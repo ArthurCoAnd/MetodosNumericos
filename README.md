@@ -12,9 +12,9 @@ pip install mpmath
 pip install pandas
 ```
 
-# Métodos Numéricos Desenvolvidos ou em Desenvolvimento
+# Métodos Numéricos Desenvolvidos
 - [x] Zeros de Funções
-- [ ] Zeros de Polinômios
+- [X] Zeros de Polinômios
 - [x] Sistemas Lineares
 - [x] Aproximações de Funções
 - [ ] Interpolação

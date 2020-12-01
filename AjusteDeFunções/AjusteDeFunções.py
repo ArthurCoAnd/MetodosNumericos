@@ -305,7 +305,7 @@ class Resposta(Frame):
 		self.t_extrapolarX = Label(self, text="X para Extrapolar", width=l)
 		self.t_extrapolarY = Label(self, text="Y para Extrapolar", width=l)
 			# Botões
-		self.b_extrapolarX = Button(self, text="Extrapolar X", command=self.cExtrapolarX, fg="white", bg="black", width=l)
+		self.b_extrapolarX = Button(self, text="Extrapolar X", command=lambda: self.cExtrapolarX(raiz), fg="white", bg="black", width=l)
 		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="black", width=l)
 		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="black", width=3*l)
 			# Entradas
@@ -331,20 +331,24 @@ class Resposta(Frame):
 		self.e_extrapolarX.grid(row=1, column=1)
 		self.e_extrapolarY.grid(row=2, column=1)
 
-	def cExtrapolarX(self):
+	def cExtrapolarX(self, raiz):
+		prec = int(raiz.raiz.e_precisão.get())
+		mm.mp.dps = prec
 		xs = self.e_extrapolarX.get()
-		x = float(xs)
-		txt = self.txtResp + "\n\nExtrapolação em %s(x) = "%(xs) + str(f(x,self.sf))
+		x = mm.mpf(xs)
+		txt = self.txtResp + "\n\nExtrapolação em "+xs+"(x) = " + str(f(x,self.sf,prec))
 		self.texto.config(text=txt)
 
 	def cExtrapolarY(self, raiz):
 		pts = raiz.lerDados()
-		ys = self.e_extrapolarY.get()
-		y = float(ys)
-		sfE = self.sf + "-(" + ys +")"
 		prec = int(raiz.raiz.e_precisão.get())
+		mm.mp.dps = prec
+		ys = self.e_extrapolarY.get()
+		y = mm.mpf(ys)
+		sfE = self.sf + "-(" + ys +")"
+		# x = secanteADF(min(pts[0]),max(pts[0]),sfE,prec)
 		x = secanteADF(min(pts[0]),pts[0][rd.randrange(1,len(pts[0]))],sfE,prec)
-		txt = self.txtResp + "\n\nExtrapolação em %s(y) = "%(ys) + str(x)
+		txt = self.txtResp + "\n\nExtrapolação em "+ys+"(y) = " + str(x)
 		self.texto.config(text=txt)
 
 	def cGerarGráfico(self, raiz):

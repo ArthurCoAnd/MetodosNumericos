@@ -7,7 +7,7 @@ from Ferramentas.título import título
 from Ferramentas.tratamentoSf import tratamentoSf as tSf
 from ZeroDeFunções.FerramentasZDF.CalcularE import calcularE as cE
 
-def secanteADF(xkA,xkP,sf,prec):
+def secanteInter(xkA,xkP,sf,prec):
 	título("Secante", '=')
 
 	# Definição das Variaveis Inicias
