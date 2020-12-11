@@ -37,7 +37,7 @@ def Gauss(mat, prec, piv, pivT):
 	print(str(mat))
 
 	# Matriz Fatorada
-	matFat = fM(mat, prec, piv, pivT)
+	matFat, index = fM(mat, prec, piv, pivT)
 	print("Matriz Fatorada")
 	print(str(matFat))
 
@@ -59,9 +59,9 @@ def Gauss(mat, prec, piv, pivT):
 	# Resposta e Resíduo
 	resp = "Eliminação de Gauss:"
 	for l in range (nV):
-		resp += "\nx("+str(l+1)+") = "+str(matX[l])
+		resp += "\nx("+str(int(index[l]))+") = "+str(matX[l])
 	ress = "Resíduo:"
 	for l in range (nV):
-		ress += "\nx("+str(l+1)+") = "+str(matE[l])
+		ress += "\nx("+str(int(index[l]))+") = "+str(matE[l])
 
 	return resp, ress

@@ -32,9 +32,9 @@ class SL(Frame):
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarMatriz, fg="white", bg="black")
 			# Botões Verificadores
 		self.bv_piv_var = IntVar()
-		self.bv_piv = Checkbutton(self, text="Pivotamento", variable=self.bv_piv_var, onvalue=1, offvalue=0)
+		self.bv_piv = Checkbutton(self, text="Pivotamento Parcial", variable=self.bv_piv_var, onvalue=1, offvalue=0)
 		self.bv_pivT_var = IntVar()
-		self.bv_pivT = Checkbutton(self, text="Total", variable=self.bv_pivT_var, onvalue=1, offvalue=0)
+		self.bv_pivT = Checkbutton(self, text="Pivotamento Total", variable=self.bv_pivT_var, onvalue=1, offvalue=0)
 			# Entradas
 		self.e_nVar = Entry(self, width=l)
 		self.e_precisão = Entry(self, width=l)
@@ -178,7 +178,7 @@ class Matriz(Frame):
 		arq.write("\n")
 		arq.write(str(self.prec))
 		arq.write("\n")
-		mtz, mtzx = self.lerDados()
+		mtz = self.lerDados()
 		for pl in range (self.n):
 			for pc in range (self.n+1):
 				arq.write(str(mtz[pl][pc]))

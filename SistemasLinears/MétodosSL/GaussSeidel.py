@@ -31,7 +31,6 @@ def GaussSeidel(mat, matx, prec, e):
 	# print(str(matB))
 
 	# Matriz X
-	c = nV
 	matx = mm.matrix(matx)
 	# print("Matriz X")
 	# print(str(matx))
@@ -43,12 +42,13 @@ def GaussSeidel(mat, matx, prec, e):
 
 	# Gerar Matrix X
 	k = 0
-	eMat = MaiorModMat(matx, [0,0,0], prec)
-	while(eMat>e):
+	while(True):
 		nmatx = mm.matrix(CalcularMatX(mm.matrix(mat), matx, prec))
 		eMat = abs(MaiorModMat(nmatx, matx, prec))
 		matx = mm.matrix(nmatx)
 		k += 1
+		if(eMat<e):
+			break
 	matx = mm.matrix(matx)
 	print("Matriz X("+str(k)+")")
 	print(str(matx))

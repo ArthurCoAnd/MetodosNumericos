@@ -37,6 +37,9 @@ def secante(d):
 	
 
 def metodo(xkAnterior,xkAtual,xkProx,e,k,kmax,sf,r,pDec):
+	# Definição Precisão
+	mm.mp.dps = pDec
+
 	# Calculos de Variaveis
 	s = ""
 	fxkA = f(xkAtual,sf,pDec)
