@@ -1,5 +1,7 @@
 # Importar Bibliotecas
 import mpmath as mm
+from scipy.interpolate import lagrange
+from numpy.polynomial.polynomial import Polynomial
 #Importar Ferramentas
 from Ferramentas.título import título
 
@@ -7,36 +9,13 @@ def Lagrange(pts, grau, prec):
 	título("Lagrange", "=")
 	# Definir Precisão
 	mm.mp.dps = prec
+	nv = len(pts[0])
+	matX = pts[0]
+	matY = pts[1]
+	matP = mm.matrix(list(reversed(Polynomial(lagrange(matX,matY)).coef)))
 	
-	pol = []
-
-	# Criar Matriz Polinômio
-	matA = []
-	matY = []
-	for i in range(len(pts[0])):
-		matA.append([])
-		for g in range(grau+1):
-			matA[i].append(pts[0][i]**g)
-		matY.append(pts[1][i])
-
-	# Calcular L's
-	matL = []
-	Li = mm.matrix([])
-	for i in range(len(pts[0])):
-		# matL.append([])
-		div = 1
-		Li.append([1])
-		for g in range(grau+1):
-			Liaux = Li.copy()
-			if(g!=i):
-				div = div * (pts[0][i]-pts[0][g])
-				Li.insert(0,1)
-				Liaux*(-pts[0][g])
-				Li=[i] = Li[i] + Liaux
-		matL.append(Li)
-
 	# Transformar Resposta em String Polinômio
-	sPol = pol2str(matL)
+	sPol = pol2str(matP)
 	print("Polinômio: ",sPol)
 
 	return sPol

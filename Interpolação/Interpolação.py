@@ -9,6 +9,7 @@ from Ferramentas.tratamentoSf import tratamentoSf as tsf
 from Ferramentas.rmve import rmve
 from Ferramentas.título import título
 from Interpolação.FerramentasInter.secanteInter import secanteInter
+from Interpolação.FerramentasInter.gerarGráficoInter import gerarGráfico as gG
 
 # Importar Métodos
 from Interpolação.MétodosInter.SistemaLinear import SL
@@ -104,11 +105,11 @@ class Pontos(Frame):
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
-		self.b_funcLinear = Button(self, text="Sistema Linear", command=self.cSL, fg="white", bg="black", width=l*4)
-		self.b_funcLinear.grid(row=4, column=0, columnspan=n)
+		self.b_SistemaLinear = Button(self, text="Sistema Linear", command=self.cSL, fg="white", bg="black", width=l*4)
+		self.b_SistemaLinear.grid(row=4, column=0, columnspan=n)
 
-		# self.b_funcLinear = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="black", width=l*4)
-		# self.b_funcLinear.grid(row=5, column=0, columnspan=n)
+		self.b_Lagrange = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="black", width=l*4)
+		self.b_Lagrange.grid(row=5, column=0, columnspan=n)
 
 		self.jResposta = Resposta(self, self.n)
 		self.jResposta.grid(row=7, column=0, columnspan=n)
@@ -144,7 +145,7 @@ class Pontos(Frame):
 	def cSL(self):
 		pts = self.lerDados()
 		pol = SL(pts, self.grau, self.prec)
-		resp = "Sistema Linear\n"+pol
+		resp = "Sistema Linear\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)
@@ -154,7 +155,7 @@ class Pontos(Frame):
 	def cLagrange(self):
 		pts = self.lerDados()
 		pol = Lagrange(pts, self.grau, self.prec)
-		resp = "Lagrange\n"+pol
+		resp = "Lagrange\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)
@@ -204,7 +205,7 @@ class Resposta(Frame):
 		self.raiz.lerDados()
 		mm.mp.dps = self.raiz.prec
 		x = mm.mpf(xs)
-		txt = self.txtResp + "\n\nInterpolar em %s(x) = "%(xs) + str(f(x,self.sf,self.raiz.prec))
+		txt = self.txtResp + "\nInterpolar em %s(x) = "%(xs) + str(f(x,self.sf,self.raiz.prec)) + "\n"
 		self.texto.config(text=txt)
 
 	def cInterpolarY(self, raiz):
@@ -216,10 +217,10 @@ class Resposta(Frame):
 		sfE = self.sf + "-(" + ys +")"
 		# x = secanteInter(min(pts[0]),pts[0][rd.randrange(1,len(pts[0]))],sfE,prec)
 		x = secanteInter(min(pts[0]),max(pts[0]),sfE,prec)
-		txt = self.txtResp + "\n\nInterpolar em %s(y) = "%(ys) + str(x)
+		txt = self.txtResp + "\nInterpolar em %s(y) = "%(ys) + str(x) + "\n"
 		self.texto.config(text=txt)
 
 	def cGerarGráfico(self, raiz):
-		# pts = raiz.lerDados()
-		# gG(pts, self.sf)
+		pts = raiz.lerDados()
+		gG(pts, self.sf)
 		print("cGerarGráfico Apertado")

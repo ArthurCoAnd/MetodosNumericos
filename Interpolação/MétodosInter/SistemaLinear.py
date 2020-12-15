@@ -24,18 +24,18 @@ def SL(pts, grau, prec):
 	print("Matriz A")
 	print(str(matA))
 	matY = mm.matrix(matY)
-	print("Matriz Y")
+	print("\nMatriz Y")
 	print(str(matY))
 	matInvA = matA**-1
-	print("Matriz Inversa A")
+	print("\nMatriz Inversa A")
 	print(str(matInvA))
 	matX = matInvA * matY
-	print("Matriz X")
+	print("\nMatriz X")
 	print(str(matX))
 
 	# Transformar Resposta em String Polinômio
 	sPol = pol2str(matX)
-	print("Polinômio: ",sPol)
+	print("\nPolinômio: ",sPol)
 
 	return sPol
 

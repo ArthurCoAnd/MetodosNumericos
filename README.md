@@ -12,11 +12,14 @@ pip install mpmath
 ```
 pip install pandas
 ```
+```
+pip install scipy
+```
 
 # Métodos Numéricos Desenvolvidos
 - [x] Zeros de Funções
 - [X] Zeros de Polinômios
 - [x] Sistemas Lineares
 - [x] Aproximações de Funções
-- [ ] Interpolação
+- [x] Interpolação
 - [x] Integração Numérica
