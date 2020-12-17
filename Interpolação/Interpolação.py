@@ -14,6 +14,7 @@ from Interpolação.FerramentasInter.gerarGráficoInter import gerarGráfico as 
 # Importar Métodos
 from Interpolação.MétodosInter.SistemaLinear import SL
 from Interpolação.MétodosInter.Lagrange import Lagrange
+from Interpolação.MétodosInter.Newton import Newton
 
 # Tamanho Largura das Colunas
 l=25
@@ -111,6 +112,9 @@ class Pontos(Frame):
 		self.b_Lagrange = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="black", width=l*4)
 		self.b_Lagrange.grid(row=5, column=0, columnspan=n)
 
+		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="black", width=l*4)
+		self.b_Newton.grid(row=6, column=0, columnspan=n)
+
 		self.jResposta = Resposta(self, self.n)
 		self.jResposta.grid(row=7, column=0, columnspan=n)
 
@@ -156,6 +160,16 @@ class Pontos(Frame):
 		pts = self.lerDados()
 		pol = Lagrange(pts, self.grau, self.prec)
 		resp = "Lagrange\n\n"+pol+"\n"
+		self.jResposta.txtResp = resp
+		self.jResposta.texto.config(text=self.jResposta.txtResp)
+		self.jResposta.sf = tsf(pol)
+		self.jResposta.opçõesRespostas()
+
+	# Clique Newton
+	def cNewton(self):
+		pts = self.lerDados()
+		pol = Newton(pts, self.grau, self.prec)
+		resp = "Newton\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)
