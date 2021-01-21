@@ -1,9 +1,11 @@
 # Importar Bibliotecas
 import mpmath as mm
+from scipy.interpolate import lagrange
+from numpy.polynomial.polynomial import Polynomial
 #Importar Ferramentas
 from Ferramentas.título import título
 
-def Newton(pts, grau, prec):
+def Newton(pts, prec):
 	título("Newton", "=")
 	# Definir Precisão
 	mm.mp.dps = prec
@@ -18,16 +20,20 @@ def Newton(pts, grau, prec):
 	
 	print("\nTabela\n\n",mm.matrix(matY))
 
-	matP = [matY[1][0]]
-	for i in range(nv-1):
-		mult = 1
-		for n in range(i):
-			mult *= -matX[n]
-		matP.append(mult)
+	# matP = [matY[1][0]]
+	# for i in range(nv-1):
+	# 	mult = 1
+	# 	for n in range(i):
+	# 		mult *= -matX[n]
+	# 	matP.append(mult)
+
+	matX = pts[0]
+	matY = pts[1]
+	matP = mm.matrix(list(reversed(Polynomial(lagrange(matX,matY)).coef)))
 
 	# Transformar Resposta em String Polinômio
 	sPol = pol2str(matP)
-	print("Polinômio: ",sPol)
+	print("\nPolinômio: ",sPol)
 
 	return sPol
 

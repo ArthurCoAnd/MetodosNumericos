@@ -3,11 +3,11 @@ import mpmath as mm
 #Importar Ferramentas
 from Ferramentas.título import título
 
-def SL(pts, grau, prec):
+def SL(pts, prec):
 	título("Sistema Linear", "=")
 	# Definir Precisão
 	mm.mp.dps = prec
-	
+	nv = len(pts[0])
 	pol = []
 
 	# Criar Matriz Polinômio
@@ -15,7 +15,7 @@ def SL(pts, grau, prec):
 	matY = []
 	for i in range(len(pts[0])):
 		matA.append([])
-		for g in range(grau+1):
+		for g in range(nv):
 			matA[i].append(pts[0][i]**g)
 		matY.append(pts[1][i])
 

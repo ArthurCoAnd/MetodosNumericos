@@ -5,7 +5,7 @@ from numpy.polynomial.polynomial import Polynomial
 #Importar Ferramentas
 from Ferramentas.título import título
 
-def Lagrange(pts, grau, prec):
+def Lagrange(pts, prec):
 	título("Lagrange", "=")
 	# Definir Precisão
 	mm.mp.dps = prec

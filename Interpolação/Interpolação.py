@@ -26,7 +26,6 @@ class Inter(Frame):
 			# Textos
 		self.t_título = Label(self, text="Interpolação", width=4*l)
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
-		self.t_grau = Label(self, text="Grau Máximo do Polinômio", width=l)
 		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
@@ -34,7 +33,6 @@ class Inter(Frame):
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="black")
 			# Entradas
 		self.e_nPontos = Entry(self, width=l)
-		self.e_grau = Entry(self, width=l)
 		self.e_precisão = Entry(self, width=l)
 		
 		# ===== Construir Elementos =====
@@ -53,10 +51,8 @@ class Inter(Frame):
 	def cGerarPontos(self):
 		self.b_salvar.grid(row=0, column=3)
 		nP = int(self.e_nPontos.get())
-		self.t_grau.grid(row=2, column=0)
-		self.e_grau.grid(row=2, column=1)
-		self.t_precisão.grid(row=2, column=2)
-		self.e_precisão.grid(row=2, column=3)
+		self.t_precisão.grid(row=2, column=0)
+		self.e_precisão.grid(row=2, column=1)
 		novaJanela = Pontos(self, nP)
 		if self.jPontos is not None:
 			self.jPontos.destroy()
@@ -72,12 +68,9 @@ class Inter(Frame):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
 		np = int(rmve(arq.readline()))
-		grau = int(rmve(arq.readline()))
 		prec = int(rmve(arq.readline()))
 		self.e_nPontos.delete(0,END)
 		self.e_nPontos.insert(END, np)
-		self.e_grau.delete(0,END)
-		self.e_grau.insert(END, grau)
 		self.e_precisão.delete(0,END)
 		self.e_precisão.insert(END, prec)
 		self.cGerarPontos()
@@ -91,7 +84,6 @@ class Pontos(Frame):
 		Frame.__init__(self, raiz)
 		self.raiz = raiz
 		self.n = n
-		self.grau = 0
 		self.prec = 0
 		self.wdt = int(l*4/n)
 		self.pontos = [[],[]]
@@ -119,7 +111,6 @@ class Pontos(Frame):
 		self.jResposta.grid(row=7, column=0, columnspan=n)
 
 	def lerDados(self):
-		self.grau = int(self.raiz.e_grau.get())
 		self.prec = int(self.raiz.e_precisão.get())
 		mm.mp.dps = self.prec
 		pts = [[],[]]
@@ -135,8 +126,6 @@ class Pontos(Frame):
 		arq = open(arqN, "w")
 		arq.write(str(self.n))
 		arq.write("\n")
-		arq.write(str(self.grau))
-		arq.write("\n")
 		arq.write(str(self.prec))
 		arq.write("\n")
 		for p in range (self.n):
@@ -148,7 +137,7 @@ class Pontos(Frame):
 	# Clique Sistema Linear
 	def cSL(self):
 		pts = self.lerDados()
-		pol = SL(pts, self.grau, self.prec)
+		pol = SL(pts, self.prec)
 		resp = "Sistema Linear\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
@@ -158,7 +147,7 @@ class Pontos(Frame):
 	# Clique Lagrange
 	def cLagrange(self):
 		pts = self.lerDados()
-		pol = Lagrange(pts, self.grau, self.prec)
+		pol = Lagrange(pts, self.prec)
 		resp = "Lagrange\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
@@ -168,7 +157,7 @@ class Pontos(Frame):
 	# Clique Newton
 	def cNewton(self):
 		pts = self.lerDados()
-		pol = Newton(pts, self.grau, self.prec)
+		pol = Newton(pts, self.prec)
 		resp = "Newton\n\n"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
