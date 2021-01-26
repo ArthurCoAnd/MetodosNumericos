@@ -15,6 +15,10 @@ pip install pandas
 ```
 pip install scipy
 ```
+Todos de uma vez:
+```
+pip install matplotlib mpmath pandas scipy
+```
 
 # Métodos Numéricos Desenvolvidos
 - [x] Zeros de Funções

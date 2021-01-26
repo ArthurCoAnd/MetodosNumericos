@@ -8,7 +8,7 @@ from Ferramentas.tratamentoSf import tratamentoSf as tSf
 	# Importar Ferramentas Integração Numérica
 from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN
 
-def gerarGráficoIN(d,rep,divs):
+def gerarGráficoIN(d):
 	título("Gráfico da Função", '=')
 	pp.title("Gráfico Função e Integração Numérica")
 	pp.xlabel("X")
@@ -22,14 +22,8 @@ def gerarGráficoIN(d,rep,divs):
 	pp.plot(x,x-x,'k',linewidth=3)
 	pp.plot(x,y(x,sf),'k',linewidth=2)
 	# Gerar Integração Numérica
-	if(rep):
-		n = (int(d.m)+1)*(divs)
-		x = np.linspace(float(d.a),float(d.b),n)
-		pp.plot(x,y(x,sf),'r',x,y(x,sf),'o')
-
-	else:
-		n = divs+1
-		x = np.linspace(float(d.a),float(d.b),n)
-		pp.plot(x,y(x,sf),'r',x,y(x,sf),'o')
+	n = int(d.m)+1
+	x = np.linspace(float(d.a),float(d.b),n)
+	pp.plot(x,y(x,sf),'r',x,y(x,sf),'o')
 
 	pp.show()

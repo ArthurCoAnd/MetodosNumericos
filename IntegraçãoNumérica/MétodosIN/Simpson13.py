@@ -14,35 +14,33 @@ def Simpson13(dIN):
 		# Tratamento das String de Função
 	sf = tSf(dIN.sf)
 	sdf = tSf(dIN.sdf)
-		# Pontos de Análise
+		# Dados de Análise
 	a = mm.mpf(dIN.a)
 	b = mm.mpf(dIN.b)
-	h = mm.mpf((b-a)/2)
-	xh = mm.mpf(a+h)
-		# Funções dos pontos
-	fa = f(a,sf,pDec)
-	fxh = f(xh,sf,pDec)
-	fb = f(b,sf,pDec)
+	m = int(dIN.m)
+	c = mm.mpf(dIN.c)
+	h = mm.mpf((b-a)/m)
 	
-	I = mm.mpf((h/3)*((fa)+(4*fxh)+(fb)))
-	E = mm.mpf('0')
-	# Executar Cálculo de Erro
-	if(dIN.vsdf==1):
-		c = mm.mpf('0')
-		fdc = mm.mpf('0')
-		# COM valor de C definido
-		if(dIN.vc==1):
-			c = mm.mpf(dIN.c)
-		# SEM valor de C definido -> c = metade do intervalo
+	# Cálculo da Integral
+	I = mm.mpf('0')
+	for i in range(m):
+		xi = mm.mpf(a+(i*h))
+		if(i==0 or i==m):
+			I += mm.mpf(f((xi),sf,pDec))
+		elif(i%2==1):
+			I += mm.mpf(4*f((xi),sf,pDec))
 		else:
-			c = xh
-		fdc = f(c,sdf,pDec)
-		
-		E = mm.mpf((mm.power(h,5)/90)*fdc)
+			I += mm.mpf(2*f((xi),sf,pDec))
+	I = mm.mpf((h/3)*I)
+	
+	E = mm.mpf('0')
+	# Calculo do Erro
+	if(dIN.vc==1):
+		E = mm.mpf((mm.power(h,5)/90)*f(c,sdf,pDec))
 
 	# Gerar e Retornar Resposta
 	resp = ""
-	if(dIN.vsdf==1):
+	if(dIN.vc==1):
 		resp += ("1/3 de Simpson\n\nI = "+str(I)+" ± "+str(E))
 		resp += ("\n\nI+E = "+str(mm.mpf(I+E)))
 		resp += ("\nI-E = "+str(mm.mpf(I-E)))

@@ -1,13 +1,12 @@
 class DadosIN:
-	def __init__(self,sf,sdf,vsdf,a,c,vc,b,m,e,ve,pDec):
+	def __init__(self,sf,sdf,a,b,m,c,vc,e,ve,pDec):
 		self.sf = sf
 		self.sdf = sdf
-		self.vsdf = vsdf
 		self.a = a
-		self.c = c
-		self.vc = vc
 		self.b = b
 		self.m = m
+		self.c = c
+		self.vc = vc
 		self.e = e
 		self.ve = ve
 		self.pDec = pDec
