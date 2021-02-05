@@ -25,9 +25,9 @@ class AdF(Frame):
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
 		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões
-		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="black",width=l)
-		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="black")
-		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="black")
+		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="DodgerBlue4",width=l)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="DodgerBlue4")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarPontos, fg="white", bg="DodgerBlue4")
 			# Entradas
 		self.e_nPontos = Entry(self, width=l)
 		self.e_precisão = Entry(self, width=l)
@@ -95,13 +95,13 @@ class Pontos(Frame):
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
-		self.b_funcLinear = Button(self, text="Função Linear", command=self.cFuncLinear, fg="white", bg="black", width=l*3)
+		self.b_funcLinear = Button(self, text="Função Linear", command=self.cFuncLinear, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_funcLinear.grid(row=4, column=0, columnspan=n)
 
-		self.b_funcQuadOri = Button(self, text="Função Quadrada Vértice Origem", command=self.cFuncQuadOri, fg="white", bg="black", width=l*3)
+		self.b_funcQuadOri = Button(self, text="Função Quadrada Vértice Origem", command=self.cFuncQuadOri, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_funcQuadOri.grid(row=5, column=0, columnspan=n)
 
-		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="black", width=l*3)
+		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_funcQuadOri.grid(row=6, column=0, columnspan=n)
 
 		self.jResposta = Resposta(self, self.n)
@@ -305,9 +305,9 @@ class Resposta(Frame):
 		self.t_extrapolarX = Label(self, text="X para Extrapolar", width=l)
 		self.t_extrapolarY = Label(self, text="Y para Extrapolar", width=l)
 			# Botões
-		self.b_extrapolarX = Button(self, text="Extrapolar X", command=lambda: self.cExtrapolarX(raiz), fg="white", bg="black", width=l)
-		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="black", width=l)
-		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="black", width=3*l)
+		self.b_extrapolarX = Button(self, text="Extrapolar X", command=lambda: self.cExtrapolarX(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="DodgerBlue4", width=3*l)
 			# Entradas
 		self.e_extrapolarX = Entry(self)
 		self.e_extrapolarY = Entry(self)

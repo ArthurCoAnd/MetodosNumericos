@@ -26,9 +26,9 @@ class ZdP(Frame):
 		self.t_e = Label(self, text="Epsilon - ε", width=l)
 		self.t_prec = Label(self, text="Precisão - Dígitos", width=l)
 			# Botões
-		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
-		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
-		self.b_gerarPolinômio = Button(self, text="Gerar Polinômio", command=self.cGerarPolinômio, fg="white", bg="black", width=l)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
+		self.b_gerarPolinômio = Button(self, text="Gerar Polinômio", command=self.cGerarPolinômio, fg="white", bg="DodgerBlue4", width=l)
 			# Botões Verificadores
 			# Entradas
 		self.e_n = Entry(self, width=l)
@@ -108,13 +108,13 @@ class Polinômio(Frame):
 			self.ePolinômio[p].grid(row=1, column=p)
 
 		# ===== Elementos =====
-		self.b_BirgeVieta = Button(self, text="Birge-Vieta", command=self.cBirgeVieta, fg="white", bg="black", width=3*l)
+		self.b_BirgeVieta = Button(self, text="Birge-Vieta", command=self.cBirgeVieta, fg="white", bg="DodgerBlue4", width=3*l)
 		self.b_BirgeVieta.grid(row=2, column=0, columnspan=self.n)
 
-		self.b_BriotRuffini = Button(self, text="Briot-Ruffini", command=self.cBriotRuffini, fg="white", bg="black", width=3*l)
+		self.b_BriotRuffini = Button(self, text="Briot-Ruffini", command=self.cBriotRuffini, fg="white", bg="DodgerBlue4", width=3*l)
 		self.b_BriotRuffini.grid(row=3, column=0, columnspan=self.n)
 
-		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="black", width=3*l)
+		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="DodgerBlue4", width=3*l)
 		self.b_Newton.grid(row=4, column=0, columnspan=self.n)
 
 		self.t_resposta = Label(self, text="Escolha um método para achar a raiz do polinômio.", width=3*l)

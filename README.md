@@ -22,7 +22,7 @@ pip install matplotlib mpmath pandas scipy
 
 # Métodos Numéricos Desenvolvidos
 - [x] Zeros de Funções
-- [X] Zeros de Polinômios
+- [x] Zeros de Polinômios
 - [x] Sistemas Lineares
 - [x] Aproximações de Funções
 - [x] Interpolação

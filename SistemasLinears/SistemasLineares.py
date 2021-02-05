@@ -27,9 +27,9 @@ class SL(Frame):
 		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
 		self.t_e = Label(self, text="Epsilon - ε", width=l)
 			# Botões
-		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="black",width=l)
-		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="black")
-		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarMatriz, fg="white", bg="black")
+		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="DodgerBlue4",width=l)
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="DodgerBlue4")
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregarMatriz, fg="white", bg="DodgerBlue4")
 			# Botões Verificadores
 		self.bv_piv_var = IntVar()
 		self.bv_piv = Checkbutton(self, text="Pivotamento Parcial", variable=self.bv_piv_var, onvalue=1, offvalue=0)
@@ -123,22 +123,22 @@ class Matriz(Frame):
 			# Linha Inicial Dos Botões Dos Métodos
 		self.lm = self.n*2 + 2
 
-		self.b_Cramer = Button(self, text="Fatoração Cramer", command=self.cCramer, fg="white", bg="black", width=l*3)
+		self.b_Cramer = Button(self, text="Fatoração Cramer", command=self.cCramer, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Cramer.grid(row=self.lm+0, column=0, columnspan=n+1)
 
-		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="black", width=l*3)
+		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Gauss.grid(row=self.lm+1, column=0, columnspan=n+1)
 
-		self.b_LU = Button(self, text="Fatoração LU", command=self.cLU, fg="white", bg="black", width=l*3)
+		self.b_LU = Button(self, text="Fatoração LU", command=self.cLU, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_LU.grid(row=self.lm+2, column=0, columnspan=n+1)
 
-		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="black", width=l*3)
+		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Cholesky.grid(row=self.lm+3, column=0, columnspan=n+1)
 
-		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="black", width=l*3)
+		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+4, column=0, columnspan=n+1)
 
-		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="black", width=l*3)
+		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+5, column=0, columnspan=n+1)
 
 		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=int(l*3/2), anchor=W, justify=LEFT, font="Consolas 9")

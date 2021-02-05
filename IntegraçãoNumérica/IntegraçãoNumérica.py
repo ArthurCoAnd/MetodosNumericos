@@ -31,12 +31,12 @@ class iNum(Frame):
 		self.t_e = Label(self, text="Erro Máximo - e", width=l)
 		self.t_pDec = Label(self, text="Precisão - Decimais", width=l)
 			# Botões
-		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="black")
-		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="black")
-		self.b_Trap = Button(self, text="Trapézios", command=self.cTrap, fg="white", bg="black", width=(2*l))
-		self.b_Simp13 = Button(self, text="1/3 de Simpson", command=self.cSimp13, fg="white", bg="black", width=(2*l))
-		self.b_Simp38 = Button(self, text="3/8 de Simpson", command=self.cSimp38, fg="white", bg="black", width=(2*l))
-		self.b_GerarGráfico = Button(self, text="Gerar Gráfico", command=self.cGerarGráfico, fg="white", bg="black", width=(2*l))
+		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
+		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
+		self.b_Trap = Button(self, text="Trapézios", command=self.cTrap, fg="white", bg="DodgerBlue4", width=(2*l))
+		self.b_Simp13 = Button(self, text="1/3 de Simpson", command=self.cSimp13, fg="white", bg="DodgerBlue4", width=(2*l))
+		self.b_Simp38 = Button(self, text="3/8 de Simpson", command=self.cSimp38, fg="white", bg="DodgerBlue4", width=(2*l))
+		self.b_GerarGráfico = Button(self, text="Gerar Gráfico", command=self.cGerarGráfico, fg="white", bg="DodgerBlue4", width=(2*l))
 			# Botões Verificadores
 		self.bv_c_var = IntVar()
 		self.bv_c = Checkbutton(self, variable=self.bv_c_var, onvalue=1, offvalue=0)
