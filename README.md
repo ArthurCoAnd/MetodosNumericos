@@ -1,5 +1,5 @@
 <img src="./Extras/UfsmLogo.png" width="100">
-<img src="./Extras/LemaLogo.png" height="75">
+<img src="./Extras/LemaLogo.png" width="100">
 
 # Dependências
 Para utilizar deve-se instalar:
