@@ -4,6 +4,9 @@
 # Sobre o Software
 Desenvolvido como projeto de pesquisa e extensão pelo Laboratório de Estudos em Matemática Aplicada (LEMA), este software visa ser uma ferramenta para auxílio no ensino e aprendizado da matéria de Métodos Numéricos e Computacionais. Foi utilizado o plano de ensino dessa matéria da Universidade Federal de Santa Maria Campus Cachoeira do Sul (UFSM-CS) com os seguintes métodos desenvolvidos:
 
+## Menu
+<img src="./Extras/prints/Menu.png">
+
 ## Métodos Numéricos Desenvolvidos
 - [x] Zeros de Funções
 - [x] Zeros de Polinômios
