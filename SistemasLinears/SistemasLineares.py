@@ -77,15 +77,18 @@ class SL(Frame):
 		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
 		arq = open(arqN, "r")
 		nV = int(rmve(arq.readline()))
-		prec = int(rmve(arq.readline()))
 		self.e_nVar.delete(0,END)
 		self.e_nVar.insert(END, nV)
 		self.cGerarMatriz()
 		self.e_precisão.delete(0,END)
-		self.e_precisão.insert(END, prec)
+		self.e_precisão.insert(END,rmve(arq.readline()))
+		self.e_e.delete(0,END)
+		self.e_e.insert(END,rmve(arq.readline()))
 		for pl in range (nV):
 			for pc in range(nV+1):
 				self.jMatriz.matriz[pl][pc].insert(END,rmve(arq.readline()))
+		for p in range (nV):
+			self.jMatriz.matrizX[p].insert(END,rmve(arq.readline()))
 		arq.close()
 
 class Matriz(Frame):
@@ -174,15 +177,21 @@ class Matriz(Frame):
 	def Salvar(self):
 		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile="Sistema Linear", filetypes=[("Text files",".txt")], defaultextension=".txt")
 		arq = open(arqN, "w")
+		mtz = self.lerDados()
+		mtzx = self.lerMatx()
 		arq.write(str(self.n))
 		arq.write("\n")
 		arq.write(str(self.prec))
 		arq.write("\n")
-		mtz = self.lerDados()
+		arq.write(str(self.e))
+		arq.write("\n")
 		for pl in range (self.n):
 			for pc in range (self.n+1):
 				arq.write(str(mtz[pl][pc]))
 				arq.write("\n")
+		for p in range (self.n):
+			arq.write(str(mtzx[p]))
+			arq.write("\n")
 		arq.close()
 
 	# Clique Método de Cramer
