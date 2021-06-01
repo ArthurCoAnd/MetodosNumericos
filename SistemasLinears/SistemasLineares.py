@@ -23,9 +23,9 @@ class SL(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Sistemas Lineares", width=3*l)
-		self.t_nVar = Label(self, text="Número de Variáveis (n)", width=l)
-		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
-		self.t_e = Label(self, text="Epsilon - ε", width=l)
+		self.t_nVar = Label(self, text="Número de Variáveis", width=l)
+		self.t_precisão = Label(self, text="Precisão", width=l)
+		self.t_e = Label(self, text="Epsilon", width=l)
 			# Botões
 		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="DodgerBlue4",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="DodgerBlue4")
@@ -106,7 +106,7 @@ class Matriz(Frame):
 				# X
 				if(pc<self.n):
 					if(pl<self.n):
-						Label(self, text=("a"+str(pl+1)+" x"+str(pc+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+						Label(self, text=("a"+str(pl+1)+str(pc+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
 						self.matriz[pl].append(Entry(self, width=self.wdt))
 						self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
 					# X0 para métodos iterativos
@@ -117,7 +117,7 @@ class Matriz(Frame):
 				# Y
 				else:
 					if(pl<self.n):
-						Label(self, text=("y"+str(pl+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
+						Label(self, text=("b"+str(pl+1)), width=self.wdt).grid(row=((pl+1)*2)-2, column=pc)
 						self.matriz[pl].append(Entry(self, width=self.wdt))
 						self.matriz[pl][pc].grid(row=(((pl+1)*2)-1), column=pc)
 			self.matriz.append([])
@@ -144,11 +144,11 @@ class Matriz(Frame):
 		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+5, column=0, columnspan=n+1)
 
-		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=int(l*3/2), anchor=W, justify=LEFT, font="Consolas 9")
-		self.t_Resposta.grid(row=self.lm+6, column=0, columnspan=int((n+1)/2))
+		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=4*l, anchor=W, justify=LEFT, font="Consolas 10")
+		self.t_Resposta.grid(row=self.lm+6, column=0, columnspan=n+1)
 
-		self.t_Ressíduo = Label(self, text="", width=int(l*3/2), anchor=E, justify=LEFT, font="Consolas 9")
-		self.t_Ressíduo.grid(row=self.lm+6, column=2, columnspan=int((n+1)/2))
+		# self.t_Ressíduo = Label(self, text="", width=int(l*3/2), anchor=E, justify=LEFT, font="Consolas 9")
+		# self.t_Ressíduo.grid(row=self.lm+6, column=2, columnspan=int((n+1)/2))
 
 		# self.jResposta = Resposta(self, self.n)
 		# self.jResposta.grid(row=self.lm+1, column=0, columnspan=n)
@@ -199,7 +199,7 @@ class Matriz(Frame):
 		mat = self.lerDados()
 		resp, ress = Cramer(mat, self.prec)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 	# Clique Método de Gauss
 	def cGauss(self):
@@ -208,21 +208,21 @@ class Matriz(Frame):
 		mat = self.lerDados()
 		resp, ress = Gauss(mat, self.prec, piv, pivT)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 	# Clique Método Fatoração LU
 	def cLU(self):
 		mat = self.lerDados()
 		resp, ress = LU(mat, self.prec)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 	# Clique Método Fatoração Cholesky
 	def cCholesky(self):
 		mat = self.lerDados()
 		resp, ress = Cholesky(mat, self.prec)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 	# Clique Método de Fatoração Gauss-Jacobi
 	def cGaussJacobi(self):
@@ -230,7 +230,7 @@ class Matriz(Frame):
 		matx = self.lerMatx()
 		resp, ress = GaussJacobi(mat, matx, self.prec, self.e)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 	# Clique Método de Fatoração Gauss-Seidel
 	def cGaussSeidel(self):
@@ -238,6 +238,6 @@ class Matriz(Frame):
 		matx = self.lerMatx()
 		resp, ress = GaussSeidel(mat, matx, self.prec, self.e)
 		self.t_Resposta.config(text=resp)
-		self.t_Ressíduo.config(text=ress)
+		# self.t_Ressíduo.config(text=ress)
 
 		

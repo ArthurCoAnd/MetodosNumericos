@@ -64,6 +64,7 @@ def metodo(a,b,e,k,kmax,sf,r,pDec):
 		r.append([])
 		s = metodo(a,b,e,k,kmax,sf,r,pDec)
 	else:
-		s = ("Posição Falsa\nInterações\t=\t"+str(k+1)+"\nRaiz\t\t=\t"+str(xk)+"\nFunção da Raiz\t=\t"+str(fxk)+"\ne de parada\t=\t"+str(ek))
+		s = ("Método da Posição Falsa:\nNúmero de Interações\t=\t"+str(k+1)+"\nRaiz da Função f(x)\t=\t"+str(xk)+"\nValor f(Raiz)\t\t=\t"+str(fxk)+"\nErro\t\t\t=\t"+str(ek))
+
 
 	return s

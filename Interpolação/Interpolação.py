@@ -174,11 +174,11 @@ class Resposta(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.texto = Label(self, text=self.txtResp, width=3*l)
-		self.t_extrapolarX = Label(self, text="X para Extrapolar", width=l)
-		self.t_extrapolarY = Label(self, text="Y para Extrapolar", width=l)
+		self.t_extrapolarX = Label(self, text="X para Interpolar", width=l)
+		self.t_extrapolarY = Label(self, text="Y para Interpolar", width=l)
 			# Botões
-		self.b_extrapolarX = Button(self, text="Extrapolar X", command=self.cInterpolarX, fg="white", bg="DodgerBlue4", width=l)
-		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cInterpolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarX = Button(self, text="Interpolar X", command=self.cInterpolarX, fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarY = Button(self, text="Interpolar Y", command=lambda: self.cInterpolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
 		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="DodgerBlue4", width=l)
 			# Entradas
 		self.e_extrapolarX = Entry(self)

@@ -16,10 +16,10 @@ class Aplicativo(Tk):
 		Tk.__init__(self)
 		# ===== Definir Elementos =====
 		self.t_título = Label(self, text="Menu", width=2*l)
-		self.b_voltar = Button(self, text="<", command=lambda: self.TrocarJanela(Métodos), fg="white", bg="DodgerBlue4")
+		self.b_voltar = Button(self, text="Menu", command=lambda: self.TrocarJanela(Métodos), fg="white", bg="DodgerBlue4")
 		# ===== Construir Elementos =====
 		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.b_voltar.grid(row=0, column=0, sticky=W)
+		self.b_voltar.grid(row=0, column=0, columnspan=2)
 		self.janela = None
 		self.TrocarJanela(Métodos)
 
@@ -52,6 +52,7 @@ class Métodos(Frame):
 		print("\n\nBotão Apertado\n\n")
 
 app = Aplicativo()
+app.resizable(False, False)
 app.title("LEMA Métodos Numéricos")
 app.iconbitmap("Extras/UfsmLogo.ico")
 app.mainloop()

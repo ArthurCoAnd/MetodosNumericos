@@ -24,17 +24,18 @@ class ZdF(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Zero de Funções", width=(2*l))
-		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Raiz da Função", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
+		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Raiz da Função", width=(2*l), anchor=W, justify=LEFT, font="Consolas 10")
 		self.t_calculos = Label(self, width=(3*l), font="Consolas 9")
 		self.t_sf = Label(self, text="Função - f(x)", width=l)
 		self.t_sdf = Label(self, text="Derivada da Função - f'(x)", width=l)
 		self.t_sddf = Label(self, text="Derivada Segunda da Função - f''(x)", width=l)
 		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
-		self.t_a = Label(self, text="Intervalo Inicial - a/xk0", width=l)
-		self.t_b = Label(self, text="Intervalo Final - b/xk1", width=l)
+		self.t_a = Label(self, text="Intervalo - Limite Inferior (a)", width=l)
+		self.t_b = Label(self, text="Intervalo - Limite Superior (b)", width=l)
 		self.t_e = Label(self, text="Epsilon - ε", width=l)
-		self.t_kmax = Label(self, text="Interações Máximas - kmax", width=l)
-		self.t_prec = Label(self, text="Precisão - Dígitos", width=l)
+		self.t_kmax = Label(self, text="Número de Interações Máximas - kmax", width=l, justify=CENTER)
+		self.t_prec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
+		self.t_escolha = Label(self, text="Escolha o método para encontrar a raiz da função:", width=2*l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
@@ -62,22 +63,23 @@ class ZdF(Frame):
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.t_resposta.grid(row=18, column=0, columnspan=2)
+		self.t_resposta.grid(row=19, column=0, columnspan=2)
 		self.t_sf.grid(row=1, column=0)
 		self.t_sdf.grid(row=2, column=0)
-		self.t_sddf.grid(row=3, column=0)
-		self.t_spf.grid(row=4, column=0)
+		#self.t_sddf.grid(row=3, column=0)
+		#self.t_spf.grid(row=4, column=0)
 		self.t_a.grid(row=5, column=0)
 		self.t_b.grid(row=6, column=0)
 		self.t_e.grid(row=7, column=0)
 		self.t_kmax.grid(row=8, column=0)
 		self.t_prec.grid(row=9, column=0)
+		self.t_escolha.grid(row=10, column=0, columnspan=2)
 			# Botões
 		self.b_carregar.grid(row=0, column=0)
 		self.b_salvar.grid(row=0, column=1)
 		self.b_Bissecção.grid(row=11, column=0, columnspan=2)
 		self.b_PosiçãoFalsa.grid(row=12, column=0, columnspan=2)
-		self.b_PontoFixo.grid(row=13, column=0, columnspan=2)
+		# self.b_PontoFixo.grid(row=13, column=0, columnspan=2)
 		self.b_NewtonRaphson.grid(row=14, column=0, columnspan=2)
 		self.b_Secante.grid(row=15, column=0, columnspan=2)
 		self.b_gfr.grid(row=16, column=0, columnspan=2)
@@ -87,8 +89,8 @@ class ZdF(Frame):
 			# Entradas
 		self.e_sf.grid(row=1, column=1)
 		self.e_sdf.grid(row=2, column=1)
-		self.e_sddf.grid(row=3, column=1)
-		self.e_spf.grid(row=4, column=1)
+		#self.e_sddf.grid(row=3, column=1)
+		#self.e_spf.grid(row=4, column=1)
 		self.e_a.grid(row=5, column=1)
 		self.e_b.grid(row=6, column=1)
 		self.e_e.grid(row=7, column=1)
@@ -164,9 +166,8 @@ class ZdF(Frame):
 
 	# Clique Botão Bissecção
 	def cBissecção(self):
-		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		d = self.lerDados()
-		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
+		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		r = bissecção(d)
 		self.t_resposta.config(text=r.resp, bg="white", width=2*l)
 		
@@ -175,45 +176,42 @@ class ZdF(Frame):
 
 	# Clique Botão Posição Falsa
 	def cPosiçãoFalse(self):
-		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		d = self.lerDados()
-		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
+		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		s = posiçãoFalsa(d)
 		self.t_resposta.config(text=s, bg="white", width=2*l)
 			
 	# Clique Botão Ponto Fixo
 	def cPontoFixo(self):
-		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		d = self.lerDados()
-		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
+		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		s=pontoFixo(d)
 		self.t_resposta.config(text=s, bg="white", width=2*l)
 
 	# Clique Botão Newton Raphson
 	def cNewtonRaphson(self):
-		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		d = self.lerDados()
-		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
+		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		s=newtonRaphson(d)
 		self.t_resposta.config(text=s, bg="white", width=2*l)
 
 	# Clique Botão Secante
 	def cSecante(self):
-		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		d = self.lerDados()
-		self.t_resposta.config(text="ERRO - INTERVALO INVÁLIDO", bg="red", width=2*l)
+		self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 		s=secante(d)
 		self.t_resposta.config(text=s, bg="white", width=2*l)
 
 	# Clique Botão Gerar Gráfico
 	def cgfr(self):
 		d = self.lerDados()
-		gG(d)
+		try:
+			gG(d)
+		except:
+			self.t_resposta.config(text="ERRO - DADOS INVÁLIDOS", bg="red", width=2*l)
 
 	# Cliqeu Botâo Verificar Intervalo
 	def cvi(self):
 		d = self.lerDados()
 		s = vI(d)
 		self.t_resposta.config(text=s, bg="white", width=2*l)
-		
-			

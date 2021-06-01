@@ -20,11 +20,11 @@ class ZdP(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Zero de Polinômios", width=l)
-		self.t_n = Label(self, text="Grau do Polinômio - n", width=l)
+		self.t_n = Label(self, text="Grau do Polinômio", width=l)
 		self.t_x0 = Label(self, text="x0", width=l)
-		self.t_k = Label(self, text="Número de Interações - k", width=l)
-		self.t_e = Label(self, text="Epsilon - ε", width=l)
-		self.t_prec = Label(self, text="Precisão - Dígitos", width=l)
+		self.t_k = Label(self, text="Número de Interações", width=l)
+		self.t_e = Label(self, text="Epsilon", width=l)
+		self.t_prec = Label(self, text="Precisão", width=l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
@@ -108,17 +108,20 @@ class Polinômio(Frame):
 			self.ePolinômio[p].grid(row=1, column=p)
 
 		# ===== Elementos =====
+		self.t_escolha = Label(self, text="Escolha o método para encontrar a raiz do polinômio:", width = 3*l)
+		self.t_escolha.grid(row=2, column=0, columnspan=self.n)
+
 		self.b_BirgeVieta = Button(self, text="Birge-Vieta", command=self.cBirgeVieta, fg="white", bg="DodgerBlue4", width=3*l)
-		self.b_BirgeVieta.grid(row=2, column=0, columnspan=self.n)
+		self.b_BirgeVieta.grid(row=3, column=0, columnspan=self.n)
 
 		self.b_BriotRuffini = Button(self, text="Briot-Ruffini", command=self.cBriotRuffini, fg="white", bg="DodgerBlue4", width=3*l)
-		self.b_BriotRuffini.grid(row=3, column=0, columnspan=self.n)
+		self.b_BriotRuffini.grid(row=4, column=0, columnspan=self.n)
 
 		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="DodgerBlue4", width=3*l)
-		self.b_Newton.grid(row=4, column=0, columnspan=self.n)
+		self.b_Newton.grid(row=5, column=0, columnspan=self.n)
 
 		self.t_resposta = Label(self, text="Escolha um método para achar a raiz do polinômio.", width=3*l)
-		self.t_resposta.grid(row=5, column=0, columnspan=self.n)
+		# self.t_resposta.grid(row=6, column=0, columnspan=self.n)
 
 	def lerDados(self):
 		self.prec = int(self.raiz.e_prec.get())
@@ -161,7 +164,8 @@ class Polinômio(Frame):
 		print("Raiz:")
 		r = BV(poli, self.prec, self.x0, mm.mpf(self.e), int(self.k))
 		print(r)
-		rs = "Birge-Vieta\nRaiz: "+str(r)
+		rs = "Método de Birge-Vieta\nRaiz: "+str(r)
+		self.t_resposta.grid(row=6, column=0, columnspan=self.n)
 		self.t_resposta.config(text=rs, bg="white")
 
 	def cBriotRuffini(self):
@@ -172,7 +176,8 @@ class Polinômio(Frame):
 		print("Raiz:")
 		r = BR(poli, self.prec, self.x0)
 		print(r)
-		rs = "Briot-Ruffini\nP(x0): "+str(r)
+		rs = "Método de Briot-Ruffini\nP(x0): "+str(r)
+		self.t_resposta.grid(row=6, column=0, columnspan=self.n)
 		self.t_resposta.config(text=rs, bg="white")
 
 	def cNewton(self):
@@ -183,5 +188,6 @@ class Polinômio(Frame):
 		print("Raiz:")
 		r = Newton(poli, self.prec, self.x0, mm.mpf(self.e), int(self.k))
 		print(r)
-		rs = "Newton\nRaiz: "+str(r)
+		rs = "Método de Newton\nRaiz: "+str(r)
+		self.t_resposta.grid(row=6, column=0, columnspan=self.n)
 		self.t_resposta.config(text=rs, bg="white")

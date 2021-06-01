@@ -57,6 +57,6 @@ def metodo(xkAtual,xkProx,e,k,kmax,sf,sdf,r,pDec):
 		r.append([])
 		s = metodo(xkAtual,xkProx,e,k,kmax,sf,sdf,r,pDec)
 	else:
-		s = ("Newton-Raphson\nInterações\t=\t"+str(k)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
-
+		s = ("Método de Newton-Raphson\nNúmero de Interações\t=\t"+str(k)+"\nRaiz da Função f(x)\t=\t"+str(xkAtual)+"\nValor f(Raiz)\t\t=\t"+str(fxkA)+"\nErro\t\t\t=\t"+str(ek))
+		
 	return s
