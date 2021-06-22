@@ -33,3 +33,11 @@ Todos de uma vez:
 ```
 pip install matplotlib mpmath pandas scipy
 ```
+
+# Compilar
+'''
+pip install pyinstaller
+'''
+'''
+pyinstaller -F -i ".\Extras\UfsmLogo.ico" ".\SofEMN.py"
+'''
