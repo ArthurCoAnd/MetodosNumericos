@@ -26,6 +26,7 @@ class SL(Frame):
 		self.t_nVar = Label(self, text="Número de Variáveis", width=l)
 		self.t_precisão = Label(self, text="Precisão", width=l)
 		self.t_e = Label(self, text="Epsilon", width=l)
+		self.t_inserirPontos = Label(self, text="Inserir os coeficientes do sistema e o vetor inicial:", width=3*l)
 			# Botões
 		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="DodgerBlue4",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarMatriz, fg="white", bg="DodgerBlue4")
@@ -62,11 +63,12 @@ class SL(Frame):
 		self.e_e.grid(row=3, column=1)
 		self.bv_piv.grid(row=2, column=2)
 		self.bv_pivT.grid(row=3, column=2)
+		self.t_inserirPontos.grid(row=4, column=0, columnspan=3)
 		novaJanela = Matriz(self, nV)
 		if self.jMatriz is not None:
 			self.jMatriz.destroy()
 		self.jMatriz = novaJanela
-		self.jMatriz.grid(row=4, column=0, columnspan=3)
+		self.jMatriz.grid(row=5, column=0, columnspan=3)
 
 	# Clique Salvar
 	def cSalvarMatriz(self):

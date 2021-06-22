@@ -25,6 +25,7 @@ class ZdP(Frame):
 		self.t_k = Label(self, text="Número de Interações", width=l)
 		self.t_e = Label(self, text="Epsilon", width=l)
 		self.t_prec = Label(self, text="Precisão", width=l)
+		self.t_inserirPontos = Label(self, text="Inserir os coeficientes:", width=3*l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
@@ -61,10 +62,11 @@ class ZdP(Frame):
 		self.e_e.grid(row=4, column=1)
 		self.t_prec.grid(row=5, column=0)
 		self.e_prec.grid(row=5, column=1)
+		self.t_inserirPontos.grid(row=6, column=0, columnspan=3)
 		if self.jPolinômio is not None:
 			self.jPolinômio.destroy()
 		self.jPolinômio = Polinômio(self, n)
-		self.jPolinômio.grid(row=6, column=0, columnspan=3)
+		self.jPolinômio.grid(row=7, column=0, columnspan=3)
 
 	# Clique Botão Carregar
 	def cCarregar(self):
@@ -103,7 +105,7 @@ class Polinômio(Frame):
 		self.wdt = int(l*3/n)
 		self.ePolinômio = []
 		for p in range (self.n):
-			Label(self, text=("x^"+str(p)), width=self.wdt).grid(row=0, column=p)
+			Label(self, text=("a^"+str(p)), width=self.wdt).grid(row=0, column=p)
 			self.ePolinômio.append(Entry(self, width=self.wdt))
 			self.ePolinômio[p].grid(row=1, column=p)
 

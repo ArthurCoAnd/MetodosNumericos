@@ -24,6 +24,7 @@ class AdF(Frame):
 		self.t_título = Label(self, text="Ajuste de Funções", width=3*l)
 		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
 		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
+		self.t_inserirPontos = Label(self, text="Inserir os pontos:", width=3*l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="DodgerBlue4",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="DodgerBlue4")
@@ -50,11 +51,12 @@ class AdF(Frame):
 		nP = int(self.e_nPontos.get())
 		self.t_precisão.grid(row=2, column=0)
 		self.e_precisão.grid(row=2, column=1)
+		self.t_inserirPontos.grid(row=3, column=0, columnspan=3)
 		novaJanela = Pontos(self, nP)
 		if self.jPontos is not None:
 			self.jPontos.destroy()
 		self.jPontos = novaJanela
-		self.jPontos.grid(row=3, column=0, columnspan=3)
+		self.jPontos.grid(row=4, column=0, columnspan=3)
 
 	# Clique Salvar
 	def cSalvarPontos(self):
