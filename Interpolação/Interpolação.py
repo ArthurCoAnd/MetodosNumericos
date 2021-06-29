@@ -1,5 +1,6 @@
 # Importar Bibliotecas
 import mpmath as mm
+from numpy import ceil
 import pandas as pd
 from tkinter import *
 from tkinter import filedialog
@@ -17,17 +18,17 @@ from Interpolação.MétodosInter.Lagrange import Lagrange
 from Interpolação.MétodosInter.Newton import Newton
 
 # Tamanho Largura das Colunas
-l=25
+l=35
 
 class Inter(Frame):
 	def __init__(self, raiz):
 		Frame.__init__(self, raiz)
 		# ===== Definir Elementos =====
 			# Textos
-		self.t_título = Label(self, text="Interpolação", width=4*l)
-		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
-		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
-		self.t_inserirPontos = Label(self, text="Inserir os pontos:", width=4*l)
+		self.t_título = Label(self, text="Interpolação", width=3*l)
+		self.t_nPontos = Label(self, text="Número de pontos", width=l)
+		self.t_precisão = Label(self, text="Precisão (número de dígitos significativos)", width=l)
+		self.t_inserirPontos = Label(self, text="Inserir os pontos:", width=l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="DodgerBlue4",width=l)
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvarPontos, fg="white", bg="DodgerBlue4")
@@ -38,10 +39,10 @@ class Inter(Frame):
 		
 		# ===== Construir Elementos =====
 			# Textos
-		self.t_título.grid(row=0, column=0, columnspan=4)
+		self.t_título.grid(row=0, column=0, columnspan=3)
 		self.t_nPontos.grid(row=1, column=0)
 			# Botões
-		self.b_criarPontos.grid(row=1, column=2, columnspan=2)
+		self.b_criarPontos.grid(row=1, column=2)
 		self.b_carregar.grid(row=0, column=0)
 			# Entradas
 		self.e_nPontos.grid(row=1, column=1)
@@ -50,16 +51,16 @@ class Inter(Frame):
 
 	# Clique Gerar Pontos
 	def cGerarPontos(self):
-		self.b_salvar.grid(row=0, column=3)
+		self.b_salvar.grid(row=0, column=2)
 		nP = int(self.e_nPontos.get())
 		self.t_precisão.grid(row=2, column=0)
 		self.e_precisão.grid(row=2, column=1)
-		self.t_inserirPontos.grid(row=3, column=0, columnspan=4)
+		self.t_inserirPontos.grid(row=3, column=0, columnspan=3)
 		novaJanela = Pontos(self, nP)
 		if self.jPontos is not None:
 			self.jPontos.destroy()
 		self.jPontos = novaJanela
-		self.jPontos.grid(row=4, column=0, columnspan=4)
+		self.jPontos.grid(row=4, column=0, columnspan=3)
 
 	# Clique Salvar
 	def cSalvarPontos(self):
@@ -87,7 +88,7 @@ class Pontos(Frame):
 		self.raiz = raiz
 		self.n = n
 		self.prec = 0
-		self.wdt = int(l*4/n)
+		self.wdt = int(l*3/n)
 		self.pontos = [[],[]]
 		for p in range (0,self.n):
 			# X
@@ -100,13 +101,13 @@ class Pontos(Frame):
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
-		self.b_SistemaLinear = Button(self, text="Sistema Linear", command=self.cSL, fg="white", bg="DodgerBlue4", width=l*4)
+		self.b_SistemaLinear = Button(self, text="Sistema Linear", command=self.cSL, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_SistemaLinear.grid(row=4, column=0, columnspan=n)
 
-		self.b_Lagrange = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="DodgerBlue4", width=l*4)
+		self.b_Lagrange = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Lagrange.grid(row=5, column=0, columnspan=n)
 
-		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="DodgerBlue4", width=l*4)
+		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Newton.grid(row=6, column=0, columnspan=n)
 
 		self.jResposta = Resposta(self, self.n)
@@ -171,17 +172,18 @@ class Resposta(Frame):
 		Frame.__init__(self, raiz)
 		self.raiz = raiz
 		self.n = n
+		self.tam = int(3*l/4)
 		self.sf = "x"
 		self.txtResp = "Clique em Algum Método"
 		# ===== Definir Elementos =====
 			# Textos
-		self.texto = Label(self, text=self.txtResp, width=3*l)
-		self.t_extrapolarX = Label(self, text="X para Interpolar", width=l)
-		self.t_extrapolarY = Label(self, text="Y para Interpolar", width=l)
+		self.texto = Label(self, text=self.txtResp, width=3*self.tam)
+		self.t_extrapolarX = Label(self, text="x para Interpolar", width=self.tam)
+		self.t_extrapolarY = Label(self, text="y para Interpolar", width=self.tam)
 			# Botões
-		self.b_extrapolarX = Button(self, text="Interpolar X", command=self.cInterpolarX, fg="white", bg="DodgerBlue4", width=l)
-		self.b_extrapolarY = Button(self, text="Interpolar Y", command=lambda: self.cInterpolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
-		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarX = Button(self, text="Interpolar x", command=self.cInterpolarX, fg="white", bg="DodgerBlue4", width=self.tam)
+		self.b_extrapolarY = Button(self, text="Interpolar y", command=lambda: self.cInterpolarY(raiz), fg="white", bg="DodgerBlue4", width=self.tam)
+		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="DodgerBlue4", width=self.tam)
 			# Entradas
 		self.e_extrapolarX = Entry(self)
 		self.e_extrapolarY = Entry(self)

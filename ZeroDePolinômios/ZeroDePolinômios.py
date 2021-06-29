@@ -12,7 +12,7 @@ from ZeroDePolinômios.MétodosZdP.BriotRuffini import BriotRuffini as BR
 from ZeroDePolinômios.MétodosZdP.Newton import Newton
 
 # Tamanho Largura das Colunas
-l=30
+l=35
 
 class ZdP(Frame):
 	def __init__(self, raiz):
@@ -20,11 +20,11 @@ class ZdP(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Zero de Polinômios", width=l)
-		self.t_n = Label(self, text="Grau do Polinômio", width=l)
-		self.t_x0 = Label(self, text="x0", width=l)
-		self.t_k = Label(self, text="Número de Interações", width=l)
-		self.t_e = Label(self, text="Epsilon", width=l)
-		self.t_prec = Label(self, text="Precisão", width=l)
+		self.t_n = Label(self, text="Grau do polinômio", width=l)
+		self.t_x0 = Label(self, text="Ponto inicial - x0", width=l)
+		self.t_k = Label(self, text="Número máximo de iterações - kmax", width=l)
+		self.t_e = Label(self, text="Epsilon - ε", width=l)
+		self.t_prec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
 		self.t_inserirPontos = Label(self, text="Inserir os coeficientes:", width=3*l)
 			# Botões
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
@@ -105,7 +105,7 @@ class Polinômio(Frame):
 		self.wdt = int(l*3/n)
 		self.ePolinômio = []
 		for p in range (self.n):
-			Label(self, text=("a^"+str(p)), width=self.wdt).grid(row=0, column=p)
+			Label(self, text=("a"+str(p)), width=self.wdt).grid(row=0, column=p)
 			self.ePolinômio.append(Entry(self, width=self.wdt))
 			self.ePolinômio[p].grid(row=1, column=p)
 

@@ -13,7 +13,7 @@ from IntegraçãoNumérica.MétodosIN.Simpson13 import Simpson13
 from IntegraçãoNumérica.MétodosIN.Simpson38 import Simpson38
 
 # Tamanho Largura das Colunas
-l=30
+l=35
 
 class iNum(Frame):
 	def __init__(self, raiz):
@@ -22,14 +22,14 @@ class iNum(Frame):
 			# Textos
 		self.t_título = Label(self, text="Integração Numérica", width=(2*l))
 		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Aproximação da Integral", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
-		self.t_sf = Label(self, text="Função", width=l)
-		self.t_sdf = Label(self, text="Função Derivada Erro", width=l)
-		self.t_a = Label(self, text="Intervalo - Limite Inferior", width=l)
-		self.t_b = Label(self, text="Intervalo - Limite Superior", width=l)
+		self.t_sf = Label(self, text="Função - f(x)", width=l)
+		self.t_sdf = Label(self, text="Função erro - Derifada * da função - f*(x)", width=l)
+		self.t_a = Label(self, text="Intervalo - limite inferior (a)", width=l)
+		self.t_b = Label(self, text="Intervalo - limite superior (a)", width=l)
 		self.t_m = Label(self, text="Subdivisões", width=l)
-		self.t_c = Label(self, text="Valor Cálculo Erro", width=l)
-		self.t_e = Label(self, text="Erro Máximo", width=l)
-		self.t_pDec = Label(self, text="Precisão", width=l)
+		self.t_c = Label(self, text="Valor erro", width=l)
+		self.t_e = Label(self, text="Erro máximo", width=l)
+		self.t_pDec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
 			# Botões
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")

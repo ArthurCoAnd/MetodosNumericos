@@ -15,7 +15,7 @@ from SistemasLinears.MétodosSL.GaussJacobi import GaussJacobi
 from SistemasLinears.MétodosSL.GaussSeidel import GaussSeidel
 
 # Tamanho Largura das Colunas
-l=30
+l=35
 
 class SL(Frame):
 	def __init__(self, raiz):
@@ -23,9 +23,9 @@ class SL(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Sistemas Lineares", width=3*l)
-		self.t_nVar = Label(self, text="Número de Variáveis", width=l)
-		self.t_precisão = Label(self, text="Precisão", width=l)
-		self.t_e = Label(self, text="Epsilon", width=l)
+		self.t_nVar = Label(self, text="Número de variáveis", width=l)
+		self.t_precisão = Label(self, text="Precisão (número de dígitos significativos)", width=l)
+		self.t_e = Label(self, text="Epsilon - ε", width=l)
 		self.t_inserirPontos = Label(self, text="Inserir os coeficientes do sistema e o vetor inicial:", width=3*l)
 			# Botões
 		self.b_gerarMatriz = Button(self, text="Criar Matriz", command=self.cGerarMatriz, fg="white", bg="DodgerBlue4",width=l)
@@ -128,26 +128,29 @@ class Matriz(Frame):
 			# Linha Inicial Dos Botões Dos Métodos
 		self.lm = self.n*2 + 2
 
+		self.t_Texto = Label(self, text="Escolha um Método Para Resolver o Sistema", width=3*l)
+		self.t_Texto.grid(row=self.lm+0, column=0, columnspan=n+1)
+
 		self.b_Cramer = Button(self, text="Fatoração Cramer", command=self.cCramer, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_Cramer.grid(row=self.lm+0, column=0, columnspan=n+1)
+		self.b_Cramer.grid(row=self.lm+1, column=0, columnspan=n+1)
 
 		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_Gauss.grid(row=self.lm+1, column=0, columnspan=n+1)
+		self.b_Gauss.grid(row=self.lm+2, column=0, columnspan=n+1)
 
 		self.b_LU = Button(self, text="Fatoração LU", command=self.cLU, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_LU.grid(row=self.lm+2, column=0, columnspan=n+1)
+		self.b_LU.grid(row=self.lm+3, column=0, columnspan=n+1)
 
 		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_Cholesky.grid(row=self.lm+3, column=0, columnspan=n+1)
+		self.b_Cholesky.grid(row=self.lm+4, column=0, columnspan=n+1)
 
 		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_GaussJacobi.grid(row=self.lm+4, column=0, columnspan=n+1)
-
-		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+5, column=0, columnspan=n+1)
 
-		self.t_Resposta = Label(self, text="Escolha um Método Para Resolver a Matriz", width=4*l, anchor=W, justify=LEFT, font="Consolas 10")
-		self.t_Resposta.grid(row=self.lm+6, column=0, columnspan=n+1)
+		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
+		self.b_GaussJacobi.grid(row=self.lm+6, column=0, columnspan=n+1)
+
+		self.t_Resposta = Label(self, text="", width=3*l, anchor=W, justify=LEFT, font="Consolas 10")
+		self.t_Resposta.grid(row=self.lm+7, column=0, columnspan=n+1)
 
 		# self.t_Ressíduo = Label(self, text="", width=int(l*3/2), anchor=E, justify=LEFT, font="Consolas 9")
 		# self.t_Ressíduo.grid(row=self.lm+6, column=2, columnspan=int((n+1)/2))

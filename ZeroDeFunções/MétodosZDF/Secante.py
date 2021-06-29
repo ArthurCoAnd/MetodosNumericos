@@ -58,6 +58,6 @@ def metodo(xkAnterior,xkAtual,xkProx,e,k,kmax,sf,r,pDec):
 		r.append([])
 		s = metodo(xkAtual,xkProx,xkProxProx,e,k,kmax,sf,r,pDec)
 	else:
-		s = ("Método da Secante\nNúmero de Interações\t=\t"+str(k)+"\nRaiz da Função f(x)\t=\t"+str(xkAtual)+"\nValor f(Raiz)\t\t=\t"+str(fxkA)+"\nErro\t\t\t=\t"+str(ek))
+		s = ("Método da Secante\nNúmero de Iterações\t=\t"+str(k)+"\nRaiz da Função f(ẋ)\t=\t"+str(xkAtual)+"\nValor f(ẋ)\t\t=\t"+str(fxkA)+"\nErro\t\t\t=\t"+str(ek))
 
 	return s

@@ -55,6 +55,6 @@ def metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r,pDec):
 		s = metodo(xkAtual,xkProx,e,k,kmax,sf,spf,r,pDec)
 	else:
 		fxkP = f(xkProx,sf,pDec)
-		s = ("Ponto Fixo\nInterações\t=\t"+str(k)+"\nRaiz\t\t=\t"+str(xkAtual)+"\nFunção da Raiz\t=\t"+str(fxkA)+"\ne de parada\t=\t"+str(ek))
+		s = ("Método do Ponto Fixo\nIterações\t=\t"+str(k)+"\nRaiz da Função f(ẋ)\t\t=\t"+str(xkAtual)+"\nValor f(ẋ)\t=\t"+str(fxkA)+"\nErro\t=\t"+str(ek))
 
 	return s

@@ -24,16 +24,16 @@ class ZdF(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Zero de Funções", width=(2*l))
-		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Raiz da Função", width=(2*l), anchor=W, justify=LEFT, font="Consolas 10")
+		self.t_resposta = Label(self, text="", width=(2*l), anchor=W, justify=LEFT, font="Consolas 10")
 		self.t_calculos = Label(self, width=(3*l), font="Consolas 9")
 		self.t_sf = Label(self, text="Função - f(x)", width=l)
-		self.t_sdf = Label(self, text="Derivada da Função - f'(x)", width=l)
+		self.t_sdf = Label(self, text="Derivada da função - f'(x)", width=l)
 		self.t_sddf = Label(self, text="Derivada Segunda da Função - f''(x)", width=l)
 		self.t_spf = Label(self, text="Função Ponto Fixo", width=l)
-		self.t_a = Label(self, text="Intervalo - Limite Inferior (a)", width=l)
-		self.t_b = Label(self, text="Intervalo - Limite Superior (b)", width=l)
+		self.t_a = Label(self, text="Intervalo - limite inferior (a)", width=l)
+		self.t_b = Label(self, text="Intervalo - limite superior (b)", width=l)
 		self.t_e = Label(self, text="Epsilon - ε", width=l)
-		self.t_kmax = Label(self, text="Número de Interações Máximas - kmax", width=l, justify=CENTER)
+		self.t_kmax = Label(self, text="Número máximo de iterações - kmax", width=l, justify=CENTER)
 		self.t_prec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
 		self.t_escolha = Label(self, text="Escolha o método para encontrar a raiz da função:", width=2*l)
 			# Botões

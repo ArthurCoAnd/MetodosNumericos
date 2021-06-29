@@ -14,7 +14,7 @@ from AjusteDeFunções.FerramentasADF.secanteADF import secanteADF
 from AjusteDeFunções.MétodosADF.Linear import linear
 
 # Tamanho Largura das Colunas
-l=30
+l=35
 
 class AdF(Frame):
 	def __init__(self, raiz):
@@ -22,8 +22,8 @@ class AdF(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Ajuste de Funções", width=3*l)
-		self.t_nPontos = Label(self, text="Número de Pontos (n)", width=l)
-		self.t_precisão = Label(self, text="Precisão - Dígitos", width=l)
+		self.t_nPontos = Label(self, text="Número de pontos", width=l)
+		self.t_precisão = Label(self, text="Precisão (número de dígitos significativos)", width=l)
 		self.t_inserirPontos = Label(self, text="Inserir os pontos:", width=3*l)
 			# Botões
 		self.b_criarPontos = Button(self, text="Criar Pontos", command=self.cGerarPontos, fg="white", bg="DodgerBlue4",width=l)
@@ -304,11 +304,11 @@ class Resposta(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.texto = Label(self, text=self.txtResp, width=3*l)
-		self.t_extrapolarX = Label(self, text="X para Extrapolar", width=l)
-		self.t_extrapolarY = Label(self, text="Y para Extrapolar", width=l)
+		self.t_extrapolarX = Label(self, text="x para Extrapolar", width=l)
+		self.t_extrapolarY = Label(self, text="y para Extrapolar", width=l)
 			# Botões
-		self.b_extrapolarX = Button(self, text="Extrapolar X", command=lambda: self.cExtrapolarX(raiz), fg="white", bg="DodgerBlue4", width=l)
-		self.b_extrapolarY = Button(self, text="Extrapolar Y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarX = Button(self, text="Extrapolar x", command=lambda: self.cExtrapolarX(raiz), fg="white", bg="DodgerBlue4", width=l)
+		self.b_extrapolarY = Button(self, text="Extrapolar y", command=lambda: self.cExtrapolarY(raiz), fg="white", bg="DodgerBlue4", width=l)
 		self.b_gerarGráfico = Button(self, text="GerarGráfico", command=lambda: self.cGerarGráfico(raiz), fg="white", bg="DodgerBlue4", width=3*l)
 			# Entradas
 		self.e_extrapolarX = Entry(self)
