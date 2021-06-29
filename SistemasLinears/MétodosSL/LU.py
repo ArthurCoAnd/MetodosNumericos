@@ -30,6 +30,17 @@ def LU(mat, prec):
 	print("Matriz B")
 	print(str(matB))
 
+	# Matriz P L U
+	matP, matL, matU = mm.lu(matA)
+	print("Matriz P")
+	print(str(matP))
+
+	print("Matriz L")
+	print(str(matL))
+
+	print("Matriz U")
+	print(str(matU))
+
 	# Matriz X
 	matX = mm.lu_solve(matA, matB)
 	print("Matriz X")

@@ -47,7 +47,7 @@ def GaussJacobi(mat, matx, prec, e):
 		eMat = abs(MaiorModMat(nmatx, matx, prec))
 		matx = mm.matrix(nmatx)
 		k += 1
-		if(eMat<e):
+		if(eMat<e or k>999):
 			break
 	matx = mm.matrix(matx)
 	print("Matriz X("+str(k)+")")
