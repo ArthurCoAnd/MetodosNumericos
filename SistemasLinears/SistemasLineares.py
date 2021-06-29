@@ -128,10 +128,10 @@ class Matriz(Frame):
 			# Linha Inicial Dos Botões Dos Métodos
 		self.lm = self.n*2 + 2
 
-		self.t_Texto = Label(self, text="Escolha um Método Para Resolver o Sistema", width=3*l)
+		self.t_Texto = Label(self, text="Escolha um método para resolver o sistema", width=3*l)
 		self.t_Texto.grid(row=self.lm+0, column=0, columnspan=n+1)
 
-		self.b_Cramer = Button(self, text="Fatoração Cramer", command=self.cCramer, fg="white", bg="DodgerBlue4", width=l*3)
+		self.b_Cramer = Button(self, text="Cramer", command=self.cCramer, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Cramer.grid(row=self.lm+1, column=0, columnspan=n+1)
 
 		self.b_Gauss = Button(self, text="Eliminação de Gauss", command=self.cGauss, fg="white", bg="DodgerBlue4", width=l*3)
@@ -143,10 +143,10 @@ class Matriz(Frame):
 		self.b_Cholesky = Button(self, text="Fatoração Cholesky", command=self.cCholesky, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_Cholesky.grid(row=self.lm+4, column=0, columnspan=n+1)
 
-		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="DodgerBlue4", width=l*3)
+		self.b_GaussJacobi = Button(self, text="Gauss-Jacobi", command=self.cGaussJacobi, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+5, column=0, columnspan=n+1)
 
-		self.b_GaussJacobi = Button(self, text="Fatoração Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
+		self.b_GaussJacobi = Button(self, text="Gauss-Seidel", command=self.cGaussSeidel, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_GaussJacobi.grid(row=self.lm+6, column=0, columnspan=n+1)
 
 		self.t_Resposta = Label(self, text="", width=3*l, anchor=W, justify=LEFT, font="Consolas 10")
