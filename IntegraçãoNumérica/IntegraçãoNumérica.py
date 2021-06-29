@@ -25,11 +25,11 @@ class iNum(Frame):
 		self.t_título = Label(self, text="Integração Numérica", width=(2*l))
 		self.t_resposta = Label(self, text="", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
 		self.t_sf = Label(self, text="Função - f(x)", width=l)
-		self.t_sdf = Label(self, text="Função erro - Derifada * da função - f*(x)", width=l)
+		self.t_sdf = Label(self, text="Função derivada - f''(x) ou f''''(x)", width=l)
 		self.t_a = Label(self, text="Intervalo - limite inferior (a)", width=l)
-		self.t_b = Label(self, text="Intervalo - limite superior (a)", width=l)
+		self.t_b = Label(self, text="Intervalo - limite superior (b)", width=l)
 		self.t_m = Label(self, text="Subdivisões", width=l)
-		self.t_c = Label(self, text="Valor erro", width=l)
+		self.t_c = Label(self, text="Valor de análise de erro (c)", width=l)
 		self.t_e = Label(self, text="Erro máximo", width=l)
 		self.t_pDec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
 		self.t_escolha = Label(self, text="Escolha o método para realizar a integração numérica:", width=2*l)
@@ -65,7 +65,7 @@ class iNum(Frame):
 		self.t_b.grid(row=4, column=0)
 		self.t_m.grid(row=5, column=0)
 		self.t_c.grid(row=6, column=0)
-		self.t_e.grid(row=7, column=0)
+		# self.t_e.grid(row=7, column=0)
 		self.t_pDec.grid(row=8, column=0)
 		self.t_escolha.grid(row=9, column=0, columnspan=2)
 			# Botões
@@ -77,7 +77,7 @@ class iNum(Frame):
 		self.b_Simp38.grid(row=12, column=0, columnspan=2)
 			# Botões Verificadores
 		self.bv_c.grid(row=6 ,column=0, sticky=E)
-		self.bv_e.grid(row=7 ,column=0, sticky=E)
+		# self.bv_e.grid(row=7 ,column=0, sticky=E)
 			# Entradas
 		self.e_sf.grid(row=1, column=1)
 		self.e_sdf.grid(row=2, column=1)
@@ -85,7 +85,7 @@ class iNum(Frame):
 		self.e_b.grid(row=4, column=1)
 		self.e_m.grid(row=5, column=1)
 		self.e_c.grid(row=6, column=1)
-		self.e_e.grid(row=7, column=1)
+		# self.e_e.grid(row=7, column=1)
 		self.e_pDec.grid(row=8, column=1)
 
 	# Ler Dados das Entradas

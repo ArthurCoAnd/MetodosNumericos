@@ -18,7 +18,10 @@ def Simpson13(dIN):
 	a = mm.mpf(dIN.a)
 	b = mm.mpf(dIN.b)
 	m = int(dIN.m)
-	c = mm.mpf(dIN.c)
+	if(dIN.c == ""):
+		c = mm.mpf((b+a)/2)
+	else:
+		c = mm.mpf(dIN.c)
 	h = mm.mpf((b-a)/m)
 	
 	# Cálculo da Integral

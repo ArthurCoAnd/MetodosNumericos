@@ -144,7 +144,7 @@ class Pontos(Frame):
 	def cSL(self):
 		pts = self.lerDados()
 		pol = SL(pts, self.prec)
-		resp = "Sistema Linear\n\n"+pol+"\n"
+		resp = "Sistema Linear\n\np(x)"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)
@@ -154,7 +154,7 @@ class Pontos(Frame):
 	def cLagrange(self):
 		pts = self.lerDados()
 		pol = Lagrange(pts, self.prec)
-		resp = "Lagrange\n\n"+pol+"\n"
+		resp = "Lagrange\n\np(x)"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)
@@ -164,7 +164,7 @@ class Pontos(Frame):
 	def cNewton(self):
 		pts = self.lerDados()
 		pol = Newton(pts, self.prec)
-		resp = "Newton\n\n"+pol+"\n"
+		resp = "Newton\n\np(x)"+pol+"\n"
 		self.jResposta.txtResp = resp
 		self.jResposta.texto.config(text=self.jResposta.txtResp)
 		self.jResposta.sf = tsf(pol)

@@ -23,5 +23,8 @@ def Lagrange(pts, prec):
 def pol2str(pol):
 	s = ""
 	for i in range(len(pol)):
-		s = s + "+("+ str(pol[i]) + "x^" + str(i) + ")"
+		if pol[i] > 0:
+			s = s + " +" + str(pol[i]) + "*(x^" + str(i) + ")"
+		else:
+			s = s + " " + str(pol[i]) + "*(x^" + str(i) + ")"
 	return s
