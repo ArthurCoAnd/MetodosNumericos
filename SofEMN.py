@@ -65,5 +65,5 @@ class Métodos(Frame):
 app = Aplicativo()
 app.resizable(False, False)
 app.title("SofEMN")
-app.iconbitmap("Extras/UfsmLogo.ico")
+# app.iconbitmap("Extras/UfsmLogo.ico")
 app.mainloop()

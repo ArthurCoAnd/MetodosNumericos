@@ -101,17 +101,20 @@ class Pontos(Frame):
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
+		self.t_escolhaMétodo = Label(self, text="Escolha o método de interpolação:", width=3*l)
+		self.t_escolhaMétodo.grid(row=4, column=0, columnspan=n)
+
 		self.b_SistemaLinear = Button(self, text="Sistema Linear", command=self.cSL, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_SistemaLinear.grid(row=4, column=0, columnspan=n)
+		self.b_SistemaLinear.grid(row=5, column=0, columnspan=n)
 
 		self.b_Lagrange = Button(self, text="Lagrange", command=self.cLagrange, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_Lagrange.grid(row=5, column=0, columnspan=n)
+		self.b_Lagrange.grid(row=6, column=0, columnspan=n)
 
 		self.b_Newton = Button(self, text="Newton", command=self.cNewton, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_Newton.grid(row=6, column=0, columnspan=n)
+		self.b_Newton.grid(row=7, column=0, columnspan=n)
 
 		self.jResposta = Resposta(self, self.n)
-		self.jResposta.grid(row=7, column=0, columnspan=n)
+		self.jResposta.grid(row=8, column=0, columnspan=n)
 
 	def lerDados(self):
 		self.prec = int(self.raiz.e_precisão.get())
@@ -174,7 +177,7 @@ class Resposta(Frame):
 		self.n = n
 		self.tam = int(3*l/4)
 		self.sf = "x"
-		self.txtResp = "Clique em Algum Método"
+		self.txtResp = ""
 		# ===== Definir Elementos =====
 			# Textos
 		self.texto = Label(self, text=self.txtResp, width=3*self.tam)

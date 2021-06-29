@@ -97,17 +97,20 @@ class Pontos(Frame):
 			self.pontos[1][p].grid(row=3, column=p)
 
 		# ===== Definir e Cosntruir Elementos =====
+		self.t_escolhaMétodo = Label(self, text="Escolha o método de aproximação:", width=3*l)
+		self.t_escolhaMétodo.grid(row=4, column=0, columnspan=n)
+
 		self.b_funcLinear = Button(self, text="Função Linear", command=self.cFuncLinear, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_funcLinear.grid(row=4, column=0, columnspan=n)
+		self.b_funcLinear.grid(row=5, column=0, columnspan=n)
 
 		self.b_funcQuadOri = Button(self, text="Função Quadrada Vértice Origem", command=self.cFuncQuadOri, fg="white", bg="DodgerBlue4", width=l*3)
-		self.b_funcQuadOri.grid(row=5, column=0, columnspan=n)
-
-		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="DodgerBlue4", width=l*3)
 		self.b_funcQuadOri.grid(row=6, column=0, columnspan=n)
 
+		self.b_funcQuadOri = Button(self, text="Função Quadrada", command=self.cFuncQuad, fg="white", bg="DodgerBlue4", width=l*3)
+		self.b_funcQuadOri.grid(row=7, column=0, columnspan=n)
+
 		self.jResposta = Resposta(self, self.n)
-		self.jResposta.grid(row=7, column=0, columnspan=n)
+		self.jResposta.grid(row=8, column=0, columnspan=n)
 
 	def lerDados(self):
 		self.prec = int(self.raiz.e_precisão.get())
@@ -300,7 +303,7 @@ class Resposta(Frame):
 		Frame.__init__(self, raiz)
 		self.n = n
 		self.sf = "x"
-		self.txtResp = "Clique em Algum Método"
+		self.txtResp = ""
 		# ===== Definir Elementos =====
 			# Textos
 		self.texto = Label(self, text=self.txtResp, width=3*l)

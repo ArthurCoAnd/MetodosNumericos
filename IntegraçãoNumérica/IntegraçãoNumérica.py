@@ -1,6 +1,8 @@
 # Importar Bibliotecas
 from tkinter import *
 from tkinter import filedialog
+
+from matplotlib.pyplot import text
 # Importar Ferramentas
 from Ferramentas.fts import fts
 from Ferramentas.rmve import rmve
@@ -21,7 +23,7 @@ class iNum(Frame):
 		# ===== Definir Elementos =====
 			# Textos
 		self.t_título = Label(self, text="Integração Numérica", width=(2*l))
-		self.t_resposta = Label(self, text="Aperte um Método Para Calcular a Aproximação da Integral", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
+		self.t_resposta = Label(self, text="", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
 		self.t_sf = Label(self, text="Função - f(x)", width=l)
 		self.t_sdf = Label(self, text="Função erro - Derifada * da função - f*(x)", width=l)
 		self.t_a = Label(self, text="Intervalo - limite inferior (a)", width=l)
@@ -30,6 +32,7 @@ class iNum(Frame):
 		self.t_c = Label(self, text="Valor erro", width=l)
 		self.t_e = Label(self, text="Erro máximo", width=l)
 		self.t_pDec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
+		self.t_escolha = Label(self, text="Escolha o método para realizar a integração numérica:", width=2*l)
 			# Botões
 		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
 		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
@@ -55,7 +58,7 @@ class iNum(Frame):
 		# ===== Construir Elementos =====
 			# Textos
 		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.t_resposta.grid(row=15, column=0, columnspan=2)
+		self.t_resposta.grid(row=13, column=0, columnspan=2)
 		self.t_sf.grid(row=1, column=0)
 		self.t_sdf.grid(row=2, column=0)
 		self.t_a.grid(row=3, column=0)
@@ -64,13 +67,14 @@ class iNum(Frame):
 		self.t_c.grid(row=6, column=0)
 		self.t_e.grid(row=7, column=0)
 		self.t_pDec.grid(row=8, column=0)
+		self.t_escolha.grid(row=9, column=0, columnspan=2)
 			# Botões
 		self.b_carregar.grid(row=0, column=0)
 		self.b_salvar.grid(row=0, column=1)
 		# self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
-		self.b_Trap.grid(row=9, column=0, columnspan=2)
-		self.b_Simp13.grid(row=10, column=0, columnspan=2)
-		self.b_Simp38.grid(row=11, column=0, columnspan=2)
+		self.b_Trap.grid(row=10, column=0, columnspan=2)
+		self.b_Simp13.grid(row=11, column=0, columnspan=2)
+		self.b_Simp38.grid(row=12, column=0, columnspan=2)
 			# Botões Verificadores
 		self.bv_c.grid(row=6 ,column=0, sticky=E)
 		self.bv_e.grid(row=7 ,column=0, sticky=E)
