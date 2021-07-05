@@ -39,5 +39,6 @@ pip install matplotlib mpmath pandas scipy
 pip install pyinstaller
 ```
 ```
-pyinstaller -F -i ".\Extras\UfsmLogo.ico" ".\SofEMN.py"
+pyinstaller --noconfirm --onefile --windowed --icon "./Extras/UfsmLogo.ico" --add-data "./Extras/LemaLogo.ico;." --add-data "./Extras/UfsmLogo.ico;." "./SofEMN.py"
 ```
+
