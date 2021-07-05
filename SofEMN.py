@@ -1,5 +1,7 @@
 # Importar Bibliotecas
 from tkinter import *
+import os
+import sys
 # Importar Métodos
 from ZeroDeFunções.ZeroDeFunções import ZdF
 from ZeroDePolinômios.ZeroDePolinômios import ZdP
@@ -10,6 +12,13 @@ from IntegraçãoNumérica.IntegraçãoNumérica import iNum
 
 # Tamanho Largura das Colunas
 l=35
+
+def resource_path(relative_path):
+	try:
+		base_path = sys._MEIPASS
+	except Exception:
+		base_path = os.path.abspath(".")
+	return os.path.join(base_path, relative_path)
 
 class Aplicativo(Tk):
 	def __init__(self):
@@ -62,8 +71,15 @@ class Métodos(Frame):
 	def cNada(self):
 		print("\n\nBotão Apertado\n\n")
 
-app = Aplicativo()
-app.resizable(False, False)
-app.title("SofEMN")
-# app.iconbitmap("Extras/UfsmLogo.ico")
-app.mainloop()
+if __name__ == "__main__":
+	app = Aplicativo()
+	app.resizable(False, False)
+	app.title("SofEMN")
+	try:
+		app.iconbitmap("Extras/UfsmLogo.ico")
+	except:
+		try:
+			app.iconbitmap(resource_path("UfsmLogo.ico"))
+		except:
+			pass
+	app.mainloop()
