@@ -1,173 +1,143 @@
 # Importar Bibliotecas
-from tkinter import *
-from tkinter import filedialog
-
-from matplotlib.pyplot import text
+from functools import partial
+from kivy.uix.checkbox import CheckBox
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from random import randint
 # Importar Ferramentas
-from Ferramentas.fts import fts
-from Ferramentas.rmve import rmve
-	# Ferramentas Integração Numérica
-from IntegraçãoNumérica.FerramentasIN.DadosIN import DadosIN
-from IntegraçãoNumérica.FerramentasIN.GerarGráficoIN import gerarGráficoIN
+from IntegraçãoNumérica.Métodos.Trapézio import Trapézio
+from IntegraçãoNumérica.Métodos.Simpson13 import Simpson13
+from IntegraçãoNumérica.Métodos.Simpson38 import Simpson38
+from IntegraçãoNumérica.Ferramentas.GerarGráfico import GerarGráfico as GG
+from Ferramentas.f import f
 
-from IntegraçãoNumérica.MétodosIN.Trapézio import Trapézio
-from IntegraçãoNumérica.MétodosIN.Simpson13 import Simpson13
-from IntegraçãoNumérica.MétodosIN.Simpson38 import Simpson38
+class IntegraçãoNumérica(BoxLayout):
+	def __init__(self, **kwargs):
+		super().__init__(orientation="vertical")		
+		self.txt_métodos = ["Trapézio", "1/3 de Simpson", "3/8 de Simpson"]
+		self.txt_entradas = ["Função - f(x)", "Derivada segunda da função - f''(x)", "Derivada quarta da função - f''''(x)", "Limite inferior - a", "Limite superior - b", "Subdivisões - m", "Analisar erro em - c"]
+		self.t_dados = ["sf", "sdsf", "sdqf", "a", "b", "m", "c", "ac"]
+		self.dados = {"sf": "", "sdsf": "", "sdqf": "", "a": "", "b": "", "m": "", "c": "", "ac": ""}
+		self.txt_resultados = ["Método", "Integral", "Erro"]
+		self.t_resultado = ["met", "Int", "er"]
+		self.resultado = {"met": "-", "Int": "-", "er": "-"}
 
-# Tamanho Largura das Colunas
-l=35
-
-class iNum(Frame):
-	def __init__(self, raiz):
-		Frame.__init__(self, raiz)
-		# ===== Definir Elementos =====
-			# Textos
-		self.t_título = Label(self, text="Integração Numérica", width=(2*l))
-		self.t_resposta = Label(self, text="", width=(2*l), anchor=W, justify=LEFT, font="Consolas 9")
-		self.t_sf = Label(self, text="Função - f(x)", width=l)
-		self.t_sdf = Label(self, text="Função derivada - f''(x) ou f''''(x)", width=l)
-		self.t_a = Label(self, text="Intervalo - limite inferior (a)", width=l)
-		self.t_b = Label(self, text="Intervalo - limite superior (b)", width=l)
-		self.t_m = Label(self, text="Subdivisões", width=l)
-		self.t_c = Label(self, text="Valor de análise de erro (c)", width=l)
-		self.t_e = Label(self, text="Erro máximo", width=l)
-		self.t_pDec = Label(self, text="Precisão (número de dígitos significativos)", width=l)
-		self.t_escolha = Label(self, text="Escolha o método para realizar a integração numérica:", width=2*l)
-			# Botões
-		self.b_carregar = Button(self, text="Carregar", command=self.cCarregar, fg="white", bg="DodgerBlue4")
-		self.b_salvar = Button(self, text="Salvar", command=self.cSalvar, fg="white", bg="DodgerBlue4")
-		self.b_Trap = Button(self, text="Trapézios", command=self.cTrap, fg="white", bg="DodgerBlue4", width=(2*l))
-		self.b_Simp13 = Button(self, text="1/3 de Simpson", command=self.cSimp13, fg="white", bg="DodgerBlue4", width=(2*l))
-		self.b_Simp38 = Button(self, text="3/8 de Simpson", command=self.cSimp38, fg="white", bg="DodgerBlue4", width=(2*l))
-		self.b_GerarGráfico = Button(self, text="Gerar Gráfico", command=self.cGerarGráfico, fg="white", bg="DodgerBlue4", width=(2*l))
-			# Botões Verificadores
-		self.bv_c_var = IntVar()
-		self.bv_c = Checkbutton(self, variable=self.bv_c_var, onvalue=1, offvalue=0)
-		self.bv_e_var = IntVar()
-		self.bv_e = Checkbutton(self, variable=self.bv_e_var, onvalue=1, offvalue=0)
-			# Entradas
-		self.e_sf = Entry(self, width=l)
-		self.e_sdf = Entry(self, width=l)
-		self.e_a = Entry(self, width=l)
-		self.e_b = Entry(self, width=l)
-		self.e_m = Entry(self, width=l)
-		self.e_c = Entry(self, width=l)
-		self.e_e = Entry(self, width=l)
-		self.e_pDec = Entry(self, width=l)
+		self.entradas = []
+		for e in range(len(self.txt_entradas)):
+			linha = BoxLayout()
+			if e > len(self.txt_entradas)-2:
+				self.analisarC = CheckBox(size_hint_x=0.1)
+				self.analisarC.bind(active = self.on_checkbox_Active)
+				linha.add_widget(self.analisarC)
+				linha.add_widget(Label(text=self.txt_entradas[e], size_hint_x=0.4))
+				self.entradas.append(TextInput(halign="center", font_size=20, write_tab=False, size_hint_x=0.5))
+				linha.add_widget(self.entradas[e])
+				self.add_widget(linha)
+			else:
+				linha.add_widget(Label(text=self.txt_entradas[e], size_hint_x=0.5))
+				self.entradas.append(TextInput(halign="center", font_size=20, write_tab=False, size_hint_x=0.5))
+				linha.add_widget(self.entradas[e])
+				self.add_widget(linha)
 		
-		# ===== Construir Elementos =====
-			# Textos
-		self.t_título.grid(row=0, column=0, columnspan=2)
-		self.t_resposta.grid(row=13, column=0, columnspan=2)
-		self.t_sf.grid(row=1, column=0)
-		self.t_sdf.grid(row=2, column=0)
-		self.t_a.grid(row=3, column=0)
-		self.t_b.grid(row=4, column=0)
-		self.t_m.grid(row=5, column=0)
-		self.t_c.grid(row=6, column=0)
-		# self.t_e.grid(row=7, column=0)
-		self.t_pDec.grid(row=8, column=0)
-		self.t_escolha.grid(row=9, column=0, columnspan=2)
-			# Botões
-		self.b_carregar.grid(row=0, column=0)
-		self.b_salvar.grid(row=0, column=1)
-		# self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
-		self.b_Trap.grid(row=10, column=0, columnspan=2)
-		self.b_Simp13.grid(row=11, column=0, columnspan=2)
-		self.b_Simp38.grid(row=12, column=0, columnspan=2)
-			# Botões Verificadores
-		self.bv_c.grid(row=6 ,column=0, sticky=E)
-		# self.bv_e.grid(row=7 ,column=0, sticky=E)
-			# Entradas
-		self.e_sf.grid(row=1, column=1)
-		self.e_sdf.grid(row=2, column=1)
-		self.e_a.grid(row=3, column=1)
-		self.e_b.grid(row=4, column=1)
-		self.e_m.grid(row=5, column=1)
-		self.e_c.grid(row=6, column=1)
-		# self.e_e.grid(row=7, column=1)
-		self.e_pDec.grid(row=8, column=1)
+		self.add_widget(Label(text="Escolha o método para encontrar a raiz da função:"))
+		self.seleção = []
+		l1 = BoxLayout()
+		for s in range(len(self.txt_métodos)):
+			l1.add_widget(Button(text=self.txt_métodos[s], on_press=partial(self.clique,s)))
+		self.add_widget(l1)
 
-	# Ler Dados das Entradas
+		self.resultados = []
+		l1 = BoxLayout()
+		l2 = BoxLayout()
+		for r in range(len(self.txt_resultados)):
+			l1.add_widget(Label(text=self.txt_resultados[r]))
+			self.resultados.append(Label(text="-"))
+			l2.add_widget(self.resultados[r])
+		self.add_widget(l1)
+		self.add_widget(l2)
+		
+	def clique(self, i_método, *args, **kwargs):
+		self.lerDados()
+		self.txt2numb()
+		self.calcularMétodo(i_método)
+		self.alterarRespostas()
+
+	def on_checkbox_Active(self, checkboxInstance, isActive):
+		if isActive:
+			self.dados["ac"] = 1
+		else:
+			self.dados["ac"] = 0
+
 	def lerDados(self):
-		sf = self.e_sf.get()
-		sdf = self.e_sdf.get()
-		a = self.e_a.get()
-		b = self.e_b.get()
-		m = self.e_m.get()
-		c = self.e_c.get()
-		vc = self.bv_c_var.get()
-		e = self.e_e.get()
-		ve = self.bv_e_var.get()
-		pDec = self.e_pDec.get()
-		dados = DadosIN(sf,sdf,a,b,m,c,vc,e,ve,pDec)
-		return dados
+		self.resultado = {"met": "-", "Int": "-", "er": "-"}
+		for i in range(len(self.dados)-1):
+			self.dados[self.t_dados[i]] = self.entradas[i].text.replace(",",".")
 
-	# Clique do Botão Salvar - Salva dados em um arquivo e pasta de escolha do usuário
-	def cSalvar(self):
-		arqS = fts(self.e_sf.get())
-		arqN = filedialog.asksaveasfilename(initialdir="./", title="Escolha um Arquivo", initialfile=arqS, filetypes=[("Text files",".txt")], defaultextension=".txt")
-		arq = open(arqN, "w")
-		arq.write(self.e_sf.get())
-		arq.write("\n")
-		arq.write(self.e_sdf.get())
-		arq.write("\n")
-		arq.write(self.e_a.get())
-		arq.write("\n")
-		arq.write(self.e_b.get())
-		arq.write("\n")
-		arq.write(self.e_m.get())
-		arq.write("\n")
-		arq.write(self.e_c.get())
-		arq.write("\n")
-		arq.write(self.e_e.get())
-		arq.write("\n")
-		arq.write(self.e_pDec.get())
-		arq.close()
-		self.t_resposta.config(text="Arquivo Salvo", bg="green", width=2*l)
+	# Tentar Converter os dados das entradas para seus respectivos formatos	
+	def txt2numb(self):
+		# Verificar se é uma função válida
+		try:
+			f(randint(-100,100),self.dados["sf"])
+			self.entradas[0].background_color = (255,255,255,1)
+		except:
+			self.entradas[0].background_color = (255,255,0,1)
+		# Verificar se é uma derivada segunda válida
+		try:
+			f(randint(-100,100),self.dados["sdsf"])
+			self.entradas[1].background_color = (255,255,255,1)
+		except:
+			self.entradas[1].background_color = (255,255,0,1)
+		# Verificar se é uma derivada quarta válida
+		try:
+			f(randint(-100,100),self.dados["sdqf"])
+			self.entradas[2].background_color = (255,255,255,1)
+		except:
+			self.entradas[2].background_color = (255,255,0,1)
+		# Verificar ser a - b - c são válidos
+		for i in range(3,7):
+			try:
+				if i != 5:
+					self.dados[self.t_dados[i]] = float(self.dados[self.t_dados[i]])
+					self.entradas[i].background_color = (255,255,255,1)
+				else:
+					self.dados[self.t_dados[i]] = int(self.dados[self.t_dados[i]])
+					self.entradas[i].background_color = (255,255,255,1)
+			except:
+				self.entradas[i].background_color = (255,0,0,1)
 
-	# Clique Botão Carregar - Carrega dados de um arquivo escolhido pelo usuário
-	def cCarregar(self):
-		arqN = filedialog.askopenfilename(initialdir="./", title="Escolha um Arquivo")
-		arq = open(arqN, "r")
-		self.e_sf.delete(0,END)
-		self.e_sf.insert(END,rmve(arq.readline()))
-		self.e_sdf.delete(0,END)
-		self.e_sdf.insert(END,rmve(arq.readline()))
-		self.e_a.delete(0,END)
-		self.e_a.insert(END,rmve(arq.readline()))
-		self.e_b.delete(0,END)
-		self.e_b.insert(END,rmve(arq.readline()))
-		self.e_m.delete(0,END)
-		self.e_m.insert(END,rmve(arq.readline()))
-		self.e_c.delete(0,END)
-		self.e_c.insert(END,rmve(arq.readline()))
-		self.e_e.delete(0,END)
-		self.e_e.insert(END,rmve(arq.readline()))
-		self.e_pDec.delete(0,END)
-		self.e_pDec.insert(END,rmve(arq.readline()))
-		arq.close()
-		self.t_resposta.config(text="Arquivo Carregado", bg="green", width=2*l)
+	def calcularMétodo(self, i_método):
+		try:
+			d = self.dados.copy()
+			if i_método == 0:
+				self.resultado["met"] = "Trapézio"
+				self.resultado["Int"], self.resultado["er"] = Trapézio(d)
+			elif i_método == 1:
+				self.resultado["met"] = "1/3 de Simpson"
+				self.resultado["Int"], self.resultado["er"] = Simpson13(d)
+			else:
+				self.resultado["met"] = "3/8 de Simpson"
+				self.resultado["Int"], self.resultado["er"] = Simpson38(d)
+		except:
+			self.resultado = {"met": "-", "Int": "-", "er": "-"}
 
-	# Clique Botão Trapézio
-	def cTrap(self):
-		dados = self.lerDados()
-		Resp = Trapézio(dados)
-		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
-		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+	def alterarRespostas(self):
+		for r in range(len(self.txt_resultados)):
+			self.resultados[r].text = str(self.resultado[self.t_resultado[r]])
 
-	def cSimp13(self):
-		dados = self.lerDados()
-		Resp = Simpson13(dados)
-		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
-		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
+	def Salvar(self):
+		d = []
+		for i in range(len(self.dados)-1):
+			d.append(self.entradas[i].text)
+		return d
 
-	def cSimp38(self):
-		dados = self.lerDados()
-		Resp = Simpson38(dados)
-		self.t_resposta.config(text=Resp, bg="white", width=(2*l))
-		self.b_GerarGráfico.grid(row=16, column=0, columnspan=2)
-
-	def cGerarGráfico(self):
-		dados = self.lerDados()
-		gerarGráficoIN(dados)
+	def Carregar(self, d):
+		for i in range(len(self.dados)-1):
+			self.entradas[i].text = d[i]
+	
+	def GerarGráfico(self):
+		self.lerDados()
+		self.txt2numb()
+		d = self.dados.copy()
+		GG(d)
