@@ -17,9 +17,9 @@ class IntegraçãoNumérica(BoxLayout):
 	def __init__(self, **kwargs):
 		super().__init__(orientation="vertical")		
 		self.txt_métodos = ["Trapézio", "1/3 de Simpson", "3/8 de Simpson"]
-		self.txt_entradas = ["Função - f(x)", "Derivada segunda da função - f''(x)", "Derivada quarta da função - f''''(x)", "Limite inferior - a", "Limite superior - b", "Subdivisões - m", "Analisar erro em - c"]
-		self.t_dados = ["sf", "sdsf", "sdqf", "a", "b", "m", "c", "ac"]
-		self.dados = {"sf": "", "sdsf": "", "sdqf": "", "a": "", "b": "", "m": "", "c": "", "ac": ""}
+		self.txt_entradas = ["Função - f(x)", "Derivada segunda da função - f''(x)", "Derivada quarta da função - f''''(x)", "Limite inferior - a", "Limite superior - b", "Subdivisões - m"]
+		self.t_dados = ["sf", "sdsf", "sdqf", "a", "b", "m"]
+		self.dados = {"sf": "", "sdsf": "", "sdqf": "", "a": "", "b": "", "m": ""}
 		self.txt_resultados = ["Método", "Integral", "Erro"]
 		self.t_resultado = ["met", "Int", "er"]
 		self.resultado = {"met": "-", "Int": "-", "er": "-"}
@@ -27,19 +27,10 @@ class IntegraçãoNumérica(BoxLayout):
 		self.entradas = []
 		for e in range(len(self.txt_entradas)):
 			linha = BoxLayout()
-			if e > len(self.txt_entradas)-2:
-				self.analisarC = CheckBox(size_hint_x=0.1)
-				self.analisarC.bind(active = self.on_checkbox_Active)
-				linha.add_widget(self.analisarC)
-				linha.add_widget(Label(text=self.txt_entradas[e], size_hint_x=0.4))
-				self.entradas.append(TextInput(halign="center", font_size=20, write_tab=False, size_hint_x=0.5))
-				linha.add_widget(self.entradas[e])
-				self.add_widget(linha)
-			else:
-				linha.add_widget(Label(text=self.txt_entradas[e], size_hint_x=0.5))
-				self.entradas.append(TextInput(halign="center", font_size=20, write_tab=False, size_hint_x=0.5))
-				linha.add_widget(self.entradas[e])
-				self.add_widget(linha)
+			linha.add_widget(Label(text=self.txt_entradas[e], size_hint_x=0.5))
+			self.entradas.append(TextInput(halign="center", font_size=20, write_tab=False, size_hint_x=0.5))
+			linha.add_widget(self.entradas[e])
+			self.add_widget(linha)
 		
 		self.add_widget(Label(text="Escolha o método para encontrar a raiz da função:"))
 		self.seleção = []
@@ -64,15 +55,9 @@ class IntegraçãoNumérica(BoxLayout):
 		self.calcularMétodo(i_método)
 		self.alterarRespostas()
 
-	def on_checkbox_Active(self, checkboxInstance, isActive):
-		if isActive:
-			self.dados["ac"] = 1
-		else:
-			self.dados["ac"] = 0
-
 	def lerDados(self):
 		self.resultado = {"met": "-", "Int": "-", "er": "-"}
-		for i in range(len(self.dados)-1):
+		for i in range(len(self.dados)):
 			self.dados[self.t_dados[i]] = self.entradas[i].text.replace(",",".")
 
 	# Tentar Converter os dados das entradas para seus respectivos formatos	
@@ -95,8 +80,8 @@ class IntegraçãoNumérica(BoxLayout):
 			self.entradas[2].background_color = (255,255,255,1)
 		except:
 			self.entradas[2].background_color = (255,255,0,1)
-		# Verificar ser a - b - c são válidos
-		for i in range(3,7):
+		# Verificar ser a - b - m são válidos
+		for i in range(3,6):
 			try:
 				if i != 5:
 					self.dados[self.t_dados[i]] = float(self.dados[self.t_dados[i]])
@@ -128,12 +113,12 @@ class IntegraçãoNumérica(BoxLayout):
 
 	def Salvar(self):
 		d = []
-		for i in range(len(self.dados)-1):
+		for i in range(len(self.dados)):
 			d.append(self.entradas[i].text)
 		return d
 
 	def Carregar(self, d):
-		for i in range(len(self.dados)-1):
+		for i in range(len(self.dados)):
 			self.entradas[i].text = d[i]
 	
 	def GerarGráfico(self):
