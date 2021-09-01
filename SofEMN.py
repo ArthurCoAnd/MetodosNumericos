@@ -1,4 +1,8 @@
 # Importar Bibliotecas
+import os
+import sys
+from typing import Text
+os.environ["KIVY_NO_CONSOLELOG"] = "1"
 from easygui import  fileopenbox, filesavebox
 from functools import partial
 from kivy.app import App
@@ -6,8 +10,6 @@ from kivy.resources import resource_add_path, resource_find
 from kivy.uix.actionbar import ActionBar, ActionButton, ActionGroup, ActionPrevious, ActionView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-import os
-import sys
 # Importar Métodos
 from ZerosDeFunções.ZerosDeFunções import ZerosDeFunções as ZdF
 from ZerosDePolinômios.ZerosDePolinômios import ZerosDeFunções as ZdP
@@ -15,6 +17,8 @@ from SistemasLineares.SisteamasLineares import SistemasLineares as SL
 from AproximaçõeDeFunções.AproximaçõesDeFunções import AproximaçõesDeFunções as AdP
 from Interpolação.Interpolação import Interpolação as Inter
 from IntegraçãoNumérica.IntegraçãoNumérica import IntegraçãoNumérica as IN
+# Importar Ferramentas
+from Ferramentas.título import título as ttl
 
 class Aplicativo(App):
 	def build(self):
@@ -38,6 +42,7 @@ class Aplicativo(App):
 		return app
 
 	def TrocarMétodo(self, m, *args, **kwargs):
+		os.system('cls' if os.name == 'nt' else 'clear')
 		self.bMenu.title = self.métodos_txt[m]
 		self.root.remove_widget(self.JanelaMétodos)
 		self.JanelaMétodos = eval(self.método_t[m])
@@ -88,13 +93,19 @@ class Aplicativo(App):
 		except:
 			pass
 
+	def Passo_Passo(self, *args, **kwargs):
+		try:
+			self.JanelaMétodos.Passo_Passo()
+		except:
+			pass
+
 	def Menu(self):
 		menu = ActionBar()
 		menuAV = ActionView()
 		self.bMenu = ActionPrevious(title="Menu", with_previous=False, on_press=partial(self.TrocarMétodo,0))
 		try:
-			self.bMenu.app_icon = "Img/LEMA.ico"
-			self.bMenu.app_icon = resource_find("LEMA.ico")
+			self.bMenu.app_icon = "Img/LEMAvoltar.ico"
+			self.bMenu.app_icon = resource_find("LEMAvoltar.ico")
 		except:
 			pass
 		menuAV.add_widget(self.bMenu)
@@ -104,6 +115,7 @@ class Aplicativo(App):
 		self.menuAQR.add_widget(self.bSalvar)
 		self.menuOPS = ActionGroup(text="Opções", mode="spinner")
 		self.menuOPS.add_widget(ActionButton(text="Gerar Gráfico", on_press=self.GerarGráfico))
+		self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
 		menuAV.add_widget(self.menuOPS)
 		menuAV.add_widget(self.menuAQR)
 		menu.add_widget(menuAV)

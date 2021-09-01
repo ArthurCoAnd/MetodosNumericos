@@ -15,7 +15,7 @@ from Ferramentas.f import f
 class AproximaçõesDeFunções(BoxLayout):
 	def __init__(self, **kwargs):
 		super().__init__(orientation="vertical")
-		self.métodos_txt = ["Função Linear", "Função Quadrada\nVértice na Origem", "Função Quadrada"]
+		self.métodos_txt = ["Função Linear", "Função Quadrada"]
 
 		jNPontos = BoxLayout(size_hint_y=0.1)
 		jNPontos.add_widget(Label(text="Número de pontos:"))
@@ -113,8 +113,6 @@ class AproximaçõesDeFunções(BoxLayout):
 			if i_método == 0:
 				self.resposta.text += FL(p)
 			if i_método == 1:
-				self.resposta.text += FQVO(p)
-			if i_método == 2:
 				self.resposta.text += FQ(p)
 		except:
 			self.resposta.text = "-"

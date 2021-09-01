@@ -1,7 +1,7 @@
 # SofEMN
 Software para Ensino de Métodos Numéricos
 
-<img src="./Img/LEMA.png" height="100">
+<a href="https://www.ufsm.br/laboratorios/lema"><img src="./Img/LEMA.png" height="100"></a>
 <img src="./Img/UFSM.png" height="100">
 
 # Sobre o Software
@@ -21,15 +21,27 @@ Desenvolvido como projeto de pesquisa e extensão pelo Laboratório de Estudos e
 # Dependências
 ### <a href="https://kivy.org/#home">Kivy</a>
 ```
-pip install --upgrade pip setuptools virtualenv
+pip install -U kivy
 ```
 ### <a href="https://matplotlib.org/stable/index.html">Matplotlib</a>
 ```
 pip install -U matplotlib
 ```
-### <a href="https://www.scipy.org/">Scipy</a>
+### <a href="https://www.scipy.org">Scipy</a>
 ```
-pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+pip install -U scipy
+```
+### <a href="https://numpy.org">Numpy</a>
+```
+pip install -U numpy
+```
+### <a href="https://github.com/robertlugg/easygui">EasyGUI</a>
+```
+pip install -U easygui
+```
+### Ctrl C + Ctrl V
+```
+pip install -U kivy matplotlib scipy numpy easygui
 ```
 # Compilar
 ```
@@ -38,7 +50,5 @@ pyinstaller --noconfirm --onefile --windowed --icon "Img/UFSM.ico" --add-data "I
 ## Dependências:
 ### <a herf="https://www.pyinstaller.org/">Pyinstaller</a>
 ```
-pip install pyinstaller
+pip install -U pyinstaller
 ```
-
-
