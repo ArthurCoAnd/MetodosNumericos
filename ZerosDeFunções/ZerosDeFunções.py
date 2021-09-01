@@ -130,3 +130,6 @@ class ZerosDeFunções(BoxLayout):
 		self.txt2numb()
 		d = self.dados.copy()
 		GG(d)
+
+	def Passo_Passo(self):
+		print("Passo")

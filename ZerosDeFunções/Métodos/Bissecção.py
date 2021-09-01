@@ -1,8 +1,10 @@
 # Importar Bibliotecas
 from Ferramentas.f import f
 from Ferramentas.erro import erro
+from time import time
 
 def Bissecção(d, k=1):
+	ti = time()
 	fa = f(d["a"],d["sf"])
 	fb = f(d["b"],d["sf"])
 	x = (d["a"]+d["b"])/2
@@ -21,4 +23,5 @@ def Bissecção(d, k=1):
 		fx = f(x,d["sf"])
 		er = erro(d["a"],d["b"],fx)
 		resultados.append([d["a"],x,d["b"],er,fa,fx,fb])
+	print(f"{time()-ti}s")
 	return k, x, fx, er, resultados
