@@ -113,15 +113,19 @@ class Interpolação(BoxLayout):
 			p = self.pontos.copy()
 			self.resposta.text = "f(x) = "
 			if i_método == 0:
+				self.métodos_Exec = 0
 				self.método_resposta.text = "Sistema Linear:"
 				self.resposta.text += SL(p)
 			if i_método == 1:
+				self.métodos_Exec = 1
 				self.método_resposta.text = "Lagrange:"
 				self.resposta.text += Lagrange(p)
 			if i_método == 2:
+				self.métodos_Exec = 2
 				self.método_resposta.text = "Newton:"
-				self.resposta.text += Newton(p)
+				self.resposta.text, self.método_respostaInv = Newton(p)
 		except:
+			self.métodos_Exec = "-"
 			self.método_resposta.text = "-"
 			self.resposta.text = "-"
 
@@ -140,13 +144,22 @@ class Interpolação(BoxLayout):
 				self.respostasExtrapolarX.text = "_"
 				self.extrapolarX.background_color = (255,0,0,1)
 		if xy == "y":
-			try:
-				sf += f"-({self.extrapolarY.text})"
-				self.respostasExtrapolarY.text = str(Secante(p,sf))
-				self.extrapolarY.background_color = (255,255,255,1)
-			except:
-				self.respostasExtrapolarY.text = "-"
-				self.extrapolarY.background_color = (255,0,0,1)
+			if self.métodos_Exec == 2:
+				try:
+					sf = self.método_respostaInv.replace("f(x) = ","").replace(" -","-").replace(" +","+")
+					self.respostasExtrapolarY.text = str(f(float(self.extrapolarY.text),sf))
+					self.extrapolarY.background_color = (255,255,255,1)
+				except:
+					self.respostasExtrapolarY.text = "-"
+					self.extrapolarY.background_color = (255,0,0,1)
+			else:
+				try:
+					sf += f"-({self.extrapolarY.text})"
+					self.respostasExtrapolarY.text = str(Secante(p,sf))
+					self.extrapolarY.background_color = (255,255,255,1)
+				except:
+					self.respostasExtrapolarY.text = "-"
+					self.extrapolarY.background_color = (255,0,0,1)
 
 	def Salvar(self):
 		d = []

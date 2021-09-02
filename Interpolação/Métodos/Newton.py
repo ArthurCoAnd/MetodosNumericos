@@ -1,31 +1,71 @@
 # Importar Bibliotecas
-from Interpolação.Ferramentas.pol2str import pol2str
+import os
+from time import time
+from traceback import print_tb
 from numpy.polynomial.polynomial import Polynomial, polyadd, polymul
 from numpy import zeros
 from numpy import shape
+# Importar Ferramentas
+from Ferramentas.título import título as ttl
+from Interpolação.Ferramentas.pol2str import pol2str
+
 
 def Newton(p):
+	os.system('cls' if os.name == 'nt' else 'clear')
+	ttl("Newton","=")
+	ti = time()
+	pap = ""
 	np = len(p)
 
+	# Direta
+	pap += "Diretaz\n"
+	pol = p.copy()
 	matX = []
 	matY = []
 	for i in range(np):
-		matX.append(p[i][0])
-		matY.append(p[i][1])
-
+		matX.append(pol[i][0])
+		matY.append(pol[i][1])
 	coeff_vector = getNDDCoeffs(matX,matY)
+	pap += f"Coeficientes de Newton = {coeff_vector}\n"
 	final_pol = Polynomial([0.])
 	n = coeff_vector.shape[0]
 	for i in range(n):
-		p = Polynomial([1.])
+		pol = Polynomial([1.])
 		for j in range(i):
 			p_temp = Polynomial([-matX[j],1.])
-			p = polymul(p,p_temp)
-		p *= coeff_vector[i]
-		final_pol = polyadd(final_pol,p)
-	p = final_pol[0].coef
+			pol = polymul(pol,p_temp)
+		pol *= coeff_vector[i]
+		final_pol = polyadd(final_pol,pol)
+	pol = final_pol[0].coef
+	direta = pol2str(pol)
+	pap += f"Função Direta = {direta}\n"
 
-	return pol2str(p)
+	# Inversa
+	pap += "\nInvera\n"
+	pol = p.copy()
+	matX = []
+	matY = []
+	for i in range(np):
+		matX.append(pol[i][1])
+		matY.append(pol[i][0])
+	coeff_vector = getNDDCoeffs(matX,matY)
+	pap += f"Coeficientes de Newton = {coeff_vector}\n"
+	final_pol = Polynomial([0.])
+	n = coeff_vector.shape[0]
+	for i in range(n):
+		pol = Polynomial([1.])
+		for j in range(i):
+			p_temp = Polynomial([-matX[j],1.])
+			pol = polymul(pol,p_temp)
+		pol *= coeff_vector[i]
+		final_pol = polyadd(final_pol,pol)
+	pol = final_pol[0].coef
+	inversa = pol2str(pol)
+	pap += f"Função Inversa = {inversa}\n"
+
+	pap += f"\nTempo de execução = {time()-ti}"
+	print(pap)
+	return direta, inversa
 
 def getNDDCoeffs(x, y):
 	n = shape(y)[0]

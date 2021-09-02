@@ -43,6 +43,7 @@ class Aplicativo(App):
 
 	def TrocarMétodo(self, m, *args, **kwargs):
 		os.system('cls' if os.name == 'nt' else 'clear')
+		ttl(self.métodos_txt[m],"=")
 		self.bMenu.title = self.métodos_txt[m]
 		self.root.remove_widget(self.JanelaMétodos)
 		self.JanelaMétodos = eval(self.método_t[m])

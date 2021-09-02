@@ -1,4 +1,5 @@
 # Importar Bibliotecas
+import os
 from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
@@ -12,6 +13,7 @@ from ZerosDeFunções.Métodos.NewtonRaphson import NewtonRaphson
 from ZerosDeFunções.Métodos.Secante import Secante
 from ZerosDeFunções.Ferramentas.GerarGráfico import GerarGráfico as GG
 from Ferramentas.f import f
+from Ferramentas.título import título as ttl
 
 class ZerosDeFunções(BoxLayout):
 	def __init__(self, **kwargs):
@@ -132,4 +134,5 @@ class ZerosDeFunções(BoxLayout):
 		GG(d)
 
 	def Passo_Passo(self):
-		print("Passo")
+		os.system('cls' if os.name == 'nt' else 'clear')
+		ttl("Zeros de Funções","=")

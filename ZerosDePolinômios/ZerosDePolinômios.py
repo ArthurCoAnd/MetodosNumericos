@@ -104,7 +104,6 @@ class ZerosDeFunções(BoxLayout):
 			self.dados["sf"] = self.poli2str()
 		except:
 			pass
-		
 		for i in range(len(self.dados)):
 			try:
 				if i != 3:

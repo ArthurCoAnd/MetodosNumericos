@@ -1,9 +1,17 @@
 # Importar Bibliotecas
+import os
+from time import time
 from numpy import zeros
+# Importar Ferramentas
+from Ferramentas.título import título as ttl
 from Ferramentas.FatorarMatriz import FatorarMatriz as FM
 from Interpolação.Ferramentas.pol2str import pol2str
 
 def SistemaLinear(p):
+	os.system('cls' if os.name == 'nt' else 'clear')
+	ttl("Sistema Linear","=")
+	ti = time()
+	pap = ""
 	nv = len(p)
 	matA = []
 	matY = []
@@ -24,4 +32,8 @@ def SistemaLinear(p):
 		for c in range(d+1,nv):
 			sub = sub+(matFat[d][c]*matX[c])
 		matX[d] = (matFat[d][nv]-sub)/matFat[d][d]
-	return pol2str(matX)
+	strPol = pol2str(matX)
+	pap += f"Função = {strPol}\n"
+	pap += f"\nTempo de execução = {time()-ti}"
+	print(pap)
+	return strPol
