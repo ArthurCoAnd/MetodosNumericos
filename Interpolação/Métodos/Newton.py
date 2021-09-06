@@ -63,7 +63,7 @@ def Newton(p):
 	inversa = pol2str(pol)
 	pap += f"Função Inversa = {inversa}\n"
 
-	pap += f"\nTempo de execução = {time()-ti}"
+	pap += f"\nTempo de execução = {time()-ti}s"
 	print(pap)
 	return direta, inversa
 

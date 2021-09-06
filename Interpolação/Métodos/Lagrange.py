@@ -23,6 +23,6 @@ def Lagrange(p):
 	poly = poly[::-1]
 	strPol = pol2str(poly)
 	pap += f"Função = {strPol}\n"
-	pap += f"\nTempo de execução = {time()-ti}"
+	pap += f"\nTempo de execução = {time()-ti}s"
 	print(pap)
 	return strPol

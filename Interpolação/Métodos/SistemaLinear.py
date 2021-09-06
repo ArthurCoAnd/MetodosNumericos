@@ -34,6 +34,6 @@ def SistemaLinear(p):
 		matX[d] = (matFat[d][nv]-sub)/matFat[d][d]
 	strPol = pol2str(matX)
 	pap += f"Função = {strPol}\n"
-	pap += f"\nTempo de execução = {time()-ti}"
+	pap += f"\nTempo de execução = {time()-ti}s"
 	print(pap)
 	return strPol

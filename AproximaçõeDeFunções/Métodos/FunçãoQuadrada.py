@@ -1,9 +1,17 @@
 # Importar Bibliotecas
+import os
+from time import time
 from numpy import zeros
 # Importar Ferramentas
 from Ferramentas.FatorarMatriz import FatorarMatriz as FM
+from Ferramentas.título import título as ttl
 
 def FunçãoQuadrada(p):
+	os.system('cls' if os.name == 'nt' else 'clear')
+	ttl("Função Quadrada","=")
+	ti = time()
+	pap = ""
+	
 	np = len(p)
 	# Gerar Matriz Base de Análise
 	mat = zeros((3,4))
@@ -22,5 +30,9 @@ def FunçãoQuadrada(p):
 	a = mat[2][3]/mat[2][2]
 	b = (mat[1][3]-(mat[1][2]*a))/mat[1][1]
 	c = (mat[0][3]-(mat[0][1]*b)-(mat[0][2]*a))/mat[0][0]
+
+	pap += f"Tempo de execução: {time()-ti}s"
+	print(pap)
+
 	# Retornar String da Função
 	return f"{a}*x^2 {b:+}*x {c:+}"
