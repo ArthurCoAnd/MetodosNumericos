@@ -1,14 +1,5 @@
-# Importar Bibliotecas
-import os
-from time import time
-# Importar Ferramentas
-from Ferramentas.título import título as ttl
-
 def GaussJacobi(mat, vet, e):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Gauss-Jacobi","=")
-	ti = time()
-	pap = ""
+	pap = "Gauss-Jacobi\n\n"
 	matX = vet
 	k = 0
 	while(True):
@@ -20,9 +11,8 @@ def GaussJacobi(mat, vet, e):
 			break
 	pap += f"Iterações (k): {k}\n"
 	pap += f"Erro: {eMat}\n"
-	pap += f"Tempo de execução: {time()-ti}s"
 	print(pap)
-	return matX
+	return matX, pap
 
 def CalcularMatX(mat, matx):
 	nv = len(mat)

@@ -1,9 +1,11 @@
 # Importar Bibliotecas
+import os
 from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from time import time
 # Importar Ferramentas
 from SistemasLineares.Métodos.Cramer import Cramer
 from SistemasLineares.Métodos.EliminaçãoDeGauss import EliminaçãoDeGauss as EdG
@@ -125,9 +127,12 @@ class SistemasLineares(BoxLayout):
 
 	def clique(self, i_método, *args, **kwargs):
 		try:
+			os.system('cls' if os.name == 'nt' else 'clear')
+			ti = time()
 			self.lerDados()
 			self.calcularMétodo(i_método)
 			self.alterarRespostas()
+			print(f"\n\n\n*** Tempo de execução: {time()-ti}s ***\n\n\n")
 		except:
 			self.nvariáveis.background_color = (255,0,0,1)
 
@@ -163,22 +168,22 @@ class SistemasLineares(BoxLayout):
 			ve = self.vetor.copy()
 			if i_método == 0:
 				self.respostaMétodo.text = "Método - Cramer"
-				self.resposta = Cramer(va)
+				self.resposta, self.pap = Cramer(va)
 			elif i_método == 1:
 				self.respostaMétodo.text = "Método - Eliminação de Gauss"
-				self.resposta = EdG(va)
+				self.resposta, self.pap = EdG(va)
 			elif i_método == 2:
 				self.respostaMétodo.text = "Método - Fatoração LU"
-				self.resposta = LU(va)
+				self.resposta, self.pap = LU(va)
 			elif i_método == 3:
 				self.respostaMétodo.text = "Método - Fatoração Cholesky"
-				self.resposta = Cholesky(va)
+				self.resposta, self.pap = Cholesky(va)
 			elif i_método == 4:
 				self.respostaMétodo.text = "Método - Gauss-Jacobi"
-				self.resposta = GaussJacobi(va, ve, self.erro)
+				self.resposta, self.pap = GaussJacobi(va, ve, self.erro)
 			elif i_método == 5:
 				self.respostaMétodo.text = "Método - Gauss-Seidel"
-				self.resposta = GaussSeidel(va, ve, self.erro)
+				self.resposta, self.pap = GaussSeidel(va, ve, self.erro)
 		except:
 			self.respostaMétodo.text = "Método - "
 			self.resposta = []

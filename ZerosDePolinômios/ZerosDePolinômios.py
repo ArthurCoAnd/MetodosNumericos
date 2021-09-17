@@ -1,9 +1,11 @@
 # Importar Bibliotecas
+import os
 from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from time import time
 # Importar Ferramentas
 from ZerosDePolinômios.Métodos.BirgeVieta import BirgeVieta
 from ZerosDePolinômios.Métodos.NewtonRaphson import NewtonRaphson
@@ -84,9 +86,12 @@ class ZerosDeFunções(BoxLayout):
 			self.grau.background_color = (255,0,0,1)
 
 	def clique(self, i_método, *args, **kwargs):
+		os.system('cls' if os.name == 'nt' else 'clear')
+		ti = time()
 		self.lerDados()
 		self.calcularMétodo(i_método)
 		self.alterarRespostas()
+		print(f"\n\n\n*** Tempo de execução: {time()-ti}s ***\n\n\n")
 
 	def lerDados(self):
 		self.resultado = {"met": "-", "k": "-", "xk": "-", "fxk": "-", "erro": "-"}
@@ -123,10 +128,10 @@ class ZerosDeFunções(BoxLayout):
 			d = self.dados.copy()
 			if i_método == 0:
 				self.resultado["met"] = "Birge Vieta"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = BirgeVieta(p,d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = BirgeVieta(p,d)
 			elif i_método == 1:
 				self.resultado["met"] = "Newton-Raphson"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = NewtonRaphson(p,d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = NewtonRaphson(p,d)
 		except:
 			self.resultado = {"met": "-", "k": "-", "xk": "-", "fxk": "-", "erro": "-"}
 

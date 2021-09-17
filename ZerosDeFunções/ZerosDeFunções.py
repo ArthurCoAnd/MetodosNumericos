@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from random import randint
+from time import time
 # Importar Ferramentas
 from ZerosDeFunções.Métodos.Bissecção import Bissecção
 from ZerosDeFunções.Métodos.PosiçãoFalsa import PosiçãoFalsa
@@ -13,7 +14,6 @@ from ZerosDeFunções.Métodos.NewtonRaphson import NewtonRaphson
 from ZerosDeFunções.Métodos.Secante import Secante
 from ZerosDeFunções.Ferramentas.GerarGráfico import GerarGráfico as GG
 from Ferramentas.f import f
-from Ferramentas.título import título as ttl
 
 class ZerosDeFunções(BoxLayout):
 	def __init__(self, **kwargs):
@@ -57,10 +57,13 @@ class ZerosDeFunções(BoxLayout):
 		self.add_widget(l2)
 		
 	def clique(self, i_método, *args, **kwargs):
+		os.system('cls' if os.name == 'nt' else 'clear')
+		ti = time()
 		self.lerDados()
 		self.txt2numb()
 		self.calcularMétodo(i_método)
 		self.alterarRespostas()
+		print(f"\n\n\n*** Tempo de execução: {time()-ti}s ***\n\n\n")
 
 	def lerDados(self):
 		self.resultado = {"k": "-", "xk": "-", "fxk": "-", "erro": "-"}
@@ -100,16 +103,16 @@ class ZerosDeFunções(BoxLayout):
 			d = self.dados.copy()
 			if i_método == 0:
 				self.resultado["met"] = "Bissecção"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = Bissecção(d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = Bissecção(d)
 			elif i_método == 1:
 				self.resultado["met"] = "Posição Falsa"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = PosiçãoFalsa(d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = PosiçãoFalsa(d)
 			elif i_método == 2:
 				self.resultado["met"] = "Newton-Raphson"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = NewtonRaphson(d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = NewtonRaphson(d)
 			else:
 				self.resultado["met"] = "Secante"
-				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados = Secante(d)
+				self.resultado["k"], self.resultado["xk"], self.resultado["fxk"], self.resultado["erro"], resultados, self.pap = Secante(d)
 		except:
 			self.resultado = {"met": "-", "k": "-", "xk": "-", "fxk": "-", "erro": "-"}
 
@@ -132,7 +135,3 @@ class ZerosDeFunções(BoxLayout):
 		self.txt2numb()
 		d = self.dados.copy()
 		GG(d)
-
-	def Passo_Passo(self):
-		os.system('cls' if os.name == 'nt' else 'clear')
-		ttl("Zeros de Funções","=")

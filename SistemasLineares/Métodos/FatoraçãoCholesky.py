@@ -1,18 +1,12 @@
 # Importar Bibliotecas
-import os
-from time import time
 from numpy import zeros
 # Importar Ferramentas
-from Ferramentas.título import título as ttl
 from SistemasLineares.Ferramentas.DecomposiçãoCholesky import DecomposiçãoCholesky
 from SistemasLineares.Ferramentas.DecomposiçãoLU import DecomposiçãoLU
 
 def FatoraçãoCholesky(mat):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Fatoração Cholesky","=")
-	ti = time()
-	pap = ""
 	nv = len(mat)
+	pap = "Fatoração Cholesky\n\n"
 	matA = []
 	for l in range(nv):
 		matA.append([])
@@ -35,6 +29,5 @@ def FatoraçãoCholesky(mat):
 		for c in range(d+1,nv):
 			sub = sub + matGt[d][c]*matX[c]
 		matX[d] = (matY[d]-sub)/matGt[d][d]
-	pap += f"Tempo de execução: {time()-ti}s"
 	print(pap)
-	return matX
+	return matX, pap

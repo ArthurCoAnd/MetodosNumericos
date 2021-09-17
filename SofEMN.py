@@ -1,7 +1,6 @@
 # Importar Bibliotecas
 import os
 import sys
-from typing import Text
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
 from easygui import  fileopenbox, filesavebox
 from functools import partial
@@ -116,7 +115,7 @@ class Aplicativo(App):
 		self.menuAQR.add_widget(self.bSalvar)
 		self.menuOPS = ActionGroup(text="Opções", mode="spinner")
 		self.menuOPS.add_widget(ActionButton(text="Gerar Gráfico", on_press=self.GerarGráfico))
-		self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
+		# self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
 		menuAV.add_widget(self.menuOPS)
 		menuAV.add_widget(self.menuAQR)
 		menu.add_widget(menuAV)

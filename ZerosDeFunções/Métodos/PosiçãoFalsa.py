@@ -1,18 +1,12 @@
-# Importar Bibliotecas
-import os
-from time import time
 # Importar Ferramentas
 from Ferramentas.f import f
 from Ferramentas.erro import erro
-from Ferramentas.título import título as ttl
 
 def PosiçãoFalsa(d, k=1):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Posição Falsa","=")
-	pap = f"Função - f(x)\t\t{d['sf']}\n"
+	pap = "Posição Falsa\n\n"
+	pap += f"Função - f(x)\t\t{d['sf']}\n"
 	pap += f"Limite inferior - a\t{d['a']}\n"
 	pap += f"Limite superior - b\t{d['b']}\n"
-	ti = time()
 	fa = f(d["a"],d["sf"])
 	fb = f(d["b"],d["sf"])
 	x = (d["a"]*abs(fb) + d["b"]*abs(fa)) / (abs(fa) + abs(fb))
@@ -34,7 +28,6 @@ def PosiçãoFalsa(d, k=1):
 	pap += f"Iterações - k\t\t{k}\n"
 	pap += f"Raiz - xk\t\t{x}\n"
 	pap += f"Valor de f(xk)\t\t{fx}\n"
-	pap += f"Erro\t\t\t{er}\n"
-	pap += f"Tempo de execução\t{time()-ti}s\n"
+	pap += f"Erro\t\t\t{er}"
 	print(pap)
-	return k, x, fx, er, resultados
+	return k, x, fx, er, resultados, pap

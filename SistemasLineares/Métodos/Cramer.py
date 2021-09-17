@@ -1,17 +1,11 @@
 # Importar Bibliotecas
-import os
-from time import time
 from numpy import matrix
 # Importar Ferramentas
-from Ferramentas.título import título as ttl
 from SistemasLineares.Ferramentas.Determinante import determinant_recursive as det
 
 def Cramer(mat):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Cramer","=")
-	pap = ""
-	ti = time()
 	nv = len(mat)
+	pap = "Cramer\n\n"
 	matA = []
 	for l in range(nv):
 		matA.append([])
@@ -47,6 +41,5 @@ def Cramer(mat):
 		pap += f"\nX{x} = {matX[x]}"
 	pap += f"\n\nMatriz X\n"
 	pap += str(matrix(matX))
-	pap += f"\n\nTempo de execução: {time()-ti}s"
 	print(pap)
-	return matX
+	return matX, pap
