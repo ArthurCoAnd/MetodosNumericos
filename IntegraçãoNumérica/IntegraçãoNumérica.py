@@ -1,10 +1,12 @@
 # Importar Bibliotecas
+import os
 from functools import partial
-from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.checkbox import CheckBox
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from time import time
 from random import randint
 # Importar Ferramentas
 from IntegraçãoNumérica.Métodos.Trapézio import Trapézio
@@ -50,10 +52,14 @@ class IntegraçãoNumérica(BoxLayout):
 		self.add_widget(l2)
 		
 	def clique(self, i_método, *args, **kwargs):
+		os.system('cls' if os.name == 'nt' else 'clear')
+		ti = time()
 		self.lerDados()
 		self.txt2numb()
 		self.calcularMétodo(i_método)
 		self.alterarRespostas()
+		print(f"\n\n\n*** Tempo de execução: {time()-ti}s ***\n\n\n")
+
 
 	def lerDados(self):
 		self.resultado = {"met": "-", "Int": "-", "er": "-"}
@@ -97,13 +103,13 @@ class IntegraçãoNumérica(BoxLayout):
 			d = self.dados.copy()
 			if i_método == 0:
 				self.resultado["met"] = "Trapézio"
-				self.resultado["Int"], self.resultado["er"] = Trapézio(d)
+				self.resultado["Int"], self.resultado["er"], self.pap = Trapézio(d)
 			elif i_método == 1:
 				self.resultado["met"] = "1/3 de Simpson"
-				self.resultado["Int"], self.resultado["er"] = Simpson13(d)
+				self.resultado["Int"], self.resultado["er"], self.pap = Simpson13(d)
 			else:
 				self.resultado["met"] = "3/8 de Simpson"
-				self.resultado["Int"], self.resultado["er"] = Simpson38(d)
+				self.resultado["Int"], self.resultado["er"], self.pap = Simpson38(d)
 		except:
 			self.resultado = {"met": "-", "Int": "-", "er": "-"}
 

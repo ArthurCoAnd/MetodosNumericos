@@ -1,16 +1,9 @@
-# Importar Bibliotecas
-import os
-from time import time
 # Importar Ferramentas
 from Ferramentas.f import f
-from Ferramentas.título import título as ttl
 from IntegraçãoNumérica.Ferramentas.c4análise import c4análise as c4a
 
 def Simpson13(d):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("1/3 de Simpson","=")
-	ti = time()
-	pap = ""
+	pap = "1/3 de Simpson\n\n"
 
 	sf = d["sf"]
 	if d["sdqf"] == "":
@@ -45,8 +38,7 @@ def Simpson13(d):
 	if E == 0: E = "-"
 
 	pap += f"Integral\t\t{I}\n"
-	pap += f"Erro\t\t\t{E}\n"
-	pap += f"Tempo de execução\t{time()-ti}s"
+	pap += f"Erro\t\t\t{E}"
 	print(pap)
 
-	return I, E
+	return I, E, pap

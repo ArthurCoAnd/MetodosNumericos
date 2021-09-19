@@ -1,24 +1,17 @@
 # Importar Bibliotecas
-import os
-from time import time
-from traceback import print_tb
 from numpy.polynomial.polynomial import Polynomial, polyadd, polymul
 from numpy import zeros
 from numpy import shape
 # Importar Ferramentas
-from Ferramentas.título import título as ttl
 from Interpolação.Ferramentas.pol2str import pol2str
 
 
 def Newton(p):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Newton","=")
-	ti = time()
-	pap = ""
+	pap = "Newton\n\n"
 	np = len(p)
 
 	# Direta
-	pap += "Diretaz\n"
+	pap += "Direta\n"
 	pol = p.copy()
 	matX = []
 	matY = []
@@ -61,9 +54,8 @@ def Newton(p):
 		final_pol = polyadd(final_pol,pol)
 	pol = final_pol[0].coef
 	inversa = pol2str(pol)
-	pap += f"Função Inversa = {inversa}\n"
+	pap += f"Função Inversa = {inversa}"
 
-	pap += f"\nTempo de execução = {time()-ti}s"
 	print(pap)
 	return direta, inversa
 

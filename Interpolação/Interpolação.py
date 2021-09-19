@@ -1,9 +1,11 @@
 # Importar Bibliotecas
+import os
 from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from time import time
 # Importar Ferramentas
 from Interpolação.Métodos.SistemaLinear import SistemaLinear as SL
 from Interpolação.Métodos.Lagrange import Lagrange
@@ -87,8 +89,11 @@ class Interpolação(BoxLayout):
 			self.nPontos_in.background_color = (255,0,0,1)
 
 	def clique(self, i_método, *args, **kwargs):
+		os.system('cls' if os.name == 'nt' else 'clear')
+		ti = time()
 		self.lerDados()
 		self.calcularMétodo(i_método)
+		print(f"\n\n\n*** Tempo de execução: {time()-ti}s ***\n\n\n")
 
 	def lerDados(self):
 		self.pontos = []

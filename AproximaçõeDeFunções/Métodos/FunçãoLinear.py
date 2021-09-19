@@ -1,16 +1,10 @@
 # Importar Bibliotecas
-import os
-from time import time
 from numpy import zeros
 # Importar Ferramentas
 from Ferramentas.FatorarMatriz import FatorarMatriz as FM
-from Ferramentas.título import título as ttl
 
 def FunçãoLinear(p):
-	os.system('cls' if os.name == 'nt' else 'clear')
-	ttl("Função Linear","=")
-	ti = time()
-	pap = ""
+	pap = "Função Linear\n\n"
 	
 	np = len(p)
 	# Gerar Matriz Base de Análise
@@ -30,7 +24,6 @@ def FunçãoLinear(p):
 	b = mat[1][2]/mat[1][1]
 	a = (mat[0][2]-(mat[0][1]*b))/mat[0][0]
 
-	pap += f"Tempo de execução\t{time()-ti}s"
 	print(pap)
 
 	# Retornar String da Função
