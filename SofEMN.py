@@ -4,7 +4,7 @@ import sys
 import webbrowser
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
 from easygui import  fileopenbox, filesavebox
-from functools import partial
+from functools import partial, partialmethod
 from kivy.app import App
 from kivy.resources import resource_add_path, resource_find
 from kivy.uix.actionbar import ActionBar, ActionButton, ActionGroup, ActionPrevious, ActionView
@@ -39,6 +39,7 @@ class Aplicativo(App):
 		app.add_widget(self.Menu())
 		self.JanelaMétodos = self.Métodos()
 		app.add_widget(self.JanelaMétodos)
+		self.bAjuda.on_press = partial(self.Ajuda,0)
 		return app
 
 	def TrocarMétodo(self, m, *args, **kwargs):
@@ -65,9 +66,11 @@ class Aplicativo(App):
 		url = "https://github.com/ArthurCoAnd/MetodosNumericos"
 		if m == 0:
 			webbrowser.open(url)
+			print("0")
 		else:
 			url += "/tree/master/" + self.métodos_txt[m].replace(" ","").replace("de","De")
 			webbrowser.open(url)
+			print("Teste")
 			
 	def Salvar(self, m, *args, **kwargs):
 		if m != 0:
@@ -124,7 +127,7 @@ class Aplicativo(App):
 		self.bSalvar = ActionButton(text="Salvar")
 		self.menuAQR.add_widget(self.bSalvar)
 		self.menuOPS = ActionGroup(text="Opções", mode="spinner")
-		self.bAjuda = ActionButton(text="Ajuda", on_press=partial(self.Ajuda,0))
+		self.bAjuda = ActionButton(text="Ajuda")
 		self.menuOPS.add_widget(self.bAjuda)
 		self.menuOPS.add_widget(ActionButton(text="Gerar Gráfico", on_press=self.GerarGráfico))
 		# self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
