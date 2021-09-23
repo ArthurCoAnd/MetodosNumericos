@@ -1,6 +1,7 @@
 # Importar Bibliotecas
 import os
 import sys
+import webbrowser
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
 from easygui import  fileopenbox, filesavebox
 from functools import partial
@@ -13,7 +14,7 @@ from kivy.uix.button import Button
 from ZerosDeFunções.ZerosDeFunções import ZerosDeFunções as ZdF
 from ZerosDePolinômios.ZerosDePolinômios import ZerosDeFunções as ZdP
 from SistemasLineares.SisteamasLineares import SistemasLineares as SL
-from AproximaçõeDeFunções.AproximaçõesDeFunções import AproximaçõesDeFunções as AdP
+from AproximaçõesDeFunções.AproximaçõesDeFunções import AproximaçõesDeFunções as AdP
 from Interpolação.Interpolação import Interpolação as Inter
 from IntegraçãoNumérica.IntegraçãoNumérica import IntegraçãoNumérica as IN
 # Importar Ferramentas
@@ -48,6 +49,7 @@ class Aplicativo(App):
 		self.JanelaMétodos = eval(self.método_t[m])
 		self.root.add_widget(self.JanelaMétodos)
 		self.bSalvar.on_press = partial(self.Salvar,m)
+		self.bAjuda.on_press = partial(self.Ajuda,m)
 
 	def Métodos(self,*args, **kwargs):
 		JM = BoxLayout(orientation="vertical")
@@ -59,6 +61,14 @@ class Aplicativo(App):
 				JM.add_widget(LM)
 		return JM
 
+	def Ajuda(self, m, *args, **kwargs):
+		url = "https://github.com/ArthurCoAnd/MetodosNumericos"
+		if m == 0:
+			webbrowser.open(url)
+		else:
+			url += "/tree/master/" + self.métodos_txt[m].replace(" ","").replace("de","De")
+			webbrowser.open(url)
+			
 	def Salvar(self, m, *args, **kwargs):
 		if m != 0:
 			try:
@@ -102,10 +112,10 @@ class Aplicativo(App):
 	def Menu(self):
 		menu = ActionBar()
 		menuAV = ActionView()
-		self.bMenu = ActionPrevious(title="Menu", with_previous=False, on_press=partial(self.TrocarMétodo,0))
+		self.bMenu = ActionPrevious(title="Menu", on_press=partial(self.TrocarMétodo,0))
 		try:
-			self.bMenu.app_icon = "Img/LEMAvoltar.ico"
-			self.bMenu.app_icon = resource_find("LEMAvoltar.ico")
+			self.bMenu.app_icon = "Img/LEMA.ico"
+			self.bMenu.app_icon = resource_find("LEMA.ico")
 		except:
 			pass
 		menuAV.add_widget(self.bMenu)
@@ -114,6 +124,8 @@ class Aplicativo(App):
 		self.bSalvar = ActionButton(text="Salvar")
 		self.menuAQR.add_widget(self.bSalvar)
 		self.menuOPS = ActionGroup(text="Opções", mode="spinner")
+		self.bAjuda = ActionButton(text="Ajuda", on_press=partial(self.Ajuda,0))
+		self.menuOPS.add_widget(self.bAjuda)
 		self.menuOPS.add_widget(ActionButton(text="Gerar Gráfico", on_press=self.GerarGráfico))
 		# self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
 		menuAV.add_widget(self.menuOPS)

@@ -7,11 +7,11 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from time import time
 # Importar Ferramentas
-from AproximaçõeDeFunções.Métodos.FunçãoLinear import FunçãoLinear as FL
-from AproximaçõeDeFunções.Métodos.FunçãoQuadradaVérticeOrigem import FunçãoQuadradaVérticeOrigem as FQVO
-from AproximaçõeDeFunções.Métodos.FunçãoQuadrada import FunçãoQuadrada as FQ
-from AproximaçõeDeFunções.Ferramentas.Secante import Secante
-from AproximaçõeDeFunções.Ferramentas.GerarGráfico import GerarGráfico as GG
+from AproximaçõesDeFunções.Métodos.FunçãoLinear import FunçãoLinear as FL
+from AproximaçõesDeFunções.Métodos.FunçãoQuadradaVérticeOrigem import FunçãoQuadradaVérticeOrigem as FQVO
+from AproximaçõesDeFunções.Métodos.FunçãoQuadrada import FunçãoQuadrada as FQ
+from AproximaçõesDeFunções.Ferramentas.Secante import Secante
+from AproximaçõesDeFunções.Ferramentas.GerarGráfico import GerarGráfico as GG
 from Ferramentas.f import f
 
 class AproximaçõesDeFunções(BoxLayout):
