@@ -4,6 +4,7 @@ from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from random import randint
 from time import time
@@ -14,6 +15,7 @@ from ZerosDeFunções.Métodos.NewtonRaphson import NewtonRaphson
 from ZerosDeFunções.Métodos.Secante import Secante
 from ZerosDeFunções.Ferramentas.GerarGráfico import GerarGráfico as GG
 from Ferramentas.f import f
+
 
 class ZerosDeFunções(BoxLayout):
 	def __init__(self, **kwargs):
@@ -135,3 +137,11 @@ class ZerosDeFunções(BoxLayout):
 		self.txt2numb()
 		d = self.dados.copy()
 		GG(d)
+
+	def Passo_Passo(self):
+		popup = Popup(title="Passo a Passo", size_hint=(1,1))
+		papPop = BoxLayout(orientation="vertical")
+		papPop.add_widget(TextInput(text=self.pap, font_size=20, write_tab=False, size_hint=(1,0.9)))
+		papPop.add_widget(Button(text="Fechar Passo a Passo", on_press=popup.dismiss, size_hint=(1,0.1)))
+		popup.content = papPop
+		popup.open()

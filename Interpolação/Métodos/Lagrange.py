@@ -1,4 +1,5 @@
 # Importar Bibliotecas
+from numpy import matrix
 from numpy.polynomial.polynomial import Polynomial
 from scipy.interpolate import lagrange
 # Importar Ferramentas
@@ -16,6 +17,6 @@ def Lagrange(p):
 	poly = Polynomial(poly).coef
 	poly = poly[::-1]
 	strPol = pol2str(poly)
-	pap += f"Função = {strPol}"
+	pap += f"\n\nFunção = {strPol}"
 	print(pap)
-	return strPol
+	return strPol, pap

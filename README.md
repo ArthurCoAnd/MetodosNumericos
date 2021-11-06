@@ -19,6 +19,7 @@ Desenvolvido como projeto de pesquisa e extensão pelo Laboratório de Estudos e
 - Integração Numérica
 
 # Dependências
+Desenvolvido utilizando Python 3.9.7
 ### <a href="https://kivy.org/#home">Kivy</a>
 ```
 pip install -U kivy

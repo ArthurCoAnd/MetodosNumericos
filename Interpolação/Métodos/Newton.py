@@ -57,7 +57,7 @@ def Newton(p):
 	pap += f"Função Inversa = {inversa}"
 
 	print(pap)
-	return direta, inversa
+	return direta, inversa, pap
 
 def getNDDCoeffs(x, y):
 	n = shape(y)[0]

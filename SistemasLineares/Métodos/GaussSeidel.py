@@ -1,16 +1,22 @@
+# Importar Bibliotecas
+from numpy import matrix
+
 def GaussSeidel(mat, vet, e):
-	pap = "Gauss-Seidel\n\n"
-	matX = vet
 	k = 0
+	matX = vet
+	pap = "Gauss-Seidel\n\n"
+	pap += f"Matriz Base:\n{str(matrix(mat))}\n"
+	pap += f"x({k}): {str(matrix(matX))}\n"
 	while(True):
+		k += 1
 		nmatX = CalcularMatX(mat, matX)
 		eMat = abs(MaiorModMat(nmatX, matX))
 		matX = nmatX
-		k += 1
+		pap += f"\nIteração {k}\n"
+		pap += f"x({k}): {str(matrix(matX))}\n"
+		pap += f"Erro: {eMat}\n"
 		if eMat<e or k>999:
 			break
-	pap += f"Iterações (k): {k}\n"
-	pap += f"Erro: {eMat}\n"
 	print(pap)
 	return matX, pap
 

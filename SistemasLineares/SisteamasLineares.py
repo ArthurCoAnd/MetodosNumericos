@@ -4,6 +4,7 @@ from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from time import time
 # Importar Ferramentas
@@ -221,3 +222,11 @@ class SistemasLineares(BoxLayout):
 			self.vetor_in[i].text = d[p]
 			p += 1
 		self.erro_in.text = d[p]
+
+	def Passo_Passo(self):
+		popup = Popup(title="Passo a Passo", size_hint=(1,1))
+		papPop = BoxLayout(orientation="vertical")
+		papPop.add_widget(TextInput(text=self.pap, font_size=20, write_tab=False, size_hint=(1,0.9)))
+		papPop.add_widget(Button(text="Fechar Passo a Passo", on_press=popup.dismiss, size_hint=(1,0.1)))
+		popup.content = papPop
+		popup.open()

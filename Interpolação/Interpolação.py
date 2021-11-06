@@ -4,6 +4,7 @@ from functools import partial
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from time import time
 # Importar Ferramentas
@@ -120,15 +121,17 @@ class Interpolação(BoxLayout):
 			if i_método == 0:
 				self.métodos_Exec = 0
 				self.método_resposta.text = "Sistema Linear:"
-				self.resposta.text += SL(p)
+				resp, self.pap = SL(p)
+				self.resposta.text += resp
 			if i_método == 1:
 				self.métodos_Exec = 1
 				self.método_resposta.text = "Lagrange:"
-				self.resposta.text += Lagrange(p)
+				resp, self.pap = Lagrange(p)
+				self.resposta.text += resp
 			if i_método == 2:
 				self.métodos_Exec = 2
 				self.método_resposta.text = "Newton:"
-				self.resposta.text, self.método_respostaInv = Newton(p)
+				self.resposta.text, self.método_respostaInv, self.pap = Newton(p)
 		except:
 			self.métodos_Exec = "-"
 			self.método_resposta.text = "-"
@@ -189,3 +192,11 @@ class Interpolação(BoxLayout):
 		p = self.pontos.copy()
 		sf = self.resposta.text.replace("f(x) = ","").replace(" -","-").replace(" +","+")
 		GG(p,sf)
+
+	def Passo_Passo(self):
+		popup = Popup(title="Passo a Passo", size_hint=(1,1))
+		papPop = BoxLayout(orientation="vertical")
+		papPop.add_widget(TextInput(text=self.pap, font_size=20, write_tab=False, size_hint=(1,0.9)))
+		papPop.add_widget(Button(text="Fechar Passo a Passo", on_press=popup.dismiss, size_hint=(1,0.1)))
+		popup.content = papPop
+		popup.open()

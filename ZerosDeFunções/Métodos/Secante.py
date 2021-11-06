@@ -15,7 +15,9 @@ def Secante(d, k=1):
 	er = erro(xa,x,fxa)
 	resultados = [xa, x, er, fxa]
 	while (er > d["e"] and k < d["km"]):
-		k+=1
+		pap += f"\nIteração - {k}\n"
+		pap += f"x(n-1) = {xa} -> f(x(n-1)) = {fxa}\n"
+		pap += f"x = {x} -> f(x) = {fx}\n"
 		xa = x
 		fxa = fx
 		x = xm
@@ -23,9 +25,12 @@ def Secante(d, k=1):
 		xm = (xa*fx-x*fxa)/(fx-fxa)
 		er = erro(xa,x,fxa)
 		resultados.append([x, xm, er, fx])
-	pap += f"Iterações - k\t\t{k}\n"
-	pap += f"Raiz - xk\t\t{x}\n"
-	pap += f"Valor de f(xk)\t\t{fx}\n"
-	pap += f"Erro\t\t\t{er}"
+		k+=1
+		pap += f"x(n+1) = {xm} -> f(x(n+1)) = {fx}\n"
+		pap += f"Erro: {er}\n"
+	pap += f"\nIterações (k): {k}\n"
+	pap += f"Raiz (xk): {x}\n"
+	pap += f"Valor de f(xk): {fx}\n"
+	pap += f"Erro: {er}"
 	print(pap)
 	return k, x, fx, er, resultados, pap

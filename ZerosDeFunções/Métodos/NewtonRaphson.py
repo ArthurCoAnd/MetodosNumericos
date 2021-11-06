@@ -13,16 +13,21 @@ def NewtonRaphson(d, k=1):
 	er = erro(x,xm,fx)
 	resultados = [x, xm, er, fx]
 	while (er > d["e"] and k < d["km"]):
-		k+=1
+		pap += f"\nIteração - {k}\n"
+		pap += f"x = {x} -> f(x) = {fx}\n"
+		pap += f"x = {x} -> df(x) = {dfx}\n"
+		pap += f"x(n+1) = {xm}\n"
 		x = xm
 		fx = f(x,d["sf"])
 		dfx = f(x,d["sdf"])
 		xm = x - fx/dfx
 		er = erro(x,xm,fx)
 		resultados.append([x, xm, er, fx])
-	pap += f"Iterações - k\t\t{k}\n"
-	pap += f"Raiz - xk\t\t{x}\n"
-	pap += f"Valor de f(xk)\t\t{fx}\n"
-	pap += f"Erro\t\t\t{er}"
+		k+=1
+		pap += f"Erro: {er}\n"
+	pap += f"\nIterações (k): {k}\n"
+	pap += f"Raiz (xk): {x}\n"
+	pap += f"Valor de f(xk): {fx}\n"
+	pap += f"Erro: {er}"
 	print(pap)
 	return k, x, fx, er, resultados, pap

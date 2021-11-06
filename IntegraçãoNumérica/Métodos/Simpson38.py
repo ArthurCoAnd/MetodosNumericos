@@ -15,11 +15,11 @@ def Simpson38(d):
 	m = d["m"]
 	h = (b-a)/m
 
-	pap += f"Função - f(x)\t\t{sf}\n"
-	pap += f"Limite inferior - a\t{a}\n"
-	pap += f"Limite superior - b\t{b}\n"
-	pap += f"Subdivisões - m\t\t{m}\n"
-	pap += f"Tamanho subdivisões - h\t{h}\n"
+	pap += f"Função - f(x): {sf}\n"
+	pap += f"Limite inferior (a): {a}\n"
+	pap += f"Limite superior (b): {b}\n"
+	pap += f"Subdivisões (m): {m}\n"
+	pap += f"Tamanho subdivisões (h): {h}\n"
 	
 	# Cálculo da Integral
 	I = 0
@@ -37,8 +37,8 @@ def Simpson38(d):
 	E = (m*(h**5)/80)*c4a(a,b,sdqf)
 	if E == 0: E = "-"
 
-	pap += f"Integral\t\t{I}\n"
-	pap += f"Erro\t\t\t{E}"
+	pap += f"Integral: {I}\n"
+	pap += f"Erro: {E}"
 	print(pap)
 
 	return I, E, pap

@@ -4,7 +4,7 @@ import sys
 import webbrowser
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
 from easygui import  fileopenbox, filesavebox
-from functools import partial, partialmethod
+from functools import partial
 from kivy.app import App
 from kivy.resources import resource_add_path, resource_find
 from kivy.uix.actionbar import ActionBar, ActionButton, ActionGroup, ActionPrevious, ActionView
@@ -111,7 +111,7 @@ class Aplicativo(App):
 			self.JanelaMétodos.Passo_Passo()
 		except:
 			pass
-
+		
 	def Menu(self):
 		menu = ActionBar()
 		menuAV = ActionView()
@@ -130,7 +130,7 @@ class Aplicativo(App):
 		self.bAjuda = ActionButton(text="Ajuda")
 		self.menuOPS.add_widget(self.bAjuda)
 		self.menuOPS.add_widget(ActionButton(text="Gerar Gráfico", on_press=self.GerarGráfico))
-		# self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
+		self.menuOPS.add_widget(ActionButton(text="Passo a Passo", on_press=self.Passo_Passo))
 		menuAV.add_widget(self.menuOPS)
 		menuAV.add_widget(self.menuAQR)
 		menu.add_widget(menuAV)
