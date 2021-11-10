@@ -48,6 +48,10 @@ pip install -U kivy matplotlib scipy numpy easygui
 ```
 pyinstaller --noconfirm --onefile --windowed --icon "Img/UFSM.ico" --add-data "Img;Img/" "./SofEMN.py"
 ```
+# Compilar - Versão Teste
+```
+pyinstaller --noconfirm --onefile --icon "Img/UFSM.ico" --add-data "Img;Img/" "./SofEMN.py"
+```
 ## Dependências:
 ### <a herf="https://www.pyinstaller.org/">Pyinstaller</a>
 ```
