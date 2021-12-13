@@ -155,7 +155,7 @@ class Interpolação(BoxLayout):
 			if self.métodos_Exec == 2:
 				try:
 					sf = self.método_respostaInv.replace("f(x) = ","").replace(" -","-").replace(" +","+")
-					self.respostasExtrapolarY.text = str(f(float(self.extrapolarY.text),sf))
+					self.respostasExtrapolarY.text = str(round(f(float(self.extrapolarY.text),sf),7))
 					self.extrapolarY.background_color = (255,255,255,1)
 				except:
 					self.respostasExtrapolarY.text = "-"
@@ -163,7 +163,7 @@ class Interpolação(BoxLayout):
 			else:
 				try:
 					sf += f"-({self.extrapolarY.text})"
-					self.respostasExtrapolarY.text = str(Secante(p,sf))
+					self.respostasExtrapolarY.text = str(round(Secante(p,sf),7))
 					self.extrapolarY.background_color = (255,255,255,1)
 				except:
 					self.respostasExtrapolarY.text = "-"

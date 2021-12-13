@@ -120,7 +120,10 @@ class ZerosDeFunções(BoxLayout):
 
 	def alterarRespostas(self):
 		for r in range(len(self.txt_resultados)):
-			self.resultados[r].text = str(self.resultado[self.t_resultado[r]])
+			if r<1:
+				self.resultados[r].text = self.resultado[self.t_resultado[r]]
+			else:
+				self.resultados[r].text = str(round(self.resultado[self.t_resultado[r]],7))
 
 	def Salvar(self):
 		d = []

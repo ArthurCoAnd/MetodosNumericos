@@ -30,7 +30,7 @@ def FunçãoQuadrada(p):
 	pap += f"\nCoeficiente b: {b}"
 	pap += f"\nCoeficiente c: {c}"
 
-	resp = f"{a}*x^2 {b:+}*x {c:+}"
+	resp = f"{a:.7}*x^2 {b:+.7}*x {c:+.7}"
 	pap += f"\n\nAproximação: {resp}"
 	print(pap)
 

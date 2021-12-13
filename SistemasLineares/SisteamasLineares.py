@@ -194,7 +194,7 @@ class SistemasLineares(BoxLayout):
 	def alterarRespostas(self):
 		try:
 			for r in range(self.nv):
-				self.resposta_txt[r].text = str(self.resposta[r])
+				self.resposta_txt[r].text = str(round(self.resposta[r],7))
 		except:
 			for r in range(self.nv):
 				self.resposta_txt[r].text = "-"

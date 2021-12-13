@@ -134,7 +134,7 @@ class AproximaçõesDeFunções(BoxLayout):
 			self.nPontos_in.background_color = (255,0,0,1)
 		if xy == "x":
 			try:
-				self.respostasExtrapolarX.text = str(f(float(self.extrapolarX.text),sf))
+				self.respostasExtrapolarX.text = str(round(f(float(self.extrapolarX.text),sf),7))
 				self.extrapolarX.background_color = (255,255,255,1)
 			except:
 				self.respostasExtrapolarX.text = "_"
@@ -142,7 +142,7 @@ class AproximaçõesDeFunções(BoxLayout):
 		if xy == "y":
 			try:
 				sf += f"-({self.extrapolarY.text})"
-				self.respostasExtrapolarY.text = str(Secante(p,sf))
+				self.respostasExtrapolarY.text = str(round(Secante(p,sf),7))
 				self.extrapolarY.background_color = (255,255,255,1)
 			except:
 				self.respostasExtrapolarY.text = "-"

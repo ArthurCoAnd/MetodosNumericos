@@ -28,7 +28,7 @@ def FunçãoLinear(p):
 	pap += f"\n\nCoeficiente a: {a}"
 	pap += f"\nCoeficiente b: {b}"
 
-	resp = f"{a} {b:+}x"
+	resp = f"{a:.7} {b:+.7}x"
 	pap += f"\n\nAproximação: {resp}"
 	print(pap)
 
